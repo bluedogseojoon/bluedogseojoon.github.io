@@ -459,7 +459,7 @@
       <li><a href="#location">오시는 길</a></li>
       <li><a href="#contact">문의</a></li>
     </ul>
-    <button class="nav-cta" onclick="alert('카카오톡 채널 연결 예정')">카카오로 문의하기</button>
+    <a href="http://pf.kakao.com/_exhUms/chat" target="_blank" class="nav-cta">카카오로 문의하기</a>
     <button class="hamburger" aria-label="메뉴 열기">
       <span></span><span></span><span></span>
     </button>
@@ -485,9 +485,9 @@
         <button class="btn-primary" onclick="document.getElementById('programs').scrollIntoView({behavior:'smooth'})">
           프로그램 보기
         </button>
-        <button class="btn-outline" onclick="alert('카카오톡 채널 연결 예정')">
+        <a href="http://pf.kakao.com/_exhUms/chat" target="_blank" class="btn-outline">
           카카오로 문의하기
-        </button>
+        </a>
       </div>
     </div>
     <div class="scroll-hint">scroll</div>
@@ -555,9 +555,9 @@
     <div class="container">
       <h2>궁금한 점이 있으신가요?</h2>
       <p>카카오톡으로 편하게 문의해주세요. 빠르게 답변드립니다.</p>
-      <button class="btn-primary" onclick="alert('카카오톡 채널 연결 예정')">
+      <a href="http://pf.kakao.com/_exhUms/chat" target="_blank" class="btn-primary" style="display:inline-block;text-decoration:none;">
         카카오톡으로 문의하기
-      </button>
+      </a>
     </div>
   </section>
 
@@ -570,17 +570,27 @@
       <div class="location-grid">
         <dl class="location-info">
           <dt>주소</dt>
-          <dd>부산광역시 (상세 주소 추후 기입)</dd>
+          <dd>부산 부산진구 성지로34번길 18 1층</dd>
           <dt>운영 시간</dt>
           <dd>추후 기입</dd>
           <dt>문의</dt>
-          <dd>카카오톡 채널: @블루독프리다이빙</dd>
+          <dd>
+            <a href="http://pf.kakao.com/_exhUms/chat" target="_blank"
+               style="color:var(--blue);text-decoration:none;font-weight:500;">
+              카카오톡 채널로 문의하기 →
+            </a>
+          </dd>
           <dt>주차</dt>
           <dd>추후 기입</dd>
         </dl>
-        <div class="map-placeholder">
-          <span>🗺️</span>
-          지도 추후 삽입 예정
+        <div style="border-radius:12px;overflow:hidden;border:0.5px solid var(--gray-300);height:260px;">
+          <iframe
+            src="https://map.kakao.com/link/map/블루독프리다이빙,35.1579,129.0444/embed"
+            width="100%" height="100%"
+            style="border:none;display:block;"
+            title="블루독 프리다이빙 위치"
+            loading="lazy">
+          </iframe>
         </div>
       </div>
     </div>
@@ -590,13 +600,12 @@
   <footer>
     <a href="#" class="footer-logo">BLUE<span>DOG</span> FREEDIVING</a>
     <div class="footer-info">
-      블루독 프리다이빙 · 부산광역시 · 수상레저교육업<br>
-      대표: (이름 기입) · 사업자번호: (기입)
+      블루독 프리다이빙 · 부산광역시 부산진구 성지로34번길 18 1층 · 수상레저교육업<br>
+      대표: 이서준 · 사업자번호: 563-35-01313
     </div>
     <ul class="footer-links">
-      <li><a href="#">개인정보처리방침</a></li>
-      <li><a href="#">인스타그램</a></li>
-      <li><a href="#">네이버 블로그</a></li>
+      <li><a href="https://www.instagram.com/bluedog_seojoon/" target="_blank">인스타그램</a></li>
+      <li><a href="https://blog.naver.com/soon_doldol" target="_blank">네이버 블로그</a></li>
     </ul>
   </footer>
 
