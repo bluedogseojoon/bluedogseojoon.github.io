@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>체험 다이빙 | 블루독 프리다이빙</title>
+  <meta name="description" content="수영을 못해도 OK! 부산 블루독 프리다이빙 체험 다이빙. 1인 10만원, 2인부터 각 7만원. 누구나 참여 가능." />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      line-height: 1.7;
+    }
+    :root {
+      --navy:       #0a1628;
+      --navy-mid:   #1a3a6e;
+      --blue:       #2563a8;
+      --blue-light: #5b9bd5;
+      --blue-pale:  #e6f1fb;
+      --gray-50:    #f8f9fc;
+      --gray-100:   #f0f2f7;
+      --gray-300:   #c8cdd8;
+      --gray-500:   #6b7280;
+      --radius:     8px;
+    }
+
+    /* 네비게이션 */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10, 22, 40, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid rgba(255,255,255,0.08);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+    .logo { color: #fff; font-size: 17px; font-weight: 600; letter-spacing: 0.5px; text-decoration: none; }
+    .logo span { color: var(--blue-light); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: var(--blue); color: #fff; border: none;
+      padding: 9px 20px; border-radius: var(--radius);
+      font-size: 14px; font-weight: 500; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: #1d4f8a; }
+
+    /* 히어로 */
+    .hero {
+      min-height: 60vh;
+      background: linear-gradient(160deg, #0a1628 0%, #1a3a6e 55%, #0d2b52 100%);
+      display: flex; align-items: center; justify-content: center;
+      padding: 100px 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .circle {
+      position: absolute; border-radius: 50%;
+      background: rgba(91,155,213,0.1);
+      animation: drift 8s ease-in-out infinite;
+    }
+    .circle:nth-child(1) { width: 300px; height: 300px; left: -80px; top: 10%; }
+    .circle:nth-child(2) { width: 200px; height: 200px; right: -50px; bottom: 10%; animation-delay: 2s; }
+    @keyframes drift {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .hero-content { position: relative; z-index: 1; text-align: center; max-width: 600px; }
+    .breadcrumb { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+    .breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .breadcrumb a:hover { color: rgba(255,255,255,0.7); }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(91,155,213,0.2); border: 0.5px solid rgba(91,155,213,0.45);
+      color: #90bce8; font-size: 11px; letter-spacing: 2px;
+      padding: 5px 16px; border-radius: 20px; margin-bottom: 1.25rem;
+    }
+    .hero h1 { font-size: clamp(26px, 4vw, 40px); font-weight: 600; color: #fff; line-height: 1.25; margin-bottom: 1rem; }
+    .hero h1 em { font-style: normal; color: #90bce8; }
+    .hero-desc { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 2rem; }
+    .hero-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .hero-tag {
+      background: rgba(255,255,255,0.08); border: 0.5px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.7); font-size: 12px; padding: 5px 14px; border-radius: 20px;
+    }
+
+    /* 섹션 공통 */
+    section { padding: 4.5rem 2rem; }
+    .container { max-width: 860px; margin: 0 auto; }
+    .section-label { font-size: 11px; letter-spacing: 2px; color: var(--blue); font-weight: 600; margin-bottom: 0.75rem; }
+    .section-title { font-size: clamp(20px, 3vw, 28px); font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
+    .section-sub { font-size: 14px; color: var(--gray-500); margin-bottom: 2.5rem; }
+
+    /* 핵심 정보 카드 */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 3rem;
+    }
+    .info-card {
+      background: var(--blue-pale);
+      border-radius: 12px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+    .info-icon { font-size: 28px; margin-bottom: 10px; }
+    .info-label { font-size: 11px; color: var(--blue); font-weight: 600; letter-spacing: 1px; margin-bottom: 4px; }
+    .info-value { font-size: 17px; font-weight: 600; color: var(--navy); line-height: 1.4; }
+
+    /* 이런 분께 */
+    .for-who-section { background: var(--gray-50); }
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .who-card {
+      background: #fff;
+      border: 0.5px solid var(--gray-300);
+      border-radius: 12px;
+      padding: 1.25rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .who-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+    .who-text { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+    .who-text strong { display: block; font-size: 14px; color: var(--navy); font-weight: 600; margin-bottom: 2px; }
+
+    /* 진행 과정 */
+    .process-list { display: flex; flex-direction: column; gap: 0; }
+    .process-item {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding-bottom: 2rem;
+      position: relative;
+    }
+    .process-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 40px;
+      bottom: 0;
+      width: 1px;
+      background: var(--gray-300);
+    }
+    .process-num {
+      width: 40px; height: 40px;
+      background: var(--navy); color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 600;
+      flex-shrink: 0;
+    }
+    .process-content { padding-top: 8px; }
+    .process-title { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .process-desc { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+
+    /* 요금 */
+    .price-section { background: var(--navy); }
+    .price-section .section-label { color: var(--blue-light); }
+    .price-section .section-title { color: #fff; }
+    .price-section .section-sub { color: rgba(255,255,255,0.5); }
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .price-card {
+      background: rgba(255,255,255,0.06);
+      border: 0.5px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+    }
+    .price-card.featured {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .price-type { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 0.75rem; }
+    .price-card.featured .price-type { color: rgba(255,255,255,0.8); }
+    .price-amount { font-size: 28px; font-weight: 600; color: #fff; margin-bottom: 0.5rem; }
+    .price-unit { font-size: 13px; color: rgba(255,255,255,0.5); }
+    .price-card.featured .price-unit { color: rgba(255,255,255,0.75); }
+    .price-note {
+      margin-top: 1.5rem;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+    }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--gray-50);
+      border: 0.5px solid var(--gray-300);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .faq-q {
+      padding: 1.1rem 1.25rem;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .faq-q::after { content: '+'; font-size: 18px; color: var(--blue); flex-shrink: 0; }
+    .faq-item.open .faq-q::after { content: '−'; }
+    .faq-a {
+      display: none;
+      padding: 0 1.25rem 1.1rem;
+      font-size: 14px;
+      color: var(--gray-500);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* CTA */
+    .cta-section { background: var(--navy-mid, #1a3a6e); text-align: center; }
+    .cta-section h2 { font-size: clamp(20px, 3vw, 26px); font-weight: 600; color: #fff; margin-bottom: 0.75rem; }
+    .cta-section p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 2rem; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--blue); color: #fff;
+      padding: 13px 36px; border-radius: var(--radius);
+      font-size: 15px; font-weight: 500;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #1d4f8a; }
+
+    /* 푸터 */
+    footer {
+      background: var(--navy); padding: 1.5rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; }
+    .footer-logo span { color: var(--blue-light); }
+    .footer-back { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-back:hover { color: rgba(255,255,255,0.7); }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      section { padding: 3rem 1.25rem; }
+      .process-item { gap: 1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .circle { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">BLUE<span>DOG</span> FREEDIVING</a>
+    <ul class="nav-links">
+      <li><a href="index.html#programs">프로그램</a></li>
+      <li><a href="index.html#location">오시는 길</a></li>
+      <li><a href="index.html#contact">문의</a></li>
+    </ul>
+    <a href="http://pf.kakao.com/_exhUms/chat" target="_blank" class="nav-cta">카카오로 문의하기</a>
+  </nav>
+
+  <!-- 히어로 -->
+  <section class="hero">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="hero-content">
+      <p class="breadcrumb"><a href="index.html">홈</a> · 프로그램 · 체험 다이빙</p>
+      <div class="hero-badge">EXPERIENCE DIVING</div>
+      <h1>처음이어도 괜찮아요<br><em>바다 속을 경험해보세요</em></h1>
+      <p class="hero-desc">
+        수영을 못해도, 프리다이빙이 처음이어도 누구나 참여할 수 있어요.<br>
+        7년차 전업 강사가 처음부터 끝까지 함께합니다.
+      </p>
+      <div class="hero-tags">
+        <span class="hero-tag">🏊 수영장 진행</span>
+        <span class="hero-tag">⏱ 약 1시간 30분</span>
+        <span class="hero-tag">👤 누구나 가능</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 핵심 정보 -->
+  <section>
+    <div class="container">
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-icon">📍</div>
+          <div class="info-label">장소</div>
+          <div class="info-value">수영장</div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">⏱</div>
+          <div class="info-label">소요 시간</div>
+          <div class="info-value">약 1시간 30분</div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">👤</div>
+          <div class="info-label">참여 조건</div>
+          <div class="info-value">누구나 가능</div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">💬</div>
+          <div class="info-label">예약</div>
+          <div class="info-value">카카오톡 문의</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 이런 분께 추천 -->
+  <section class="for-who-section">
+    <div class="container">
+      <div class="section-label">FOR WHO</div>
+      <div class="section-title">이런 분께 추천해요</div>
+      <p class="section-sub">프리다이빙이 궁금하다면 체험부터 시작해보세요</p>
+      <div class="who-grid">
+        <div class="who-card">
+          <div class="who-icon">🤔</div>
+          <div class="who-text">
+            <strong>프리다이빙이 궁금한 분</strong>
+            자격증 과정 전에 먼저 경험해보고 싶은 분
+          </div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">🏊</div>
+          <div class="who-text">
+            <strong>수영을 못하는 분</strong>
+            수영 실력과 관계없이 누구나 참여 가능해요
+          </div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">👫</div>
+          <div class="who-text">
+            <strong>커플 · 친구끼리</strong>
+            특별한 경험을 함께 나누고 싶은 분
+          </div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">🎁</div>
+          <div class="who-text">
+            <strong>선물하고 싶은 분</strong>
+            색다른 체험을 선물하고 싶을 때
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 진행 과정 -->
+  <section>
+    <div class="container">
+      <div class="section-label">PROCESS</div>
+      <div class="section-title">이렇게 진행돼요</div>
+      <p class="section-sub">처음부터 끝까지 강사가 함께해요</p>
+      <div class="process-list">
+        <div class="process-item">
+          <div class="process-num">1</div>
+          <div class="process-content">
+            <div class="process-title">이론 교육</div>
+            <div class="process-desc">프리다이빙의 기본 원리와 호흡법을 쉽게 설명해드려요. 무섭지 않아요!</div>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">2</div>
+          <div class="process-content">
+            <div class="process-title">수면 호흡 연습</div>
+            <div class="process-desc">물에 들어가기 전, 수면에서 호흡 패턴을 익혀요.</div>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">3</div>
+          <div class="process-content">
+            <div class="process-title">수중 체험</div>
+            <div class="process-desc">강사와 함께 실제로 물속을 경험해봐요. 안전하게 옆에서 도와드려요.</div>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">4</div>
+          <div class="process-content">
+            <div class="process-title">마무리 & 상담</div>
+            <div class="process-desc">체험 후 소감을 나누고, 정식 과정이 궁금하다면 상담도 받아볼 수 있어요.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 요금 -->
+  <section class="price-section">
+    <div class="container">
+      <div class="section-label">PRICE</div>
+      <div class="section-title">요금 안내</div>
+      <p class="section-sub">2인 이상 함께하면 더 저렴해요</p>
+      <div class="price-grid">
+        <div class="price-card">
+          <div class="price-type">1인 참여</div>
+          <div class="price-amount">10만원</div>
+          <div class="price-unit">1인 기준</div>
+        </div>
+        <div class="price-card featured">
+          <div class="price-type">2인 이상 참여</div>
+          <div class="price-amount">7만원</div>
+          <div class="price-unit">1인 기준 · 인원수 무관</div>
+        </div>
+      </div>
+      <p class="price-note">* 장비 대여 포함 · 정확한 일정은 카카오톡으로 문의해주세요</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <div class="section-label">FAQ</div>
+      <div class="section-title">자주 묻는 질문</div>
+      <p class="section-sub">궁금한 점이 있으면 카카오톡으로도 물어보세요</p>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q">수영을 전혀 못해도 참여할 수 있나요?</div>
+          <div class="faq-a">네, 가능해요! 수영 실력과 상관없이 누구나 참여할 수 있어요. 강사가 처음부터 끝까지 옆에서 함께해드려요.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">준비물이 있나요?</div>
+          <div class="faq-a">수영복과 수건만 가져오시면 돼요. 장비는 모두 제공해드려요.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">나이 제한이 있나요?</div>
+          <div class="faq-a">별도의 나이 제한은 없어요. 다만 미성년자의 경우 보호자 동반을 권장해요. 자세한 내용은 카카오톡으로 문의해주세요.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">체험 후 정식 과정으로 연결되나요?</div>
+          <div class="faq-a">물론이에요! 체험 후 프리다이빙이 더 궁금해지셨다면 성인 프리다이빙 자격증 과정으로 연결하실 수 있어요.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>체험 다이빙 신청하기</h2>
+      <p>카카오톡으로 일정 문의 후 예약하실 수 있어요</p>
+      <a href="http://pf.kakao.com/_exhUms/chat" target="_blank" class="btn-primary">
+        카카오톡으로 신청하기
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <a href="index.html" class="footer-logo">BLUE<span>DOG</span> FREEDIVING</a>
+    <a href="index.html#programs" class="footer-back">← 프로그램 목록으로</a>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
