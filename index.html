@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>블루독 프리다이빙 | 부산 프리다이빙 전문 교육</title>
+  <meta name="description" content="부산 프리다이빙 전문 교육 블루독 프리다이빙. 체험 다이빙부터 강사 과정, 키즈 프리다이빙까지 7년차 전업 강사가 직접 가르칩니다." />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      line-height: 1.7;
+    }
+
+    /* ── 색상 변수 ── */
+    :root {
+      --navy:       #0a1628;
+      --navy-mid:   #1a3a6e;
+      --blue:       #2563a8;
+      --blue-light: #5b9bd5;
+      --blue-pale:  #e6f1fb;
+      --white:      #ffffff;
+      --gray-50:    #f8f9fc;
+      --gray-100:   #f0f2f7;
+      --gray-300:   #c8cdd8;
+      --gray-500:   #6b7280;
+      --gray-700:   #374151;
+      --radius:     8px;
+    }
+
+    /* ── 네비게이션 ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10, 22, 40, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid rgba(255,255,255,0.08);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+    .logo {
+      color: #fff;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+    }
+    .logo span { color: var(--blue-light); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 9px 20px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: #1d4f8a; }
+
+    /* 햄버거 메뉴 (모바일) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── 히어로 ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #0a1628 0%, #1a3a6e 55%, #0d2b52 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 80px 2rem 4rem;
+    }
+
+    /* 배경 원 애니메이션 */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(91, 155, 213, 0.12);
+      animation: drift 8s ease-in-out infinite;
+    }
+    .circle:nth-child(1) { width: 300px; height: 300px; left: -80px; top: 10%; animation-delay: 0s; }
+    .circle:nth-child(2) { width: 180px; height: 180px; left: 20%; top: 65%; animation-delay: 2s; }
+    .circle:nth-child(3) { width: 400px; height: 400px; right: -100px; top: -60px; animation-delay: 1s; }
+    .circle:nth-child(4) { width: 120px; height: 120px; right: 25%; bottom: 15%; animation-delay: 3s; }
+
+    @keyframes drift {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-24px) scale(1.04); }
+    }
+
+    /* 사진 교체 안내 배지 */
+    .photo-note {
+      position: absolute;
+      top: 80px; right: 1.5rem;
+      background: rgba(255,255,255,0.07);
+      border: 0.5px dashed rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.38);
+      font-size: 11px;
+      padding: 5px 12px;
+      border-radius: var(--radius);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 600px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(91, 155, 213, 0.2);
+      border: 0.5px solid rgba(91, 155, 213, 0.45);
+      color: #90bce8;
+      font-size: 11px;
+      letter-spacing: 2px;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: #90bce8;
+    }
+    .hero-desc {
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 13px 32px;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-primary:hover { background: #1d4f8a; }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 0.5px solid rgba(255,255,255,0.35);
+      padding: 13px 32px;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 400;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.08); }
+
+    /* 히어로 스크롤 힌트 */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.3);
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 30px;
+      background: rgba(255,255,255,0.2);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── 섹션 공통 ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--blue);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--gray-500);
+      margin-bottom: 3rem;
+    }
+
+    /* ── 통계 바 ── */
+    .stats-bar {
+      background: var(--navy);
+      padding: 2.5rem 2rem;
+    }
+    .stats-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1.5rem;
+      text-align: center;
+    }
+    .stat-item { padding: 0.5rem; }
+    .stat-num {
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--blue-light);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.4;
+    }
+
+    /* ── 프로그램 ── */
+    .programs-section { background: var(--gray-50); }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 20px;
+    }
+    .program-card {
+      background: #fff;
+      border: 0.5px solid var(--gray-300);
+      border-radius: 12px;
+      padding: 1.75rem 1.5rem;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .program-card:hover {
+      border-color: var(--blue);
+      box-shadow: 0 4px 20px rgba(37,99,168,0.1);
+      transform: translateY(-2px);
+    }
+    .program-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--blue-pale);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 1rem;
+    }
+    .program-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .program-desc {
+      font-size: 13px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+    .program-tag {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 11px;
+      background: var(--blue-pale);
+      color: var(--blue);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    /* ── CTA 섹션 ── */
+    .cta-section {
+      background: var(--navy-mid);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .cta-section p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 2rem;
+    }
+
+    /* ── 오시는 길 ── */
+    .location-section { background: #fff; }
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .location-info dt {
+      font-size: 12px;
+      color: var(--gray-500);
+      font-weight: 500;
+      margin-bottom: 3px;
+      margin-top: 1rem;
+    }
+    .location-info dt:first-child { margin-top: 0; }
+    .location-info dd {
+      font-size: 15px;
+      color: var(--navy);
+    }
+    .map-placeholder {
+      background: var(--gray-100);
+      border: 0.5px solid var(--gray-300);
+      border-radius: 12px;
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-500);
+      font-size: 13px;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .map-placeholder span { font-size: 24px; }
+
+    /* ── 푸터 ── */
+    footer {
+      background: var(--navy);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--blue-light); }
+    .footer-info {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.8;
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.25rem;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ── 반응형 ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 3.5rem 1.25rem; }
+      .location-grid { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .circle, .scroll-hint { animation: none; }
+      .program-card:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 네비게이션 -->
+  <nav>
+    <a href="#" class="logo">BLUE<span>DOG</span> FREEDIVING</a>
+    <ul class="nav-links">
+      <li><a href="#about">소개</a></li>
+      <li><a href="#programs">프로그램</a></li>
+      <li><a href="#location">오시는 길</a></li>
+      <li><a href="#contact">문의</a></li>
+    </ul>
+    <button class="nav-cta" onclick="alert('카카오톡 채널 연결 예정')">카카오로 문의하기</button>
+    <button class="hamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- 히어로 -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+    <div class="photo-note">실제 바다 사진으로 교체 예정</div>
+    <div class="hero-content">
+      <div class="hero-badge">BUSAN · FREEDIVING</div>
+      <h1>바다와 하나되는<br><em>자유로운 호흡</em></h1>
+      <p class="hero-desc">
+        부산에서 7년차 전업 강사가 직접 가르치는 프리다이빙.<br>
+        체험부터 강사 과정까지, 모든 단계를 함께합니다.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="document.getElementById('programs').scrollIntoView({behavior:'smooth'})">
+          프로그램 보기
+        </button>
+        <button class="btn-outline" onclick="alert('카카오톡 채널 연결 예정')">
+          카카오로 문의하기
+        </button>
+      </div>
+    </div>
+    <div class="scroll-hint">scroll</div>
+  </section>
+
+  <!-- 통계 바 -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">수료 수강생</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7년차</div>
+        <div class="stat-label">전업 강사</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4.9</div>
+        <div class="stat-label">평균 만족도</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">안전 교육</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 프로그램 -->
+  <section class="programs-section" id="programs">
+    <div class="container">
+      <div class="section-label">PROGRAMS</div>
+      <div class="section-title">나에게 맞는 과정을 선택하세요</div>
+      <p class="section-sub">처음 만나는 바다부터 전문 강사 자격증까지</p>
+      <div class="programs-grid">
+        <a href="#contact" class="program-card">
+          <div class="program-icon">🤿</div>
+          <div class="program-name">체험 다이빙</div>
+          <div class="program-desc">수영을 못해도 괜찮아요. 바다 속을 처음 경험해보고 싶다면 여기서 시작하세요.</div>
+          <span class="program-tag">입문 추천</span>
+        </a>
+        <a href="#contact" class="program-card">
+          <div class="program-icon">🎓</div>
+          <div class="program-name">성인 프리다이빙</div>
+          <div class="program-desc">국제 자격증 취득 과정. 체계적인 커리큘럼으로 실력을 단계별로 쌓아갑니다.</div>
+          <span class="program-tag">자격증 취득</span>
+        </a>
+        <a href="#contact" class="program-card">
+          <div class="program-icon">👨‍🏫</div>
+          <div class="program-name">강사 과정</div>
+          <div class="program-desc">프리다이빙을 직업으로. 전문 강사 자격증 취득 및 실전 교육 역량을 키웁니다.</div>
+          <span class="program-tag">전문가 과정</span>
+        </a>
+        <a href="#contact" class="program-card">
+          <div class="program-icon">👧</div>
+          <div class="program-name">키즈 프리다이빙</div>
+          <div class="program-desc">아이의 눈높이에 맞춘 안전한 수중 교육. 호흡, 집중력, 자신감을 함께 키워요.</div>
+          <span class="program-tag">어린이 전용</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="container">
+      <h2>궁금한 점이 있으신가요?</h2>
+      <p>카카오톡으로 편하게 문의해주세요. 빠르게 답변드립니다.</p>
+      <button class="btn-primary" onclick="alert('카카오톡 채널 연결 예정')">
+        카카오톡으로 문의하기
+      </button>
+    </div>
+  </section>
+
+  <!-- 오시는 길 -->
+  <section class="location-section" id="location">
+    <div class="container">
+      <div class="section-label">LOCATION</div>
+      <div class="section-title">오시는 길</div>
+      <p class="section-sub">부산에서 만나요</p>
+      <div class="location-grid">
+        <dl class="location-info">
+          <dt>주소</dt>
+          <dd>부산광역시 (상세 주소 추후 기입)</dd>
+          <dt>운영 시간</dt>
+          <dd>추후 기입</dd>
+          <dt>문의</dt>
+          <dd>카카오톡 채널: @블루독프리다이빙</dd>
+          <dt>주차</dt>
+          <dd>추후 기입</dd>
+        </dl>
+        <div class="map-placeholder">
+          <span>🗺️</span>
+          지도 추후 삽입 예정
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer>
+    <a href="#" class="footer-logo">BLUE<span>DOG</span> FREEDIVING</a>
+    <div class="footer-info">
+      블루독 프리다이빙 · 부산광역시 · 수상레저교육업<br>
+      대표: (이름 기입) · 사업자번호: (기입)
+    </div>
+    <ul class="footer-links">
+      <li><a href="#">개인정보처리방침</a></li>
+      <li><a href="#">인스타그램</a></li>
+      <li><a href="#">네이버 블로그</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>
