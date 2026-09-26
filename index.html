@@ -534,6 +534,44 @@
       .photo-grid { grid-template-columns: repeat(2, 1fr); }
       .photo-grid img { height: 160px; }
     }
+
+    /* ── 메인 히어로: 글자는 왼쪽, 다이버는 오른쪽 ── */
+    .hero.hero-main {
+      justify-content: flex-start;
+      background-color: #0a1628;
+      background-image:
+        linear-gradient(90deg, rgba(10,22,40,0.95) 0%, rgba(10,22,40,0.85) 28%, rgba(10,22,40,0.4) 50%, rgba(10,22,40,0) 70%),
+        url('images/hero-main.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 60% 45%;
+    }
+    @media (min-aspect-ratio: 3/2) {
+      /* 가로로 넓은 화면: 사진을 오른쪽에 붙여 다이버가 글자와 겹치지 않게 */
+      .hero.hero-main { background-size: 100% 100%, auto 100%; background-position: 0 0, right center; }
+    }
+    .hero-main .hero-content { text-align: left; margin-left: 6vw; max-width: 430px; }
+    .hero-main .hero-btns { justify-content: flex-start; }
+    .hero-main .hero-desc { color: rgba(255,255,255,0.75); }
+    @media (max-width: 640px) {
+      .hero.hero-main {
+        align-items: flex-end; padding-bottom: 3rem;
+        background-image:
+          linear-gradient(180deg, rgba(10,22,40,0) 0%, rgba(10,22,40,0) 42%, rgba(10,22,40,1) 66%, rgba(10,22,40,1) 100%),
+          url('images/hero-main.jpg');
+        background-size: 100% 100%, 175% auto; background-position: 0 0, 52% 64px;
+      }
+      .hero-main .hero-content { margin-left: 0; text-align: center; max-width: none; }
+      .hero-main .hero-btns { justify-content: center; }
+      .hero-main .scroll-hint { display: none; }
+      .hero-main .hero-badge { display: none; }
+      .hero-main .hero-btns { flex-wrap: nowrap; gap: 8px; }
+      .hero-main .btn-primary, .hero-main .btn-outline { padding: 12px 18px; font-size: 14px; }
+    }
+    @media (max-width: 640px) and (max-height: 740px) {
+      .hero-main .hero-desc { display: none; }
+      .hero-main h1 { margin-bottom: 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -555,7 +593,7 @@
   </nav>
 
   <!-- 히어로 -->
-  <section class="hero has-photo" style="background-image: linear-gradient(180deg, rgba(10,22,40,0.55) 0%, rgba(10,22,40,0.6) 45%, rgba(10,22,40,0.85) 100%), url('images/hero-main.jpg');">
+  <section class="hero has-photo hero-main">
     <div class="hero-bg">
       <div class="circle"></div>
       <div class="circle"></div>
