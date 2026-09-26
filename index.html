@@ -453,7 +453,22 @@
     .review-desc { font-size: 14px; color: var(--gray-500); }
     .review-links { display: flex; gap: 8px; flex-wrap: wrap; }
     .review-link { font-size: 14px; font-weight: 600; text-decoration: none; padding: 11px 18px; border-radius: var(--radius); }
-    .review-link.blog { background: #03C75A; color: #fff; }
+    .review-link.blog { background: #fff; color: #03A94D; border: 1px solid #03C75A; }
+    .review-link.place { background: #03C75A; color: #fff; }
+    .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; align-items: stretch; }
+    @media (max-width: 760px) { .review-grid { grid-template-columns: 1fr; } }
+    .review-card {
+      background: #fff; border: 0.5px solid var(--gray-300); border-left: 4px solid var(--blue);
+      border-radius: 16px; padding: 2rem 2.25rem;
+    }
+    .review-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 1rem; }
+    .review-tag { font-size: 12px; font-weight: 600; background: var(--blue-pale); color: var(--blue); padding: 3px 12px; border-radius: 20px; }
+    .review-src { font-size: 12px; color: var(--gray-500); }
+    .review-highlight { font-size: clamp(19px, 2.4vw, 24px); font-weight: 700; color: var(--navy); line-height: 1.45; margin-bottom: 1.25rem; }
+    .review-highlight em { font-style: normal; color: var(--blue); }
+    .review-text { font-size: 14px; color: var(--gray-700); line-height: 1.9; margin-bottom: 0.75rem; }
+    .review-text:last-child { margin-bottom: 0; }
+    @media (max-width: 640px) { .review-card { padding: 1.5rem 1.25rem; } }
     .review-link.insta { background: var(--navy); color: #fff; }
     .about-more { display: inline-block; margin-top: 1rem; font-size: 14px; font-weight: 600; color: var(--blue); text-decoration: none; }
     @media (max-width: 760px) { .tour-grid { grid-template-columns: 1fr; } }
@@ -845,12 +860,36 @@
       <div class="section-label">REVIEW</div>
       <div class="section-title">수강생 이야기</div>
       <p class="section-sub">블루독과 함께한 분들의 실제 후기와 수업 기록이에요</p>
+      <div class="review-grid">
+      <div class="review-card">
+        <div class="review-head">
+          <span class="review-tag">AIDA 2 수료</span>
+          <span class="review-src">네이버 플레이스 방문자 리뷰</span>
+        </div>
+        <div class="review-highlight">“1분도 버티기 힘들던 스태틱,<br>결국 <em>3분 8초</em>를 해냈어요”</div>
+        <p class="review-text">AIDA2 과정을 무사히 마치고 가장 먼저 떠오른 건 서준 강사님에 대한 깊은 신뢰와 교육에 대한 진심입니다. 가장 힘들었던 스태틱은 1분도 버티기 힘들어 포기하고 싶었지만, 강사님과 저 자신을 믿고 재도전해 결국 3분 8초라는 결과를 얻었습니다. 호흡과 릴렉스에 대한 조언은 오래 기억에 남을 것 같습니다.</p>
+        <p class="review-text">강사님이 교육에 얼마나 진심인지 느껴졌던 순간은 자율 트레이닝과 센터 교육이었습니다. 직장인 회원분들을 고려하여 일정을 넉넉하게 잡아주시고 끝난 후에는 꼼꼼하게 상담해주십니다. 저 역시 꾸준히 참여한 결과 AIDA2를 취득할 수 있었습니다.</p>
+        <p class="review-text">AIDA 프리다이빙을 고민하고 계신 분들께 자신 있게 추천드리고 싶은 강사님입니다. 제 한계를 넘는 경험을 가능하게 해주신 서준 강사님께 진심으로 감사드립니다.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-head">
+          <span class="review-tag">AIDA 2 수료</span>
+          <span class="review-src">네이버 플레이스 방문자 리뷰</span>
+        </div>
+        <div class="review-highlight">“처음엔 3m밖에 못 갔는데,<br>이제는 <em>20m</em>를 내려가요”</div>
+        <p class="review-text">프리다이빙 제대로 배워보고 싶은 분! 블루독프리다이빙 강추드립니당👍 처음엔 이퀄라이징이 어려워 3m밖에 못갔었는데 이제는 무려 20m를 내려가게되었네요! 꾸준히 자율트레이닝에 참여해 연습하고 또 이퀄라이징연습반을 운영하셔서 부족한 부분을 자세히 코칭받을 수 있어 아이다2까지 취득할 수 있었습니다.</p>
+        <p class="review-text">프리다이빙은 하면 할수록 매력있는 스포츠 인 것 같아요. 물 속에서 오로지 나의 몸의 감각에만 집중할 수 있는 시간이 저의 힐링타임이 되었답니다☺️ 그래서 서준선생님과 아이다3,4도 도전해보려고 합니다!</p>
+        <p class="review-text">물이 익숙하지 않은 분, 수영이 어려운 분 모두모두 가능하니 츄라이해보세용❤️</p>
+      </div>
+      </div>
+
       <div class="review-box">
         <div>
-          <div class="review-title">수업 후기와 투어 기록을 확인해보세요</div>
-          <div class="review-desc">블로그와 인스타그램에 수업마다 기록을 남기고 있어요</div>
+          <div class="review-title">더 많은 후기와 수업 기록</div>
+          <div class="review-desc">네이버 리뷰, 블로그, 인스타그램에서 확인해보세요</div>
         </div>
         <div class="review-links">
+          <a class="review-link place" href="https://m.place.naver.com/place/1696769069/review/visitor" target="_blank" rel="noopener">네이버 리뷰 더 보기</a>
           <a class="review-link blog" href="https://blog.naver.com/soon_doldol" target="_blank" rel="noopener">네이버 블로그</a>
           <a class="review-link insta" href="https://www.instagram.com/bluedog_seojoon/" target="_blank" rel="noopener">인스타그램</a>
         </div>
@@ -910,7 +949,7 @@
           <div class="map-name">블루독 프리다이빙</div>
           <div class="map-addr">부산 부산진구 성지로34번길 18 1층</div>
           <div class="map-btns">
-            <a class="map-btn naver" href="https://map.naver.com/p/search/부산 부산진구 성지로34번길 18" target="_blank" rel="noopener">네이버 지도</a>
+            <a class="map-btn naver" href="https://map.naver.com/p/entry/place/1696769069" target="_blank" rel="noopener">네이버 지도</a>
             <a class="map-btn kakao" href="https://map.kakao.com/?q=부산 부산진구 성지로34번길 18" target="_blank" rel="noopener">카카오맵</a>
           </div>
         </div>
