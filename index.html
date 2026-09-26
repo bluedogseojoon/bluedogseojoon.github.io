@@ -423,6 +423,41 @@
     .map-btn.naver { background: #03C75A; color: #fff; }
     .map-btn.kakao { background: #FEE500; color: #191919; }
 
+    /* ── 투어 ── */
+    .tour-section {
+      background: linear-gradient(180deg, rgba(10,22,40,0.82), rgba(10,22,40,0.92)), url('images/bg-tour.jpg') center/cover;
+      color: #fff;
+    }
+    .tour-section .section-title { color: #fff; }
+    .tour-section .section-label { color: #90bce8; }
+    .tour-section .section-sub { color: rgba(255,255,255,0.6); }
+    .tour-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .tour-card {
+      background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.18);
+      border-radius: 14px; padding: 1.5rem;
+    }
+    .tour-where { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 1px; color: #90bce8;
+      border: 0.5px solid rgba(144,188,232,0.5); border-radius: 20px; padding: 2px 10px; margin-bottom: 0.9rem; }
+    .tour-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .tour-desc { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.7; }
+    .tour-note { margin-top: 1.5rem; font-size: 13px; color: rgba(255,255,255,0.55); }
+    .tour-note a { color: #FEE500; text-decoration: none; font-weight: 600; }
+
+    /* ── 후기 ── */
+    .review-section { background: var(--gray-50); }
+    .review-box {
+      background: #fff; border: 0.5px solid var(--gray-300); border-radius: 16px;
+      padding: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .review-title { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .review-desc { font-size: 14px; color: var(--gray-500); }
+    .review-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .review-link { font-size: 14px; font-weight: 600; text-decoration: none; padding: 11px 18px; border-radius: var(--radius); }
+    .review-link.blog { background: #03C75A; color: #fff; }
+    .review-link.insta { background: var(--navy); color: #fff; }
+    .about-more { display: inline-block; margin-top: 1rem; font-size: 14px; font-weight: 600; color: var(--blue); text-decoration: none; }
+    @media (max-width: 760px) { .tour-grid { grid-template-columns: 1fr; } }
+
     /* ── 교육 장소 ── */
     .places { margin-top: 3rem; }
     .places-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
@@ -618,6 +653,7 @@
     <ul class="nav-links">
       <li><a href="#about">소개</a></li>
       <li><a href="#programs">프로그램</a></li>
+      <li><a href="instructors.html">강사 소개</a></li>
       <li><a href="recruit.html">강사 모집</a></li>
       <li><a href="#location">오시는 길</a></li>
       <li><a href="#contact">문의</a></li>
@@ -712,6 +748,7 @@
               <div class="trust-desc">대표 강사 기준을 통과한 강사만 수업합니다</div>
             </div>
           </div>
+          <a href="instructors.html" class="about-more">강사진 자세히 보기 →</a>
         </div>
       </div>
     </div>
@@ -771,6 +808,52 @@
         <img src="images/gal-4.jpg" alt="산호초 위를 유영하는 프리다이버" loading="lazy">
         <img src="images/gal-5.jpg" alt="바위 협곡으로 하강하는 프리다이버" loading="lazy">
         <img src="images/gal-6.jpg" alt="바다거북과 함께 헤엄치는 다이버" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- 투어 -->
+  <section class="tour-section" id="tour">
+    <div class="container">
+      <div class="section-label">BLUEDOG TOUR</div>
+      <div class="section-title">수료 후에도, 함께 떠나는 바다</div>
+      <p class="section-sub">자격증을 딴 뒤에도 블루독 멤버들과 국내외 바다를 함께 다녀요</p>
+      <div class="tour-grid">
+        <div class="tour-card">
+          <span class="tour-where">국내</span>
+          <div class="tour-name">울릉도</div>
+          <div class="tour-desc">맑은 동해 바다에서 즐기는 3박 4일 멤버 투어</div>
+        </div>
+        <div class="tour-card">
+          <span class="tour-where">국내</span>
+          <div class="tour-name">욕지도</div>
+          <div class="tour-desc">남해의 섬 바다에서 함께하는 다이빙 여행</div>
+        </div>
+        <div class="tour-card">
+          <span class="tour-where">해외</span>
+          <div class="tour-name">필리핀 코론</div>
+          <div class="tour-desc">듀공을 만나러 떠나는 해외 프리다이빙 투어</div>
+        </div>
+      </div>
+      <p class="tour-note">투어 일정은 수시로 모집해요. <a href="http://pf.kakao.com/_exhUms/chat" target="_blank">카카오톡으로 다음 투어 문의하기 →</a></p>
+    </div>
+  </section>
+
+  <!-- 후기 -->
+  <section class="review-section" id="review">
+    <div class="container">
+      <div class="section-label">REVIEW</div>
+      <div class="section-title">수강생 이야기</div>
+      <p class="section-sub">블루독과 함께한 분들의 실제 후기와 수업 기록이에요</p>
+      <div class="review-box">
+        <div>
+          <div class="review-title">수업 후기와 투어 기록을 확인해보세요</div>
+          <div class="review-desc">블로그와 인스타그램에 수업마다 기록을 남기고 있어요</div>
+        </div>
+        <div class="review-links">
+          <a class="review-link blog" href="https://blog.naver.com/soon_doldol" target="_blank" rel="noopener">네이버 블로그</a>
+          <a class="review-link insta" href="https://www.instagram.com/bluedog_seojoon/" target="_blank" rel="noopener">인스타그램</a>
+        </div>
       </div>
     </div>
   </section>
