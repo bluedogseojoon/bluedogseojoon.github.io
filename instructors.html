@@ -207,6 +207,8 @@
       gap: 8px; color: var(--gray-500); font-size: 13px;
     }
     .inst-photo span { font-size: 28px; }
+    .inst-img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 12px; display: block; }
+    @media (max-width: 700px) { .inst-img { max-width: 240px; } }
     .inst-role { font-size: 12px; color: var(--blue); font-weight: 600; letter-spacing: 1px; margin-bottom: 2px; }
     .inst-name { font-size: 24px; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; }
     .inst-desc { font-size: 15px; color: #374151; line-height: 1.85; margin-bottom: 1.25rem; }
@@ -260,7 +262,7 @@
       <div class="section-title">대표 강사</div>
       <p class="section-sub">7년째 부산 바다에서 프리다이빙만 가르치고 있어요</p>
       <div class="inst-card">
-        <div class="inst-photo"><span>📷</span>대표 강사 사진</div>
+        <img class="inst-img" src="images/profile.jpg" alt="블루독 프리다이빙 대표 강사 이서준">
         <div>
           <div class="inst-role">대표 강사</div>
           <div class="inst-name">이서준</div>
