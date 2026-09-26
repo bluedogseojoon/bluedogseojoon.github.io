@@ -405,6 +405,42 @@
     }
     .map-placeholder span { font-size: 24px; }
 
+    /* ── 지도 카드 ── */
+    .map-card {
+      border-radius: 12px; border: 0.5px solid var(--gray-300); min-height: 240px;
+      background: linear-gradient(160deg, var(--blue-pale), #f8fbff);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 2rem 1.25rem; gap: 4px;
+    }
+    .map-pin { font-size: 30px; margin-bottom: 4px; }
+    .map-name { font-size: 16px; font-weight: 700; color: var(--navy); }
+    .map-addr { font-size: 14px; color: var(--gray-500); margin-bottom: 1rem; }
+    .map-btns { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    .map-btn {
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      padding: 10px 18px; border-radius: var(--radius);
+    }
+    .map-btn.naver { background: #03C75A; color: #fff; }
+    .map-btn.kakao { background: #FEE500; color: #191919; }
+
+    /* ── 교육 장소 ── */
+    .places { margin-top: 3rem; }
+    .places-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
+    .places-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .place-card {
+      background: var(--gray-50); border: 0.5px solid var(--gray-300);
+      border-radius: 12px; padding: 1rem 1.1rem;
+    }
+    .place-type {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      padding: 2px 10px; border-radius: 20px; margin-bottom: 8px;
+    }
+    .place-type.pool { background: var(--blue-pale); color: var(--blue); }
+    .place-type.sea { background: #e3f6f1; color: #11775f; }
+    .place-name { font-size: 15px; font-weight: 600; color: var(--navy); }
+    .places-note { font-size: 13px; color: var(--gray-500); margin-top: 0.9rem; }
+    @media (max-width: 640px) { .places-grid { grid-template-columns: repeat(2, 1fr); } }
+
     /* ── 푸터 ── */
     footer {
       background: var(--navy);
@@ -769,13 +805,13 @@
     <div class="container">
       <div class="section-label">LOCATION</div>
       <div class="section-title">오시는 길</div>
-      <p class="section-sub">부산에서 만나요</p>
+      <p class="section-sub">상담과 장비 준비는 샵에서, 수업은 부산의 풀장과 바다에서 진행해요</p>
       <div class="location-grid">
         <dl class="location-info">
           <dt>주소</dt>
           <dd>부산 부산진구 성지로34번길 18 1층</dd>
           <dt>운영 시간</dt>
-          <dd>추후 기입</dd>
+          <dd>오전 9시 ~ 오후 9시</dd>
           <dt>문의</dt>
           <dd>
             <a href="http://pf.kakao.com/_exhUms/chat" target="_blank"
@@ -784,17 +820,40 @@
             </a>
           </dd>
           <dt>주차</dt>
-          <dd>추후 기입</dd>
+          <dd>샵 앞 주차 가능</dd>
         </dl>
-        <div style="border-radius:12px;overflow:hidden;border:0.5px solid var(--gray-300);height:260px;">
-          <iframe
-            src="https://map.kakao.com/link/map/블루독프리다이빙,35.1579,129.0444/embed"
-            width="100%" height="100%"
-            style="border:none;display:block;"
-            title="블루독 프리다이빙 위치"
-            loading="lazy">
-          </iframe>
+        <div class="map-card">
+          <div class="map-pin">📍</div>
+          <div class="map-name">블루독 프리다이빙</div>
+          <div class="map-addr">부산 부산진구 성지로34번길 18 1층</div>
+          <div class="map-btns">
+            <a class="map-btn naver" href="https://map.naver.com/p/search/부산 부산진구 성지로34번길 18" target="_blank" rel="noopener">네이버 지도</a>
+            <a class="map-btn kakao" href="https://map.kakao.com/?q=부산 부산진구 성지로34번길 18" target="_blank" rel="noopener">카카오맵</a>
+          </div>
         </div>
+      </div>
+
+      <div class="places">
+        <div class="places-title">교육 장소</div>
+        <div class="places-grid">
+          <div class="place-card">
+            <span class="place-type pool">잠수풀</span>
+            <div class="place-name">북항마리나 잠수풀</div>
+          </div>
+          <div class="place-card">
+            <span class="place-type pool">잠수풀</span>
+            <div class="place-name">서면풀장</div>
+          </div>
+          <div class="place-card">
+            <span class="place-type pool">잠수풀</span>
+            <div class="place-name">구서동 POOL 6</div>
+          </div>
+          <div class="place-card">
+            <span class="place-type sea">바다</span>
+            <div class="place-name">태종대</div>
+          </div>
+        </div>
+        <p class="places-note">과정과 일정에 따라 장소가 정해져요. 예약 시 카카오톡으로 안내해 드려요.</p>
       </div>
     </div>
   </section>
