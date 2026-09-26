@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>성인 프리다이빙 | 블루독 프리다이빙</title>
   <meta name="description" content="부산 블루독 프리다이빙 AIDA 자격증 과정. 입문부터 상급까지 단계별 커리큘럼. 장비렌탈·전자교재·자격증 발급비 포함." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -176,6 +177,30 @@
       .level-header { flex-direction: column; }
     }
     @media (prefers-reduced-motion: reduce) { .circle { animation: none; } }
+
+    /* ── 공통: 카카오 버튼 노란색 / 사진 히어로 ── */
+    a[href*="pf.kakao.com"].nav-cta,
+    a[href*="pf.kakao.com"].btn-primary,
+    a[href*="pf.kakao.com"].btn-outline {
+      background: #FEE500; color: #191919; border: none; font-weight: 600; text-decoration: none;
+    }
+    a[href*="pf.kakao.com"].nav-cta:hover,
+    a[href*="pf.kakao.com"].btn-primary:hover,
+    a[href*="pf.kakao.com"].btn-outline:hover { background: #F5D800; }
+    .hero.has-photo .circle { display: none; }
+    .hero.has-photo { background-size: cover; background-position: center; }
+    .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .photo-grid img {
+      width: 100%; height: 240px; object-fit: cover; border-radius: 12px; display: block;
+    }
+    body { word-break: keep-all; }
+    .logo { white-space: nowrap; }
+    @media (max-width: 640px) {
+      .logo { font-size: 15px; }
+      .nav-cta { padding: 7px 12px; font-size: 12px; white-space: nowrap; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+      .photo-grid img { height: 160px; }
+    }
   </style>
 </head>
 <body>
@@ -193,7 +218,7 @@
   </nav>
 
   <!-- 히어로 -->
-  <section class="hero">
+  <section class="hero has-photo" style="background-image: linear-gradient(180deg, rgba(10,22,40,0.55) 0%, rgba(10,22,40,0.6) 45%, rgba(10,22,40,0.85) 100%), url('images/hero-freediving.jpg');">
     <div class="circle"></div>
     <div class="circle"></div>
     <div class="hero-content">
