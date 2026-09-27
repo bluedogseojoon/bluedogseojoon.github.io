@@ -117,8 +117,6 @@
     .req-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
     .req-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .req-list li { font-size: 14px; color: var(--gray-500); display: flex; gap: 10px; line-height: 1.6; }
-    .req-card.must .req-list li::before { content: '✔️'; flex-shrink: 0; }
-    .req-card.plus .req-list li::before { content: '➕'; flex-shrink: 0; }
 
     /* ── 활동 방식 ── */
     .way-box {
@@ -240,6 +238,7 @@
       .inst-photo { max-width: 220px; }
     }
   </style>
+  <link rel="stylesheet" href="assets/polish.css" />
 </head>
 <body>
 
@@ -303,8 +302,16 @@
 
   <footer>
     <a href="index.html" class="footer-logo">BLUE<span>DOG</span> FREEDIVING</a>
-    <a href="index.html" class="footer-back">← 홈으로</a>
+    <div class="footer-info">
+      블루독 프리다이빙 · 부산광역시 부산진구 성지로34번길 18 1층 · 수상레저교육업<br>
+      대표: 이서준 · 사업자번호: 563-35-01313
+    </div>
+    <ul class="footer-links">
+      <li><a href="https://www.instagram.com/bluedog_seojoon/" target="_blank">인스타그램</a></li>
+      <li><a href="https://blog.naver.com/soon_doldol" target="_blank">네이버 블로그</a></li>
+    </ul>
   </footer>
 
+  <script src="assets/polish.js" defer></script>
 </body>
 </html>
