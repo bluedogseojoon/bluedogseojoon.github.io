@@ -434,8 +434,13 @@
     .tour-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .tour-card {
       background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.18);
-      border-radius: 14px; padding: 1.5rem;
+      border-radius: 14px; overflow: hidden; display: block; text-decoration: none; color: #fff;
+      transition: transform 0.15s, border-color 0.2s;
     }
+    .tour-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.45); }
+    .tour-photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
+    .tour-body { padding: 1.4rem 1.5rem 1.5rem; }
+    .tour-more { display: inline-block; margin-top: 1rem; font-size: 14px; font-weight: 600; color: #FEE500; }
     .tour-where { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 1px; color: #90bce8;
       border: 0.5px solid rgba(144,188,232,0.5); border-radius: 20px; padding: 2px 10px; margin-bottom: 0.9rem; }
     .tour-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
@@ -805,16 +810,24 @@
       <div class="section-title">수료 후에도, 함께 떠나는 바다</div>
       <p class="section-sub">자격증을 딴 뒤에도 블루독 멤버들과 국내외 바다를 함께 다녀요</p>
       <div class="tour-grid">
-        <div class="tour-card">
-          <span class="tour-where">국내</span>
-          <div class="tour-name">울릉도 · 욕지도</div>
-          <div class="tour-desc">동해와 남해의 맑은 섬 바다에서 함께하는 멤버 투어</div>
-        </div>
-        <div class="tour-card">
-          <span class="tour-where">해외</span>
-          <div class="tour-name">필리핀 코론</div>
-          <div class="tour-desc">듀공을 만나러 떠나는 해외 프리다이빙 투어</div>
-        </div>
+        <a class="tour-card" href="https://blog.naver.com/soon_doldol/224342700307" target="_blank" rel="noopener">
+          <img class="tour-photo" src="images/tour-ulleung.jpg" alt="울릉도 바닷속 해초 숲 사이를 유영하는 프리다이버" loading="lazy" style="object-position: center 50%;">
+          <div class="tour-body">
+            <span class="tour-where">국내</span>
+            <div class="tour-name">울릉도 · 욕지도</div>
+            <div class="tour-desc">동해와 남해의 맑은 섬 바다에서 함께하는 멤버 투어</div>
+            <span class="tour-more">울릉도 투어 후기 보기 →</span>
+          </div>
+        </a>
+        <a class="tour-card" href="https://blog.naver.com/soon_doldol/224259987246" target="_blank" rel="noopener">
+          <img class="tour-photo" src="images/tour-coron.jpg" alt="필리핀 코론에서 듀공과 함께 헤엄치는 프리다이버" loading="lazy">
+          <div class="tour-body">
+            <span class="tour-where">해외</span>
+            <div class="tour-name">필리핀 코론</div>
+            <div class="tour-desc">듀공을 만나러 떠나는 해외 프리다이빙 투어</div>
+            <span class="tour-more">코론 투어 후기 보기 →</span>
+          </div>
+        </a>
       </div>
       <p class="tour-note">투어 일정은 수시로 모집해요. <a href="http://pf.kakao.com/_exhUms/chat" target="_blank">카카오톡으로 다음 투어 문의하기 →</a></p>
     </div>
