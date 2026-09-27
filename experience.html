@@ -210,35 +210,6 @@
       text-align: center;
     }
 
-    /* FAQ */
-    .faq-list { display: flex; flex-direction: column; gap: 12px; }
-    .faq-item {
-      background: var(--gray-50);
-      border: 0.5px solid var(--gray-300);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .faq-q {
-      padding: 1.1rem 1.25rem;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--navy);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-    }
-    .faq-q::after { content: '+'; font-size: 18px; color: var(--blue); flex-shrink: 0; }
-    .faq-item.open .faq-q::after { content: '−'; }
-    .faq-a {
-      display: none;
-      padding: 0 1.25rem 1.1rem;
-      font-size: 14px;
-      color: var(--gray-500);
-      line-height: 1.7;
-    }
-    .faq-item.open .faq-a { display: block; }
 
     /* CTA */
     .cta-section { background: var(--navy-mid, #1a3a6e); text-align: center; }
@@ -478,33 +449,6 @@
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section>
-    <div class="container">
-      <div class="section-label">FAQ</div>
-      <div class="section-title">자주 묻는 질문</div>
-      <p class="section-sub">궁금한 점이 있으면 카카오톡으로도 물어보세요</p>
-      <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-q">수영을 전혀 못해도 참여할 수 있나요?</div>
-          <div class="faq-a">네, 가능해요! 수영 실력과 상관없이 누구나 참여할 수 있어요. 강사가 처음부터 끝까지 옆에서 함께해드려요.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">준비물이 있나요?</div>
-          <div class="faq-a">수영복과 수건만 가져오시면 돼요. 장비는 모두 제공해드려요.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">나이 제한이 있나요?</div>
-          <div class="faq-a">별도의 나이 제한은 없어요. 다만 미성년자의 경우 보호자 동반을 권장해요. 자세한 내용은 카카오톡으로 문의해주세요.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">체험 후 정식 과정으로 연결되나요?</div>
-          <div class="faq-a">물론이에요! 체험 후 프리다이빙이 더 궁금해지셨다면 성인 프리다이빙 자격증 과정으로 연결하실 수 있어요.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- CTA -->
   <section class="cta-section">
     <div class="container">
@@ -528,16 +472,6 @@
     </ul>
   </footer>
 
-  <script>
-    document.querySelectorAll('.faq-q').forEach(q => {
-      q.addEventListener('click', () => {
-        const item = q.parentElement;
-        const isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-        if (!isOpen) item.classList.add('open');
-      });
-    });
-  </script>
 
   <script src="assets/polish.js" defer></script>
 </body>
