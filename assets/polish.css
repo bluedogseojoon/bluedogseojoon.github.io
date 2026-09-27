@@ -97,3 +97,37 @@ footer { gap: 1rem 2rem; }
   .level-body .curriculum-grid { grid-template-columns: repeat(4, 1fr); }
   .level-body .curriculum-label { font-size: 10.5px; }
 }
+
+/* ==========================================================
+   모바일 가독성
+   - 컴퓨터용으로 넣은 강제 줄바꿈(<br>)을 휴대폰에서는 풀어서
+     문장이 자연스럽게 이어지도록 함 (제목·후기 인용·푸터는 유지)
+   ========================================================== */
+p, .hero-desc, .level-desc, .review-text, .section-sub, .tour-desc, .std-desc, .step-desc, .why-desc {
+  text-wrap: pretty;
+}
+h1, h2, .section-title, .section-sub, .hero-desc, .review-highlight, .cta-section h2, .cta-section p { text-wrap: balance; }
+
+@media (max-width: 640px) {
+  p br, .hero-desc br, .profile-desc br, .inst-desc br, .what-box br { display: none; }
+
+  body { font-size: 15px; }
+  .hero-desc { font-size: 15px; line-height: 1.7; }
+  .section-title { font-size: 24px; line-height: 1.35; }
+  .section-sub { font-size: 14.5px; line-height: 1.65; margin-bottom: 2rem; }
+
+  /* 본문 문단: 줄간격을 살짝 줄여 덩어리로 읽히게 */
+  .profile-desc, .inst-desc, .level-desc, .review-text, .test-desc, .what-box p {
+    font-size: 15px; line-height: 1.75;
+  }
+  .cta-section p, .apply-cta p, .price-cta p { font-size: 15px; line-height: 1.65; padding: 0 0.5rem; }
+
+  /* 담당 과정처럼 '이름 : 값' 형태는 위아래로 쌓기 */
+  .inst-info { grid-template-columns: 1fr; gap: 2px; }
+  .inst-info dt { font-size: 12.5px; }
+  .inst-info dd { margin-bottom: 10px; }
+
+  /* 카드 안쪽 여백 조금 줄이기 */
+  .inst-card, .review-card, .review-box { padding: 1.4rem 1.25rem; }
+  .who-card { padding: 1.1rem; }
+}
