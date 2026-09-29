@@ -131,3 +131,90 @@ h1, h2, .section-title, .section-sub, .hero-desc, .review-highlight, .cta-sectio
   .inst-card, .review-card, .review-box { padding: 1.4rem 1.25rem; }
   .who-card { padding: 1.1rem; }
 }
+
+/* ==========================================================
+   2차 리뉴얼: 공감형 Q&A · 선택 이유 · 흐르는 띠 · 폴라로이드 · 고정 문의 버튼
+   ========================================================== */
+/* 흐르는 브랜드 띠 */
+.marquee { background: var(--blue); overflow: hidden; padding: 14px 0; }
+.marquee-track { display: flex; gap: 28px; width: max-content; animation: marquee 38s linear infinite;
+  color: #fff; font-size: 15px; font-weight: 700; letter-spacing: 2px; white-space: nowrap; }
+.marquee .dot { color: #FEE500; font-size: 9px; align-self: center; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* 공감형 Q&A (채팅 말풍선) */
+.worry-section { background: linear-gradient(180deg, #eaf3fc 0%, #f8fbff 100%); }
+.chat { max-width: 640px; display: flex; flex-direction: column; gap: 12px; }
+.chat-row { display: flex; align-items: flex-end; gap: 8px; }
+.chat-row.q { justify-content: flex-start; }
+.chat-row.a { justify-content: flex-end; }
+.bubble { max-width: 78%; padding: 13px 18px; font-size: 15px; line-height: 1.65; border-radius: 20px; box-shadow: var(--shadow-sm); }
+.chat-row.q .bubble { background: #fff; color: var(--navy); font-weight: 600; border-bottom-left-radius: 6px; }
+.chat-row.a .bubble { background: var(--blue); color: #fff; border-bottom-right-radius: 6px; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--navy); color: #90bce8;
+  font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.chat-row.a + .chat-row.q { margin-top: 10px; }
+
+/* 선택할 이유 */
+.reason-section { background: var(--navy); color: #fff; }
+.reason-section .section-label { color: #90bce8; }
+.reason-section .section-title { color: #fff; margin-bottom: 2.5rem; }
+.reason-section .section-title em { font-style: normal; color: #FEE500; }
+.reason-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.reason-card { position: relative; background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.14);
+  border-radius: 18px; padding: 1.6rem 1.5rem; transition: background 0.2s, transform 0.2s; }
+.reason-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+.reason-num { position: absolute; top: 1.2rem; right: 1.4rem; font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.25); }
+.reason-icon { width: 46px; height: 46px; border-radius: 14px; background: rgba(91,155,213,0.2); color: #90bce8;
+  display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 1rem; }
+.reason-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+.reason-desc { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.65; }
+
+/* 후기 해시태그 */
+.review-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.9rem; }
+.review-chips span { font-size: 12px; font-weight: 600; color: #fff; background: var(--blue); padding: 4px 11px; border-radius: 20px; }
+
+/* 폴라로이드 갤러리 */
+.photo-grid.polaroid { gap: 26px 22px; padding: 10px 6px 0; }
+.photo-grid.polaroid img { background: #fff; padding: 10px 10px 36px; border-radius: 6px !important;
+  box-shadow: 0 10px 28px rgba(10,22,40,0.14); height: 280px; }
+.photo-grid.polaroid img:nth-child(3n+1) { transform: rotate(-2.5deg); }
+.photo-grid.polaroid img:nth-child(3n+2) { transform: rotate(1.8deg) translateY(10px); }
+.photo-grid.polaroid img:nth-child(3n) { transform: rotate(-1deg); }
+.photo-grid.polaroid img:hover { transform: rotate(0) scale(1.04); z-index: 2; position: relative; }
+
+/* 고정 문의 버튼 */
+.float-kakao { position: fixed; right: 22px; bottom: 22px; z-index: 90; width: 60px; height: 60px; border-radius: 50%;
+  background: #FEE500; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(10,22,40,0.25); transition: transform 0.2s; }
+.float-kakao:hover { transform: scale(1.07); }
+.float-kakao svg { width: 30px; height: 30px; }
+.sticky-cta { display: none; }
+
+@media (max-width: 760px) {
+  .reason-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .reason-card { padding: 1.2rem 1rem; }
+  .reason-title { font-size: 15px; }
+  .reason-desc { font-size: 13px; }
+  .reason-num { top: 0.9rem; right: 1rem; }
+}
+@media (max-width: 640px) {
+  .bubble { max-width: 84%; font-size: 14.5px; padding: 12px 15px; }
+  .marquee { padding: 11px 0; }
+  .marquee-track { font-size: 13px; }
+  .photo-grid.polaroid { gap: 18px 14px; }
+  .photo-grid.polaroid img { height: 190px; padding: 7px 7px 24px; }
+  /* 휴대폰: 화면 아래 고정 문의 바 */
+  .float-kakao { display: none; }
+  .sticky-cta { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(8px); box-shadow: 0 -4px 18px rgba(10,22,40,0.1); }
+  .sticky-cta a { display: flex; align-items: center; justify-content: center; gap: 8px; height: 50px; border-radius: 12px;
+    background: #FEE500; color: #191919; font-weight: 700; font-size: 16px; text-decoration: none; }
+  .sticky-cta svg { width: 22px; height: 22px; }
+  body { padding-bottom: 74px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .photo-grid.polaroid img { transform: none !important; }
+}
