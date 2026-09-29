@@ -136,19 +136,6 @@ h1, h2, .section-title, .section-sub, .hero-desc, .review-highlight, .cta-sectio
    2차 리뉴얼: 공감형 Q&A · 선택 이유 · 흐르는 띠 · 폴라로이드 · 고정 문의 버튼
    ========================================================== */
 
-/* 공감형 Q&A (채팅 말풍선) */
-.worry-section { background: linear-gradient(180deg, #eaf3fc 0%, #f8fbff 100%); }
-.chat { max-width: 640px; display: flex; flex-direction: column; gap: 12px; }
-.chat-row { display: flex; align-items: flex-end; gap: 8px; }
-.chat-row.q { justify-content: flex-start; }
-.chat-row.a { justify-content: flex-end; }
-.bubble { max-width: 78%; padding: 13px 18px; font-size: 15px; line-height: 1.65; border-radius: 20px; box-shadow: var(--shadow-sm); }
-.chat-row.q .bubble { background: #fff; color: var(--navy); font-weight: 600; border-bottom-left-radius: 6px; }
-.chat-row.a .bubble { background: var(--blue); color: #fff; border-bottom-right-radius: 6px; }
-.avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--navy); color: #90bce8;
-  font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.chat-row.a + .chat-row.q { margin-top: 10px; }
-
 /* 선택할 이유 */
 .reason-section { background: var(--navy); color: #fff; }
 .reason-section .section-label { color: #90bce8; }
@@ -193,7 +180,6 @@ h1, h2, .section-title, .section-sub, .hero-desc, .review-highlight, .cta-sectio
   .reason-num { top: 0.9rem; right: 1rem; }
 }
 @media (max-width: 640px) {
-  .bubble { max-width: 84%; font-size: 14.5px; padding: 12px 15px; }
   .photo-grid.polaroid { gap: 18px 14px; }
   .photo-grid.polaroid img { height: 190px; padding: 7px 7px 24px; }
   /* 휴대폰: 화면 아래 고정 문의 바 */
