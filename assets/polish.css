@@ -135,12 +135,6 @@ h1, h2, .section-title, .section-sub, .hero-desc, .review-highlight, .cta-sectio
 /* ==========================================================
    2차 리뉴얼: 공감형 Q&A · 선택 이유 · 흐르는 띠 · 폴라로이드 · 고정 문의 버튼
    ========================================================== */
-/* 흐르는 브랜드 띠 */
-.marquee { background: var(--blue); overflow: hidden; padding: 14px 0; }
-.marquee-track { display: flex; gap: 28px; width: max-content; animation: marquee 38s linear infinite;
-  color: #fff; font-size: 15px; font-weight: 700; letter-spacing: 2px; white-space: nowrap; }
-.marquee .dot { color: #FEE500; font-size: 9px; align-self: center; }
-@keyframes marquee { to { transform: translateX(-50%); } }
 
 /* 공감형 Q&A (채팅 말풍선) */
 .worry-section { background: linear-gradient(180deg, #eaf3fc 0%, #f8fbff 100%); }
@@ -200,8 +194,6 @@ h1, h2, .section-title, .section-sub, .hero-desc, .review-highlight, .cta-sectio
 }
 @media (max-width: 640px) {
   .bubble { max-width: 84%; font-size: 14.5px; padding: 12px 15px; }
-  .marquee { padding: 11px 0; }
-  .marquee-track { font-size: 13px; }
   .photo-grid.polaroid { gap: 18px 14px; }
   .photo-grid.polaroid img { height: 190px; padding: 7px 7px 24px; }
   /* 휴대폰: 화면 아래 고정 문의 바 */
@@ -215,6 +207,5 @@ h1, h2, .section-title, .section-sub, .hero-desc, .review-highlight, .cta-sectio
   body { padding-bottom: 74px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
   .photo-grid.polaroid img { transform: none !important; }
 }
