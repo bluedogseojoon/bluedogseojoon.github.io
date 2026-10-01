@@ -135,14 +135,14 @@
         <button class="nav" id="next" type="button" aria-label="다음 달">›</button>
       </div>
       <div class="grid" id="grid"></div>
-      <div class="legend"><i></i> 예약 가능한 날 · 월요일·공휴일은 이론 수업만 가능해요</div>
+      <div class="legend"><i></i> 예약 가능한 날 · 월요일·공휴일은 북항 대신 서면·구서동 풀장 수업이 열려요</div>
     </section>
 
     <section class="card" id="step2" hidden>
       <div class="step">STEP 2</div>
       <h2 id="dayTitle">수업 선택</h2>
       <div id="classes"></div>
-      <div class="rule">※ 10시 이론 ↔ 북항 1부, 북항 3부 ↔ 7시 이론은 시간이 겹쳐 함께 고를 수 없어요.</div>
+      <div class="rule" id="rule"></div>
     </section>
 
     <form class="card" id="step3" hidden>
@@ -185,11 +185,15 @@ const ymd = (y, m, d) => y + '-' + pad(m) + '-' + pad(d);
 /* ---------- 미리보기용 예시 데이터 (서버와 같은 규칙) ---------- */
 function demoData() {
   const classes = [
-    { name: '북항 1부', start: '09:30', end: '11:30', capacity: 4, conflicts: ['10시 이론'], place: '북항잠수풀' },
-    { name: '10시 이론', start: '10:00', end: '12:00', capacity: 4, conflicts: ['북항 1부'], place: '블루독 센터', theory: true },
-    { name: '북항 2부', start: '14:00', end: '16:00', capacity: 4, conflicts: [], place: '북항잠수풀' },
-    { name: '북항 3부', start: '18:10', end: '20:10', capacity: 4, conflicts: ['7시 이론'], place: '북항잠수풀' },
-    { name: '7시 이론', start: '19:00', end: '21:00', capacity: 4, conflicts: ['북항 3부'], place: '블루독 센터', theory: true },
+    { name: '10시 이론', start: '10:00', end: '12:00', capacity: 4, conflicts: [], place: '블루독 센터', days: '월화수목금토일', hol: true },
+    { name: '서면풀장 10시', start: '10:00', end: '12:00', capacity: 4, conflicts: ['구서동풀6 10시', '구서동풀6 2시'], place: '서면 풀장', days: '월', hol: true },
+    { name: '구서동풀6 10시', start: '10:00', end: '12:00', capacity: 4, conflicts: ['서면풀장 10시', '서면풀장 2시'], place: '구서동 POOL6', days: '월', hol: true },
+    { name: '북항 1부', start: '12:10', end: '14:40', capacity: 4, conflicts: [], place: '북항잠수풀', days: '화수목금토일', hol: false },
+    { name: '서면풀장 2시', start: '14:00', end: '16:00', capacity: 4, conflicts: ['구서동풀6 10시', '구서동풀6 2시'], place: '서면 풀장', days: '월', hol: true },
+    { name: '구서동풀6 2시', start: '14:00', end: '16:00', capacity: 4, conflicts: ['서면풀장 10시', '서면풀장 2시'], place: '구서동 POOL6', days: '월', hol: true },
+    { name: '북항 2부', start: '15:10', end: '17:40', capacity: 4, conflicts: [], place: '북항잠수풀', days: '화수목금토일', hol: false },
+    { name: '북항 3부', start: '18:10', end: '20:40', capacity: 4, conflicts: ['7시 이론'], place: '북항잠수풀', days: '화수목금토일', hol: false },
+    { name: '7시 이론', start: '19:00', end: '21:00', capacity: 4, conflicts: ['북항 3부'], place: '블루독 센터', days: '월화수목금토일', hol: true },
   ];
   const t = new Date();
   const HOL = { '2026-10-03': '개천절', '2026-10-05': '대체공휴일', '2026-10-09': '한글날', '2026-12-25': '크리스마스' };
@@ -206,14 +210,15 @@ function demoData() {
     };
     const slots = {}; let open = false;
     classes.forEach(c => {
-      const booked = counts[c.name];
-      let reason = '';
-      if (d.getDay() === 1 && !c.theory) reason = '월요일 휴무';
-      else if (HOL[date] && !c.theory) reason = '공휴일 휴무';
+      const booked = counts[c.name] || 0;
+      let reason = '', notRunning = false;
+      if (HOL[date]) { if (!c.hol) { reason = '공휴일 휴무'; notRunning = true; } }
+      else if (!c.days.includes(WEEK[d.getDay()])) { reason = WEEK[d.getDay()] + '요일 휴무'; notRunning = true; }
+      if (reason) {}
       else if (i === 0) reason = '예약 마감';
       else if (booked >= c.capacity) reason = '정원 마감';
       else if (c.conflicts.some(o => counts[o] > 0)) reason = '겹치는 수업 진행';
-      slots[c.name] = { booked, closed: !!reason, reason };
+      slots[c.name] = { booked, closed: !!reason, reason, notRunning };
       if (!reason) open = true;
     });
     days.push({ date, weekday: WEEK[d.getDay()], open, slots, holiday: HOL[date] || '' });
@@ -306,7 +311,10 @@ function renderClasses() {
   $('dayTitle').textContent = niceDate(selDate) + ' 수업 선택';
   const box = $('classes'); box.innerHTML = '';
   const day = dayMap[selDate];
-  data.classes.forEach(c => {
+  // 그날 운영하지 않는 수업(예: 월요일 북항)은 아예 보여주지 않아요
+  const running = data.classes.filter(c => !day.slots[c.name].notRunning);
+  renderRule(running);
+  running.forEach(c => {
     const s = day.slots[c.name];
     const on = selClasses.includes(c.name);
     const blockedBy = c.conflicts.find(o => selClasses.includes(o));
@@ -324,13 +332,39 @@ function renderClasses() {
     const seat = document.createElement('span');
     const left = c.capacity - s.booked;
     if (s.closed) { seat.className = 'seats full'; seat.textContent = s.reason === '겹치는 수업 진행' ? '진행 불가' : (s.reason || '마감'); }
-    else if (blockedBy && !on) { seat.className = 'seats full'; seat.textContent = blockedBy + '와 겹침'; }
+    else if (blockedBy && !on) { seat.className = 'seats full'; seat.textContent = '선택 불가'; }
     else { seat.className = 'seats'; seat.textContent = left + '자리 남음'; }
 
     b.append(box1, t, n, seat);
     b.addEventListener('click', () => toggleClass(c.name));
     box.appendChild(b);
   });
+}
+
+/* 함께 고를 수 없는 수업 안내를 그날 수업 기준으로 만들어요 */
+function renderRule(running) {
+  const names = running.map(c => c.name);
+  const seen = {}, pairs = [];
+  running.forEach(c => c.conflicts.filter(o => names.includes(o)).forEach(o => {
+    const k = [c.name, o].sort().join('|');
+    if (!seen[k]) { seen[k] = 1; pairs.push([c.name, o]); }
+  }));
+  // 서면 ↔ 구서동처럼 묶음이면 '장소'로 줄여서 보여줘요
+  const places = {};
+  pairs.forEach(([a, b]) => {
+    const pa = running.find(c => c.name === a).place, pb = running.find(c => c.name === b).place;
+    if (pa && pb && pa !== pb && !/블루독/.test(pa + pb)) places[[pa, pb].sort().join(' ↔ ')] = 1;
+  });
+  const placePairs = Object.keys(places);
+  const rest = pairs.filter(([a, b]) => {
+    const pa = running.find(c => c.name === a).place, pb = running.find(c => c.name === b).place;
+    return !(pa && pb && places[[pa, pb].sort().join(' ↔ ')]);
+  }).map(p => p.join(' ↔ '));
+  const parts = [];
+  if (rest.length) parts.push(rest.join(', ') + '은(는) 시간이 겹쳐 함께 고를 수 없어요.');
+  if (placePairs.length) parts.push(placePairs.join(', ') + '은(는) 같은 날 함께 고를 수 없어요.');
+  $('rule').textContent = parts.length ? '※ ' + parts.join(' ') : '';
+  $('rule').hidden = !parts.length;
 }
 
 function toggleClass(name) {

@@ -251,10 +251,10 @@ function renderCalendar() {
     const off = isOffDay(d);
     b.className = 'd' + (off ? ' off' : '') + (date === selDate ? ' sel' : '');
     if (cnt) { const c = document.createElement('span'); c.className = 'cnt'; c.textContent = cnt + '명'; b.appendChild(c); }
-    const partly = Object.values(d.slots).some(s => LOCKED_REASONS.includes(s.reason));
+    const partly = d.weekday === '월' || Object.values(d.slots).some(s => s.notRunning && s.reason === '공휴일 휴무');
     if (d.holiday || d.offDay || off || partly) {
       const t = document.createElement('span'); t.className = 'tag';
-      t.textContent = d.offDay || off ? '휴무' : d.holiday ? d.holiday.slice(0, 4) : '이론만';
+      t.textContent = d.offDay || off ? '휴무' : d.holiday ? d.holiday.slice(0, 4) : '풀장';
       b.appendChild(t);
     }
     b.addEventListener('click', () => { selDate = date; renderCalendar(); renderDetail(); $('detail').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
@@ -292,7 +292,8 @@ function renderDetail() {
   if (d.offDay) box.appendChild(el('p', 'note', '이 날은 관리자가 하루 휴무로 설정했어요. 수강생은 이 날짜를 선택할 수 없어요.'));
 
   const totals = {}, counted = {};   // 같은 사람이 하루 두 수업이면 장비는 한 번만 셈
-  data.classes.forEach(c => {
+  // 그날 운영하지 않는 수업은 숨겨요 (예약이 남아 있는 경우만 예외)
+  data.classes.filter(c => !d.slots[c.name].notRunning || (d.people[c.name] || []).length).forEach(c => {
     const s = d.slots[c.name];
     const people = d.people[c.name] || [];
     const card = el('div', 'cls');
