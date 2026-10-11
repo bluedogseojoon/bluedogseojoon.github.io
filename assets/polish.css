@@ -340,3 +340,19 @@ footer { padding: 3rem 2rem calc(3rem); }
   .program-tag { margin-top: 8px; justify-self: start; font-size: 11px; padding: 2px 9px; }
   .program-card:hover .program-photo { transform: none; }
 }
+
+/* 휴대폰 메인 첫 화면: 사진 바로 아래에 제목이 붙도록 (빈 공간 제거) + 가운데 정렬 */
+@media (max-width: 640px) {
+  .hero.hero-main {
+    min-height: 0; align-items: flex-start;
+    padding: calc(64px + 92vw) 1.25rem 3rem;
+    background-image:
+      linear-gradient(180deg, rgba(10,22,40,0) 0, rgba(10,22,40,0) calc(64px + 62vw),
+        rgba(10,22,40,0.85) calc(64px + 100vw), #0a1628 calc(64px + 118vw)),
+      url('../images/hero-main.jpg');
+    background-size: 100% 100%, 175% auto; background-position: 0 0, 52% 64px;
+  }
+  .hero-main .hero-content { width: 100%; margin: 0 auto; }
+  .hero-main .hero-desc { display: block !important; margin-bottom: 1.75rem; }
+  .hero-main h1 { margin-bottom: 1rem !important; }
+}
