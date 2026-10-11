@@ -326,3 +326,17 @@ footer { padding: 3rem 2rem calc(3rem); }
   .reason-title { font-size: 15.5px; }
   .reason-desc { font-size: 13.5px; line-height: 1.6; }
 }
+
+/* 휴대폰: 프로그램 카드를 가로형(사진 왼쪽 · 글 오른쪽)으로 짧게 */
+@media (max-width: 640px) {
+  .programs-grid { grid-template-columns: 1fr !important; gap: 12px; }
+  .program-card { display: grid !important; grid-template-columns: 112px 1fr; column-gap: 16px;
+    align-items: start; padding: 14px 16px 14px 14px; border-radius: 16px !important; }
+  .program-card { grid-template-rows: auto auto 1fr; }
+  .program-photo { grid-row: 1 / span 3; width: 112px; height: 112px; margin: 0;
+    border-radius: 12px; align-self: start; }
+  .program-name { font-size: 16px; margin: 2px 0 4px; }
+  .program-desc { font-size: 13.5px; line-height: 1.55; }
+  .program-tag { margin-top: 8px; justify-self: start; font-size: 11px; padding: 2px 9px; }
+  .program-card:hover .program-photo { transform: none; }
+}
