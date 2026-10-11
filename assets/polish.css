@@ -321,3 +321,8 @@ footer { padding: 3rem 2rem calc(3rem); }
 /* 작은 설명 글씨 키우기 */
 .step-desc, .why-desc, .tour-desc, .who-desc { font-size: 14.5px; line-height: 1.7; }
 .step-title, .who-title { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
+@media (max-width: 760px) {
+  .reason-card { padding: 1.25rem 1.05rem; border-radius: 16px; }
+  .reason-title { font-size: 15.5px; }
+  .reason-desc { font-size: 13.5px; line-height: 1.6; }
+}
