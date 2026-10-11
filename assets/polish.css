@@ -195,3 +195,129 @@ h1, h2, .section-title, .section-sub, .hero-desc, .review-highlight, .cta-sectio
 @media (prefers-reduced-motion: reduce) {
   .photo-grid.polaroid img { transform: none !important; }
 }
+
+/* ==========================================================
+   3차 리뉴얼: 가독성 · 세련된 미니멀 스타일
+   - 더 큰 제목, 넉넉한 여백, 얇은 테두리, 둥근 알약 버튼
+   - 글자색은 진한 회색 계열로 눈이 덜 피로하게
+   ========================================================== */
+:root {
+  --ink: #0b1220;            /* 제목 */
+  --text: #3b4252;           /* 본문 */
+  --muted: #6b7280;          /* 보조 글 */
+  --line: #e7e9ee;           /* 얇은 테두리 */
+  --surface: #f6f7f9;        /* 연한 배경 */
+  --gray-50: #f6f7f9;
+  --gray-300: #e7e9ee;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 2px rgba(11,18,32,0.04);
+  --shadow-md: 0 1px 2px rgba(11,18,32,0.04), 0 18px 40px -12px rgba(11,18,32,0.14);
+}
+body { color: var(--text); font-size: 16px; line-height: 1.75; letter-spacing: -0.005em;
+  font-feature-settings: "tnum" 0; }
+::selection { background: rgba(37,99,168,0.18); }
+
+/* ── 여백과 폭 ── */
+section { padding: 7rem 2rem; }
+.container { max-width: 1040px; }
+
+/* ── 섹션 머리말 ── */
+.section-label { font-size: 12px; letter-spacing: 0.14em; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; }
+.section-label::before { width: 6px; height: 6px; border-radius: 50%; }
+.section-title { font-size: clamp(28px, 3.6vw, 42px); font-weight: 700; line-height: 1.25;
+  letter-spacing: -0.035em; color: var(--ink); margin-bottom: 1rem; }
+.section-sub { font-size: 17px; line-height: 1.7; color: var(--muted); max-width: 620px; margin-bottom: 3.5rem; }
+[style*="text-align:center"] .section-sub, [style*="text-align: center"] .section-sub { margin-left: auto; margin-right: auto; }
+
+/* ── 히어로 ── */
+.hero h1 { font-weight: 800; letter-spacing: -0.04em; line-height: 1.18; }
+.hero-badge { font-weight: 600; letter-spacing: 0.18em; padding: 6px 14px; border-radius: 999px;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color: #cfe2f6; }
+.hero-desc { font-size: 17px; line-height: 1.75; }
+
+/* ── 네비게이션 ── */
+nav { background: rgba(10,22,40,0.72) !important; backdrop-filter: saturate(160%) blur(16px);
+  -webkit-backdrop-filter: saturate(160%) blur(16px); border-bottom: 1px solid rgba(255,255,255,0.06) !important; }
+.logo { font-weight: 800; letter-spacing: 0.02em; }
+.nav-links a { font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.72); }
+.nav-links a.active, .nav-links a:hover { color: #fff; }
+
+/* ── 버튼: 알약 모양 ── */
+.btn-primary, .btn-outline, .nav-cta, .review-link, .map-btn, .gallery-more a {
+  border-radius: 999px !important; font-weight: 600; letter-spacing: -0.01em; }
+.btn-primary, .btn-outline { padding: 15px 28px; font-size: 15.5px; }
+.btn-outline { border-width: 1px !important; }
+.nav-cta { padding: 9px 18px; }
+
+/* ── 카드: 얇은 선 + 큰 모서리, 그림자는 마우스 올릴 때만 ── */
+.program-card, .who-card, .include-card, .level-card, .test-card, .review-card, .review-box,
+.inst-card, .step, .target-card, .trust-item, .map-card, .pass-box, .price-card, .info-card {
+  border: 1px solid var(--line) !important; border-radius: var(--radius-lg) !important; box-shadow: none; }
+.review-card { border-left: 1px solid var(--line) !important; }
+.program-card:hover, .inst-card:hover, .level-card:hover { box-shadow: var(--shadow-md); }
+.program-card { padding: 1.75rem 1.5rem 1.6rem; }
+.program-name { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+.program-desc { font-size: 14px; line-height: 1.65; }
+.program-tag, .profile-tag, .review-tag { border-radius: 999px; font-weight: 600; }
+.trust-item { background: #fff; padding: 1.15rem 1.25rem; }
+.trust-title { font-size: 15px; }
+.trust-desc { font-size: 13.5px; line-height: 1.6; }
+
+/* 본문 글 크기 살짝 키우기 */
+.profile-desc, .inst-desc, .level-desc, .test-desc, .what-box p { font-size: 16px; line-height: 1.85; color: var(--text); }
+.profile-name { font-size: 26px; letter-spacing: -0.03em; }
+.review-text { font-size: 15px; line-height: 1.85; color: var(--text); }
+.review-highlight { letter-spacing: -0.03em; }
+
+/* ── 연한 배경 섹션 ── */
+.programs-section, .review-section { background: var(--surface); }
+
+/* ── 숫자 바 ── */
+.stat-num { font-size: 38px; font-weight: 800; letter-spacing: -0.03em; color: #fff; font-variant-numeric: tabular-nums; }
+.stat-label { font-size: 13px; color: rgba(255,255,255,0.55); }
+
+/* ── 자주 묻는 질문: 카드 대신 깔끔한 구분선 ── */
+.faq-list { gap: 0; border-top: 1px solid var(--line); }
+.faq-item { background: transparent !important; border: 0 !important; border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important; box-shadow: none !important; }
+.faq-q { padding: 1.35rem 0.25rem; font-size: 16.5px; font-weight: 600; letter-spacing: -0.02em; }
+.faq-q::after { font-weight: 300; font-size: 22px; }
+.faq-a { padding: 0 0.25rem 1.4rem; font-size: 15px; line-height: 1.8; color: var(--muted); }
+
+/* ── 문의(CTA) 섹션 ── */
+.cta-section { padding: 6.5rem 2rem; }
+.cta-section h2 { font-size: clamp(26px, 3.4vw, 38px); font-weight: 800; letter-spacing: -0.035em; }
+.cta-section p { font-size: 17px; }
+
+/* ── 이유 카드 ── */
+.reason-card { border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.1); padding: 1.9rem 1.7rem; }
+.reason-title { font-size: 18px; letter-spacing: -0.02em; }
+.reason-desc { font-size: 14.5px; line-height: 1.7; }
+
+/* ── 사진 ── */
+.photo-grid img, .profile-img, .inst-img, .level-photo, .tour-photo { border-radius: 16px; }
+.tour-card { border-radius: var(--radius-lg); }
+
+/* ── 푸터 ── */
+footer { padding: 3rem 2rem calc(3rem); }
+
+/* ── 휴대폰 ── */
+@media (max-width: 640px) {
+  section { padding: 4.5rem 1.25rem; }
+  body { font-size: 16px; }
+  .section-label { font-size: 11.5px; margin-bottom: 0.75rem; }
+  .section-title { font-size: 27px; line-height: 1.3; }
+  .section-sub { font-size: 15.5px; margin-bottom: 2.25rem; }
+  .hero-desc { font-size: 15.5px; }
+  .profile-desc, .inst-desc, .level-desc, .review-text, .test-desc, .what-box p { font-size: 15.5px; line-height: 1.8; }
+  .faq-q { font-size: 15.5px; padding: 1.15rem 0.1rem; }
+  .faq-a { font-size: 14.5px; }
+  .cta-section { padding: 4.5rem 1.25rem; }
+  .stat-num { font-size: 30px; }
+  .program-name { font-size: 16px; }
+}
+/* 좁은 카드 안 강제 줄바꿈은 풀어서 자연스럽게 */
+.program-desc br, .reason-desc br, .trust-desc br { display: none; }
+/* 작은 설명 글씨 키우기 */
+.step-desc, .why-desc, .tour-desc, .who-desc { font-size: 14.5px; line-height: 1.7; }
+.step-title, .who-title { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
