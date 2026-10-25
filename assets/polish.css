@@ -356,3 +356,8 @@ footer { padding: 3rem 2rem calc(3rem); }
   .hero-main .hero-desc { display: block !important; margin-bottom: 1.75rem; }
   .hero-main h1 { margin-bottom: 1rem !important; }
 }
+
+/* 어두운 박스 안 글자는 밝게 (강사 과정 '배우는 것') */
+.what-box p { color: rgba(255,255,255,0.9) !important; }
+/* 휴대폰에서만 원하는 위치에서 줄바꿈 */
+@media (max-width: 640px) { .m-line { display: block; } }
