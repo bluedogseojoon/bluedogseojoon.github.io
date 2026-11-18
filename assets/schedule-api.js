@@ -108,8 +108,18 @@ var SCHED = (function () {
 
   /* 강사님이 '마감'으로 표시한 시간은 메모 앞에 [마감] 글자를 붙여서 저장해요 */
   var TAG = '[마감]';
-  function parseMemo(m) { m = String(m || ''); var c = m.indexOf(TAG) === 0; return { closed: c, text: (c ? m.slice(TAG.length) : m).trim() }; }
-  function makeMemo(closed, text) { text = String(text || '').trim(); return closed ? (TAG + ' ' + text).trim() : text; }
+  var TOUR = '[투어]';   // 투어 기간: 예약 안 받음
+  function parseMemo(m) {
+    m = String(m || '');
+    var c = m.indexOf(TAG) === 0, t = m.indexOf(TOUR) === 0;
+    return { closed: c, tour: t, text: (c ? m.slice(TAG.length) : t ? m.slice(TOUR.length) : m).trim() };
+  }
+  /* state: 'full'(또는 true) = 마감, 'tour' = 투어, 그 외 = 비어 있음 */
+  function makeMemo(state, text) {
+    text = String(text || '').trim();
+    var tag = (state === true || state === 'full') ? TAG : state === 'tour' ? TOUR : '';
+    return tag ? (tag + ' ' + text).trim() : text;
+  }
 
   return { DEMO: DEMO, SLOTS: SLOTS, get: get, post: post, addMonths: addMonths, parseMemo: parseMemo, makeMemo: makeMemo };
 })();

@@ -62,6 +62,11 @@
   .m.free { background: var(--ok-bg); color: var(--ok); }
   .m.some { background: var(--amber-bg); color: var(--amber); }
   .m.full { background: var(--warn-bg); color: var(--warn); }
+  :root { --tour: #6B46C1; --tour-bg: #F0EAFB; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --tour: #B79CF5; --tour-bg: #2A2145; } }
+  :root[data-theme="dark"] { --tour: #B79CF5; --tour-bg: #2A2145; }
+  .m.tour { background: var(--tour-bg); color: var(--tour); }
+  .chip.tour { background: var(--tour-bg); color: var(--tour); }
   .m.none, .m.past { background: transparent; color: var(--line); border: 1px dashed var(--line); line-height: 13px; }
   .m.past.was { background: var(--line); color: var(--muted); border: 0; line-height: 15px; }
   @media (min-width: 560px) {
@@ -140,6 +145,7 @@
         <span><i class="m free">9</i>비어 있음</span>
         <span><i class="m some">9</i>예약 있음 (자리 남음)</span>
         <span><i class="m full">9</i>예약 마감</span>
+        <span><i class="m tour">9</i>투어</span>
         <span><i class="m none">9</i>운영 안 함</span>
       </div>
       <div class="legend-note">칸 안의 숫자는 시작 시간이에요: 9시 · 12시 · 3시 · 6시 (각 3시간)</div>
@@ -185,6 +191,7 @@ function slotState(date, s) {
   const c = Object.assign({}, raw, { memo: pm.text });
   const past = date < data.today || (date === data.today && s.start <= data.time);
   if (past) return { st: 'past', c, text: '지난 시간', was: c.open || c.booked > 0 };
+  if (c.open && pm.tour) return { st: 'tour', c, text: '투어 (예약 불가)' };
   if (c.booked >= Math.max(c.cap, 1) && (c.booked > 0)) return { st: 'full', c, text: '예약 마감' };
   if (c.open && pm.closed) return { st: 'full', c, text: '예약 마감' };
   if (!c.open) return { st: 'none', c, text: '운영 안 함' };

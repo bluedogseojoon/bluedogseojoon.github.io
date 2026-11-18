@@ -69,6 +69,13 @@
   .m.free { background: var(--ok-bg); color: var(--ok); }
   .m.some { background: var(--amber-bg); color: var(--amber); }
   .m.full { background: var(--warn-bg); color: var(--warn); }
+  :root { --tour: #6B46C1; --tour-bg: #F0EAFB; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --tour: #B79CF5; --tour-bg: #2A2145; } }
+  :root[data-theme="dark"] { --tour: #B79CF5; --tour-bg: #2A2145; }
+  .m.tour { background: var(--tour-bg); color: var(--tour); }
+  .chip.tour { background: var(--tour-bg); color: var(--tour); }
+  .seg .tour.on { background: var(--tour-bg); border-color: var(--tour); color: var(--tour); font-weight: 700; }
+  .act.tour { border-color: var(--tour); color: var(--tour); }
   .m.none { background: transparent; color: var(--line); border: 1px dashed var(--line); line-height: 13px; }
   @media (min-width: 560px) { .grid { gap: 6px; } .m { font-size: 11px; height: 18px; line-height: 18px; } .m.none { line-height: 16px; } }
   .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--muted); margin-top: 12px; }
@@ -91,7 +98,7 @@
   .act.go { border-color: var(--ok); color: var(--ok); }
   .act.solid { background: var(--btn); border-color: var(--btn); color: #fff; }
   .edit { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 8px; align-items: center; }
-  .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; }
+  .seg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px; }
   .seg button { font: inherit; font-size: 14px; font-weight: 500; padding: 9px 4px; border-radius: 10px; cursor: pointer;
     border: 1px solid var(--line); background: var(--bg); color: var(--muted); }
   .seg .free.on { background: var(--ok-bg); border-color: var(--ok); color: var(--ok); font-weight: 700; }
@@ -122,7 +129,7 @@
   .c.on { background: var(--sea); border-color: var(--sea); color: #fff; }
   .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
   .btns button { padding: 13px; font-size: 15px; font-weight: 700; }
-  .btns.three { grid-template-columns: repeat(3, 1fr); }
+  .btns.three { grid-template-columns: repeat(2, 1fr); }
   .hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
 </style>
 </head>
@@ -159,6 +166,7 @@
       <div class="legend">
         <span><i class="m free">9</i>비어 있음</span>
         <span><i class="m full">9</i>마감</span>
+        <span><i class="m tour">9</i>투어</span>
         <span><i class="m none">9</i>운영 안 함</span>
       </div>
     </section>
@@ -176,11 +184,12 @@
       <label>시간</label>
       <div class="chips" id="bSlots"></div>
       <div class="two">
-        <div style="grid-column:1/-1"><label for="bMemo">회원에게 보일 내용 (선택)</label><input id="bMemo" maxlength="34" placeholder="예) 10시 이론"></div>
+        <div style="grid-column:1/-1"><label for="bMemo">회원에게 보일 내용 (선택)</label><input id="bMemo" maxlength="34" placeholder="예) 10시 이론, 오키나와 투어"></div>
       </div>
       <div class="btns three">
         <button class="act go" id="bOpen" type="button">비어 있음</button>
         <button class="act danger" id="bFull" type="button">마감</button>
+        <button class="act tour" id="bTour" type="button">투어</button>
         <button class="act" id="bClose" type="button">운영 안 함</button>
       </div>
       <div class="hint" id="bHint"></div>
@@ -252,6 +261,7 @@ function cellOf(date, key) { return (data.days[date] || {})[key] || { open: fals
 function stateOf(c) {
   const pm = SCHED.parseMemo(c.memo);
   if (!c.open) return c.booked ? { st: 'full', text: '운영 안 함 · 예약 ' + c.booked + '명' } : { st: 'none', text: '운영 안 함' };
+  if (pm.tour) return { st: 'tour', text: '투어' + (c.booked ? ' · 예약 ' + c.booked + '명' : '') };
   if (pm.closed || (c.booked > 0 && c.booked >= c.cap)) return { st: 'full', text: '마감' };
   if (c.booked > 0) return { st: 'some', text: '예약 ' + c.booked + '/' + c.cap };
   return { st: 'free', text: '비어 있음' };
@@ -312,7 +322,7 @@ function renderDay() {
 
   SLOTS.forEach(s => {
     const c = cellOf(selDate, s.key), st = stateOf(c), pm = SCHED.parseMemo(c.memo);
-    const cur = !c.open ? 'none' : (pm.closed || (c.booked > 0 && c.booked >= c.cap)) ? 'full' : 'free';
+    const cur = !c.open ? 'none' : pm.tour ? 'tour' : (pm.closed || (c.booked > 0 && c.booked >= c.cap)) ? 'full' : 'free';
     const card = el('div', 'slot' + (c.open ? ' open' : ''));
     const row = el('div', 'row');
     row.appendChild(el('span', 't', s.label));
@@ -323,9 +333,9 @@ function renderDay() {
     const memo = el('input'); memo.value = pm.text; memo.maxLength = 34;
     memo.placeholder = '회원에게 보일 내용 (예: 10시 이론)'; memo.setAttribute('aria-label', '메모');
     const save = (state, msg) => act('admin_save', { changes: [{ date: selDate, slot: s.key, open: state !== 'none', cap: 1,
-      memo: SCHED.makeMemo(state === 'full', memo.value) }] }, msg);
+      memo: SCHED.makeMemo(state, memo.value) }] }, msg);
     const seg = el('div', 'seg');
-    [['free', '비어 있음'], ['full', '마감'], ['none', '운영 안 함']].forEach(([k, label]) => {
+    [['free', '비어 있음'], ['full', '마감'], ['tour', '투어'], ['none', '운영 안 함']].forEach(([k, label]) => {
       const b = el('button', k + (cur === k ? ' on' : ''), label); b.type = 'button';
       b.onclick = () => { if (cur !== k) save(k, s.label + ' → ' + label); };
       seg.appendChild(b);
@@ -432,12 +442,13 @@ function bulk(state) {
   const dates = bulkDates();
   if (!dates.length || !bSlots.length) { toast('날짜·요일·시간을 골라 주세요'); return; }
   const changes = [];
-  dates.forEach(date => bSlots.forEach(slot => changes.push({ date, slot, open, cap: 1, memo: SCHED.makeMemo(state === 'full', $('bMemo').value) })));
-  act('admin_save', { changes }, changes.length + '칸을 \'' + ({ free: '비어 있음', full: '마감', none: '운영 안 함' })[state] + '\'으로 바꿨어요');
+  dates.forEach(date => bSlots.forEach(slot => changes.push({ date, slot, open, cap: 1, memo: SCHED.makeMemo(state, $('bMemo').value) })));
+  act('admin_save', { changes }, changes.length + '칸을 ' + ({ free: '비어 있음으로', full: '마감으로', tour: '투어로', none: '운영 안 함으로' })[state] + ' 바꿨어요');
 }
 $('bOpen').onclick = () => bulk('free');
 $('bFull').onclick = () => bulk('full');
 $('bClose').onclick = () => bulk('none');
+$('bTour').onclick = () => bulk('tour');
 
 /* 같은 탭에서는 다시 로그인하지 않아도 돼요 (탭을 닫으면 로그아웃) */
 (async () => {
