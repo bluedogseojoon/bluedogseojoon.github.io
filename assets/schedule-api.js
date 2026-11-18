@@ -3,7 +3,7 @@
    ✏️ 여기만 바꾸면 돼요: 구글 Apps Script 배포 주소를 "" 안에 붙여넣기
    비워두면 '미리보기 모드'로 동작해요. (이 기기 안에만 임시 저장, 진짜 예약 아님)
    ============================================================ */
-var SCHEDULE_API_URL = "";
+var SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbwzMlXbFhZvp-crgYSxRqh-rmUM4huN1QAJToJE8SoybPo1J7dwHN5KmIP-BKrgfwnw6g/exec";
 
 /* ---------- 아래는 손대지 않아도 돼요 ---------- */
 var SCHED = (function () {
