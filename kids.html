@@ -336,6 +336,22 @@
     .notice-list li { background:#fff; border:0.5px solid var(--gray-300); border-radius:12px; padding:0.9rem 1.25rem; font-size:14px; color:var(--navy); display:flex; gap:10px; align-items:flex-start; }
     .notice-list li .ico { color:var(--blue); font-size:18px; margin-top:2px; }
 
+    .gloss { margin-top:1.5rem; background:#fff; border:0.5px solid var(--gray-300); border-radius:12px; padding:1.25rem 1.25rem 0.5rem; }
+    .gloss-title { font-size:15px; font-weight:700; color:var(--navy); margin-bottom:0.75rem; }
+    .gloss dl { display:grid; grid-template-columns:1fr 1fr; gap:0 24px; }
+    .gloss dl div { padding:0.6rem 0; border-top:0.5px solid var(--gray-100); }
+    .gloss dt { font-size:14px; font-weight:600; color:var(--blue); }
+    .gloss dd { font-size:13px; color:var(--gray-500); line-height:1.55; }
+    .bring-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .bring-card { background:var(--blue-pale); border-radius:12px; padding:1.25rem; }
+    .bring-card.ready { background:var(--gray-50); border:0.5px solid var(--gray-300); }
+    .bring-card h3 { font-size:15px; color:var(--navy); margin-bottom:0.5rem; }
+    .bring-card ul { list-style:none; display:grid; gap:6px; }
+    .bring-card li { font-size:14px; color:var(--navy); padding-left:16px; position:relative; }
+    .bring-card li::before { content:'•'; position:absolute; left:2px; color:var(--blue); }
+    .bring-card li span { color:var(--gray-500); font-size:13px; }
+    @media (max-width: 640px) { .gloss dl, .bring-grid { grid-template-columns:1fr; } }
+
     @media (max-width: 640px) {
       .learn-grid { grid-template-columns:1fr 1fr; gap:10px; }
       .learn-card { padding:1rem; }
@@ -508,6 +524,10 @@
         <div class="junior-card"><div class="junior-num">4</div><div><strong>장비 활용 · 안전</strong><span>마스크·스노클·핀·수트 활용과 중량벨트 제거 기술</span></div></div>
       </div>
       <div class="tip-box"><strong>수업 중 기준을 통과하면 AIDA 2 자격증 발급도 가능해요</strong></div>
+      <div class="gloss">
+        <div class="gloss-title">어려운 말, 쉽게 풀어볼게요</div>
+        <dl><div><dt>압력평형 (이퀄라이징)</dt><dd>물속에서 귀가 먹먹하거나 아프지 않도록 귀 안의 압력을 맞춰주는 방법이에요</dd></div><div><dt>덕다이브</dt><dd>물 위에서 오리처럼 몸을 접어 머리부터 물속으로 들어가는 동작이에요</dd></div><div><dt>헤드다운 자세</dt><dd>내려갈 때 고개를 살짝 숙여 몸을 일자로 만드는 자세예요</dd></div><div><dt>바이핀</dt><dd>양발에 하나씩 신는 일반 오리발이에요</dd></div><div><dt>선헤엄</dt><dd>제자리에서 팔다리를 저어 얼굴을 물 위에 띄우고 버티는 생존 기술이에요</dd></div><div><dt>회복호흡</dt><dd>물 밖으로 나온 뒤 숨을 빠르게 안정시키는 호흡법이에요</dd></div><div><dt>양성부력</dt><dd>힘을 빼면 몸이 저절로 떠오르는 상태예요</dd></div><div><dt>부비강</dt><dd>코 주변 얼굴뼈 속의 빈 공간이에요. 물속에서 압력 변화를 느끼는 곳이에요</dd></div><div><dt>중량벨트</dt><dd>몸이 물에 쉽게 가라앉도록 허리에 차는 무게 벨트예요</dd></div></dl>
+      </div>
     </div>
   </section>
 
@@ -534,6 +554,36 @@
       <div class="incl">
         <div><b>포함</b>장비 대여 · 수중 촬영</div>
         <div class="no"><b>불포함</b>풀장비 · 자격증 발급비</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 준비물 -->
+  <section class="for-who-section">
+    <div class="container">
+      <div class="section-label">CHECKLIST</div>
+      <div class="section-title">수업 준비물</div>
+      <p class="section-sub">다이빙 장비는 블루독에서 빌려드려요. 아래만 챙겨 오시면 돼요</p>
+      <div class="bring-grid">
+        <div class="bring-card">
+          <h3>챙겨 오실 것</h3>
+          <ul>
+            <li>수영복 <span>(래시가드도 괜찮아요)</span></li>
+            <li>수모 <span>(수영 모자)</span></li>
+            <li>수건</li>
+            <li>세면도구 · 갈아입을 옷</li>
+            <li>마실 물</li>
+          </ul>
+        </div>
+        <div class="bring-card ready">
+          <h3>블루독이 준비해요</h3>
+          <ul>
+            <li>마스크 · 스노클</li>
+            <li>핀 <span>(오리발)</span></li>
+            <li>수트 등 수업 장비</li>
+            <li>수중 사진 촬영</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
