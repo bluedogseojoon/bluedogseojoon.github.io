@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>키즈 프리다이빙 | 블루독 프리다이빙</title>
+  <meta name="description" content="만 6세부터 가능한 부산 블루독 키즈 프리다이빙. AIDA 돌핀(만 6~11세)·주니어(만 12~15세) 과정, 기본 1:1 맞춤 수업. 수영을 못해도 괜찮아요." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="블루독 프리다이빙" />
+  <meta property="og:title" content="키즈 프리다이빙 | 블루독 프리다이빙" />
+  <meta property="og:description" content="만 6세부터 가능한 부산 블루독 키즈 프리다이빙. AIDA 돌핀(만 6~11세)·주니어(만 12~15세) 과정, 기본 1:1 맞춤 수업. 수영을 못해도 괜찮아요." />
+  <meta property="og:url" content="https://bluedogseojoon.github.io/kids.html" />
+  <meta property="og:image" content="https://bluedogseojoon.github.io/images/og-main.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://bluedogseojoon.github.io/images/og-main.jpg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      line-height: 1.7;
+    }
+    :root {
+      --navy:       #0a1628;
+      --navy-mid:   #1a3a6e;
+      --blue:       #2563a8;
+      --blue-light: #5b9bd5;
+      --blue-pale:  #e6f1fb;
+      --gray-50:    #f8f9fc;
+      --gray-100:   #f0f2f7;
+      --gray-300:   #c8cdd8;
+      --gray-500:   #6b7280;
+      --radius:     8px;
+    }
+
+    /* 네비게이션 */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10, 22, 40, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid rgba(255,255,255,0.08);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+    .logo { color: #fff; font-size: 17px; font-weight: 600; letter-spacing: 0.5px; text-decoration: none; }
+    .logo span { color: var(--blue-light); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: var(--blue); color: #fff; border: none;
+      padding: 9px 20px; border-radius: var(--radius);
+      font-size: 14px; font-weight: 500; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: #1d4f8a; }
+
+    /* 히어로 */
+    .hero {
+      min-height: 60vh;
+      background: linear-gradient(160deg, #0a1628 0%, #1a3a6e 55%, #0d2b52 100%);
+      display: flex; align-items: center; justify-content: center;
+      padding: 100px 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .circle {
+      position: absolute; border-radius: 50%;
+      background: rgba(91,155,213,0.1);
+      animation: drift 8s ease-in-out infinite;
+    }
+    .circle:nth-child(1) { width: 300px; height: 300px; left: -80px; top: 10%; }
+    .circle:nth-child(2) { width: 200px; height: 200px; right: -50px; bottom: 10%; animation-delay: 2s; }
+    @keyframes drift {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .hero-content { position: relative; z-index: 1; text-align: center; max-width: 600px; }
+    .breadcrumb { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+    .breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .breadcrumb a:hover { color: rgba(255,255,255,0.7); }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(91,155,213,0.2); border: 0.5px solid rgba(91,155,213,0.45);
+      color: #90bce8; font-size: 11px; letter-spacing: 2px;
+      padding: 5px 16px; border-radius: 20px; margin-bottom: 1.25rem;
+    }
+    .hero h1 { font-size: clamp(26px, 4vw, 40px); font-weight: 600; color: #fff; line-height: 1.25; margin-bottom: 1rem; }
+    .hero h1 em { font-style: normal; color: #90bce8; }
+    .hero-desc { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 2rem; }
+    .hero-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .hero-tag {
+      background: rgba(255,255,255,0.08); border: 0.5px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.7); font-size: 12px; padding: 5px 14px; border-radius: 20px;
+    }
+
+    /* 섹션 공통 */
+    section { padding: 4.5rem 2rem; }
+    .container { max-width: 860px; margin: 0 auto; }
+    .section-label { font-size: 11px; letter-spacing: 2px; color: var(--blue); font-weight: 600; margin-bottom: 0.75rem; }
+    .section-title { font-size: clamp(20px, 3vw, 28px); font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
+    .section-sub { font-size: 14px; color: var(--gray-500); margin-bottom: 2.5rem; }
+
+    /* 핵심 정보 카드 */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 3rem;
+    }
+    .info-card {
+      background: var(--blue-pale);
+      border-radius: 12px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+    .info-icon { font-size: 28px; margin-bottom: 10px; }
+    .info-label { font-size: 11px; color: var(--blue); font-weight: 600; letter-spacing: 1px; margin-bottom: 4px; }
+    .info-value { font-size: 17px; font-weight: 600; color: var(--navy); line-height: 1.4; }
+
+    /* 이런 분께 */
+    .for-who-section { background: var(--gray-50); }
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .who-card {
+      background: #fff;
+      border: 0.5px solid var(--gray-300);
+      border-radius: 12px;
+      padding: 1.25rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .who-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+    .who-text { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+    .who-text strong { display: block; font-size: 14px; color: var(--navy); font-weight: 600; margin-bottom: 2px; }
+
+    /* 진행 과정 */
+    .process-list { display: flex; flex-direction: column; gap: 0; }
+    .process-item {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding-bottom: 2rem;
+      position: relative;
+    }
+    .process-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 40px;
+      bottom: 0;
+      width: 1px;
+      background: var(--gray-300);
+    }
+    .process-num {
+      width: 40px; height: 40px;
+      background: var(--navy); color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 600;
+      flex-shrink: 0;
+    }
+    .process-content { padding-top: 8px; }
+    .process-title { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .process-desc { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+
+    /* 요금 */
+    .price-section { background: var(--navy); }
+    .price-section .section-label { color: var(--blue-light); }
+    .price-section .section-title { color: #fff; }
+    .price-section .section-sub { color: rgba(255,255,255,0.5); }
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .price-card {
+      background: rgba(255,255,255,0.06);
+      border: 0.5px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+    }
+    .price-card.featured {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .price-type { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 0.75rem; }
+    .price-card.featured .price-type { color: rgba(255,255,255,0.8); }
+    .price-amount { font-size: 28px; font-weight: 600; color: #fff; margin-bottom: 0.5rem; }
+    .price-unit { font-size: 13px; color: rgba(255,255,255,0.5); }
+    .price-card.featured .price-unit { color: rgba(255,255,255,0.75); }
+    .price-note {
+      margin-top: 1.5rem;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+    }
+
+
+    /* CTA */
+    .cta-section { background: var(--navy-mid, #1a3a6e); text-align: center; }
+    .cta-section h2 { font-size: clamp(20px, 3vw, 26px); font-weight: 600; color: #fff; margin-bottom: 0.75rem; }
+    .cta-section p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 2rem; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--blue); color: #fff;
+      padding: 13px 36px; border-radius: var(--radius);
+      font-size: 15px; font-weight: 500;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #1d4f8a; }
+
+    /* 푸터 */
+    footer {
+      background: var(--navy); padding: 1.5rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; }
+    .footer-logo span { color: var(--blue-light); }
+    .footer-back { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-back:hover { color: rgba(255,255,255,0.7); }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      section { padding: 3rem 1.25rem; }
+      .process-item { gap: 1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .circle { animation: none; }
+    }
+
+    /* ── 공통: 카카오 버튼 노란색 / 사진 히어로 ── */
+    a[href*="pf.kakao.com"].nav-cta,
+    a[href*="pf.kakao.com"].btn-primary,
+    a[href*="pf.kakao.com"].btn-outline {
+      background: #FEE500; color: #191919; border: none; font-weight: 600; text-decoration: none;
+    }
+    a[href*="pf.kakao.com"].nav-cta:hover,
+    a[href*="pf.kakao.com"].btn-primary:hover,
+    a[href*="pf.kakao.com"].btn-outline:hover { background: #F5D800; }
+    .hero.has-photo .circle { display: none; }
+    .hero.has-photo { background-size: cover; background-position: center; }
+    .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .photo-grid img {
+      width: 100%; height: 240px; object-fit: cover; border-radius: 12px; display: block;
+    }
+    body { word-break: keep-all; }
+    .logo { white-space: nowrap; }
+    @media (max-width: 640px) {
+      .logo { font-size: 15px; }
+      .nav-cta { padding: 7px 12px; font-size: 12px; white-space: nowrap; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+      .photo-grid img { height: 160px; }
+    }
+    @media (max-width: 640px) {
+      .info-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    }
+
+    /* ── 키즈 페이지 전용 ── */
+    .learn-note { display:inline-block; margin-top:-1.5rem; margin-bottom:2rem; font-size:13px; color:var(--blue); background:var(--blue-pale); padding:6px 14px; border-radius:20px; font-weight:600; }
+    .learn-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .learn-card { background:#fff; border:0.5px solid var(--gray-300); border-radius:12px; padding:1.25rem; }
+    .learn-num { font-size:13px; font-weight:700; color:var(--blue-light); letter-spacing:1px; margin-bottom:4px; }
+    .learn-title { font-size:16px; font-weight:600; color:var(--navy); margin-bottom:2px; }
+    .learn-desc { font-size:13px; color:var(--gray-500); line-height:1.6; }
+
+    .flow { display:flex; align-items:stretch; gap:8px; margin-bottom:1.25rem; }
+    .flow-step { flex:1; text-align:center; border-radius:12px; padding:1rem 0.5rem; background:var(--gray-50); border:0.5px solid var(--gray-300); }
+    .flow-arrow { display:flex; align-items:center; color:var(--gray-300); font-size:20px; }
+    .flow-lv { font-size:12px; color:var(--gray-500); margin-bottom:2px; }
+    .flow-name { font-size:16px; font-weight:700; color:var(--navy); }
+    .flow-step.bronze { background:#fbf1e8; border-color:#e7c7a5; }
+    .flow-step.silver { background:#f1f3f6; border-color:#c9ced8; }
+    .flow-step.gold   { background:#fdf6df; border-color:#ecd48a; }
+    .tip-box { background:var(--blue-pale); border-radius:12px; padding:1.1rem 1.25rem; font-size:14px; color:var(--navy); line-height:1.7; margin-top:12px; }
+    .tip-box strong { color:var(--blue); }
+
+    .course-head { display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:8px; margin:2.5rem 0 1rem; }
+    .course-head:first-of-type { margin-top:0; }
+    .course-en { font-size:11px; letter-spacing:2px; color:var(--blue); font-weight:600; }
+    .course-name { font-size:22px; font-weight:700; color:var(--navy); }
+    .course-meta { font-size:13px; color:var(--gray-500); text-align:right; }
+    .course-meta b { color:var(--navy); }
+    .stage { display:grid; grid-template-columns:110px 1fr; gap:16px; background:#fff; border:0.5px solid var(--gray-300); border-radius:12px; padding:1.25rem; margin-bottom:12px; }
+    .stage-badge { border-radius:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0.75rem 0.5rem; text-align:center; }
+    .stage-badge b { font-size:17px; color:var(--navy); }
+    .stage-badge span { font-size:11px; letter-spacing:1.5px; color:var(--gray-500); }
+    .stage.bronze .stage-badge { background:#fbf1e8; }
+    .stage.silver .stage-badge { background:#f1f3f6; }
+    .stage.gold   .stage-badge { background:#fdf6df; }
+    .stage-items { display:grid; grid-template-columns:1fr 1fr; gap:10px 18px; }
+    .stage-item strong { display:block; font-size:14px; color:var(--navy); font-weight:600; }
+    .stage-item span { font-size:13px; color:var(--gray-500); line-height:1.55; }
+    .junior-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .junior-card { background:#fff; border:0.5px solid var(--gray-300); border-radius:12px; padding:1.1rem 1.25rem; display:flex; gap:12px; }
+    .junior-num { width:28px; height:28px; border-radius:50%; background:var(--navy); color:#fff; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .junior-card strong { display:block; font-size:14px; color:var(--navy); }
+    .junior-card span { font-size:13px; color:var(--gray-500); line-height:1.55; }
+
+    .price-grid.kids { grid-template-columns:repeat(3,1fr); }
+    .price-grid.kids .price-amount { font-size:24px; }
+    .opt-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:2rem; }
+    .opt-card { background:rgba(255,255,255,0.06); border:0.5px solid rgba(255,255,255,0.12); border-radius:12px; padding:1.1rem 1.25rem; }
+    .opt-card strong { display:block; color:#fff; font-size:15px; margin-bottom:2px; }
+    .opt-card span { font-size:13px; color:rgba(255,255,255,0.6); line-height:1.55; }
+    .opt-card em { font-style:normal; color:#FEE500; font-weight:600; }
+    .incl { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+    .incl div { border-radius:12px; padding:0.9rem 1.25rem; font-size:14px; color:#fff; background:rgba(91,155,213,0.18); }
+    .incl div.no { background:rgba(255,255,255,0.04); color:rgba(255,255,255,0.6); }
+    .incl b { display:block; font-size:12px; letter-spacing:1px; color:#90bce8; margin-bottom:2px; }
+    .incl div.no b { color:rgba(255,255,255,0.45); }
+
+    .pool-table { width:100%; border-collapse:collapse; font-size:14px; background:#fff; border-radius:12px; overflow:hidden; box-shadow:var(--shadow-sm); }
+    .pool-table th, .pool-table td { padding:0.85rem 1rem; text-align:left; border-bottom:0.5px solid var(--gray-100); }
+    .pool-table th { background:var(--navy); color:#fff; font-weight:600; font-size:13px; }
+    .pool-table td:first-child { color:var(--gray-500); white-space:nowrap; width:70px; }
+    .pool-table td.name { font-weight:600; color:var(--navy); }
+    .pool-table .age { display:inline-block; font-size:11px; color:var(--blue); background:var(--blue-pale); padding:2px 8px; border-radius:10px; margin-left:6px; font-weight:600; }
+    .notice-list { list-style:none; display:grid; gap:10px; }
+    .notice-list li { background:#fff; border:0.5px solid var(--gray-300); border-radius:12px; padding:0.9rem 1.25rem; font-size:14px; color:var(--navy); display:flex; gap:10px; align-items:flex-start; }
+    .notice-list li .ico { color:var(--blue); font-size:18px; margin-top:2px; }
+
+    @media (max-width: 640px) {
+      .learn-grid { grid-template-columns:1fr 1fr; gap:10px; }
+      .learn-card { padding:1rem; }
+      .flow { flex-wrap:wrap; gap:6px; }
+      .flow-step { flex:1 1 40%; padding:0.75rem 0.25rem; }
+      .flow-arrow { display:none; }
+      .stage { grid-template-columns:1fr; gap:12px; }
+      .stage-badge { flex-direction:row; gap:8px; justify-content:flex-start; padding:0.5rem 0.9rem; }
+      .stage-items, .junior-grid, .opt-grid { grid-template-columns:1fr; }
+      .price-grid.kids { grid-template-columns:1fr 1fr; gap:10px; }
+      .price-grid.kids .price-card { padding:1.1rem 0.75rem; }
+      .price-grid.kids .price-amount { font-size:20px; }
+      .course-meta { text-align:left; }
+      .pool-table th, .pool-table td { padding:0.7rem 0.6rem; font-size:13px; }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/polish.css" />
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">BLUE<span>DOG</span> FREEDIVING</a>
+    <ul class="nav-links">
+      <li><a href="index.html#programs">프로그램</a></li>
+      <li><a href="instructors.html">강사 소개</a></li>
+      <li><a href="gallery.html">갤러리</a></li>
+      <li><a href="index.html#location">오시는 길</a></li>
+      <li><a href="index.html#contact">문의</a></li>
+    </ul>
+    <a href="http://pf.kakao.com/_exhUms/chat" target="_blank" class="nav-cta">카카오로 문의하기</a>
+  </nav>
+
+  <!-- 히어로 -->
+  <section class="hero has-photo" style="background-image: linear-gradient(180deg, rgba(10,22,40,0.55) 0%, rgba(10,22,40,0.6) 45%, rgba(10,22,40,0.85) 100%), url('images/prog-kids.jpg'); background-position: 55% center;">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="hero-content">
+      <p class="breadcrumb"><a href="index.html">홈</a> · 프로그램 · 키즈 프리다이빙</p>
+      <div class="hero-badge">KIDS FREEDIVING</div>
+      <h1>아이의 속도에 맞춘<br><em>프리다이빙 수업</em></h1>
+      <p class="hero-desc">
+        잘하는 아이보다, 물이 즐거워지는 아이로.<br>
+        아이의 호기심이 용기로, 프리다이빙이 특별한 성장 경험이 됩니다.
+      </p>
+      <div class="hero-tags">
+        <span class="hero-tag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg> 만 6세부터 가능</span>
+        <span class="hero-tag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 7c2 0 2-2 5-2s3 2 5 2 2-2 5-2 3 2 5 2"/><path d="M2 12c2 0 2-2 5-2s3 2 5 2 2-2 5-2 3 2 5 2"/><path d="M2 17c2 0 2-2 5-2s3 2 5 2 2-2 5-2 3 2 5 2"/></svg> 수영 못해도 OK</span>
+        <span class="hero-tag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10V6Z"/></svg> 기본 1:1 수업</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 핵심 정보 -->
+  <section>
+    <div class="container">
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+          <div class="info-label">대상</div>
+          <div class="info-value">만 6~15세</div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div class="info-label">수업 시간</div>
+          <div class="info-value">1.5~2시간</div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10V6Z"/></svg></div>
+          <div class="info-label">수업 방식</div>
+          <div class="info-value">강사와 1:1</div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 8 5-3 5 3-1.5-8"/></svg></div>
+          <div class="info-label">자격증</div>
+          <div class="info-value">AIDA 국제 자격</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 무엇을 배워요 -->
+  <section class="for-who-section">
+    <div class="container">
+      <div class="section-label">WHAT WE LEARN</div>
+      <div class="section-title">무엇을 배워요?</div>
+      <p class="section-sub">놀이처럼 즐겁게, 물에서 스스로를 지키는 힘을 길러요</p>
+      <div class="learn-note">수심·거리·시간 기록을 겨루지 않아요</div>
+      <div class="learn-grid">
+        <div class="learn-card"><div class="learn-num">01</div><div class="learn-title">물과 친해지기</div><div class="learn-desc">얕은 수심에서 놀이로 적응</div></div>
+        <div class="learn-card"><div class="learn-num">02</div><div class="learn-title">호흡 조절</div><div class="learn-desc">물에서 편안해지는 호흡법</div></div>
+        <div class="learn-card"><div class="learn-num">03</div><div class="learn-title">부력</div><div class="learn-desc">물에 뜨는 감각 익히기</div></div>
+        <div class="learn-card"><div class="learn-num">04</div><div class="learn-title">압력평형</div><div class="learn-desc">귀를 지키는 올바른 방법</div></div>
+        <div class="learn-card"><div class="learn-num">05</div><div class="learn-title">핀과 마스크 사용</div><div class="learn-desc">장비 사용법 익히기</div></div>
+        <div class="learn-card"><div class="learn-num">06</div><div class="learn-title">생존수영</div><div class="learn-desc">물놀이 안전 수칙</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 수업 흐름 -->
+  <section>
+    <div class="container">
+      <div class="section-label">COURSE FLOW</div>
+      <div class="section-title">돌핀 수업 흐름 <span style="font-size:15px;color:var(--gray-500);font-weight:500;">만 6~11세</span></div>
+      <p class="section-sub">첫 수업 능력평가로 수준을 확인하고, 아이의 속도에 맞춰 진행해요</p>
+      <div class="flow">
+        <div class="flow-step"><div class="flow-lv">첫 수업</div><div class="flow-name">능력평가</div></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step bronze"><div class="flow-lv">초급</div><div class="flow-name">브론즈돌핀</div></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step silver"><div class="flow-lv">중급</div><div class="flow-name">실버돌핀</div></div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step gold"><div class="flow-lv">고급</div><div class="flow-name">골드돌핀</div></div>
+      </div>
+      <p style="font-size:13px;color:var(--gray-500);">• 능력평가에서 우수한 아이들은 실버, 골드 돌핀 과정에 바로 배정될 수 있어요</p>
+      <div class="tip-box">
+        <strong>첫 등록 시 수업 4회 이상 권장</strong><br>
+        능력평가 1회 + 브론즈 수업 3회 · 이후 3회 이상씩 이어서 등록하면 단계별 자격증 취득까지 자연스럽게 이어져요.<br>
+        <strong>주니어(만 12~15세)</strong>는 능력평가 1회 + 최소 수업 4회로 진행해요.
+      </div>
+    </div>
+  </section>
+
+  <!-- 과정 상세 -->
+  <section class="for-who-section">
+    <div class="container">
+      <div class="section-label">AIDA DOLPHIN &amp; JUNIOR</div>
+      <div class="section-title">수업에서 이렇게 배워요</div>
+      <p class="section-sub">국제 프리다이빙 협회 AIDA의 어린이·청소년 공식 과정이에요</p>
+
+      <div class="course-head">
+        <div><div class="course-en">AIDA DOLPHIN</div><div class="course-name">돌핀 과정</div></div>
+        <div class="course-meta"><b>만 6~11세</b><br>단계별 수업 3회 이상</div>
+      </div>
+      <div class="stage bronze">
+        <div class="stage-badge"><b>브론즈</b><span>BRONZE</span></div>
+        <div class="stage-items">
+          <div class="stage-item"><strong>물 적응 · 호흡 조절</strong><span>공기 방울 내뿜기, 회복호흡 기초</span></div>
+          <div class="stage-item"><strong>생존 수영 · 도움 요청</strong><span>물 위에 뜨기, 선헤엄, 신호 보내기</span></div>
+          <div class="stage-item"><strong>바이핀 핀차기</strong><span>마스크·스노클·핀 착용, 수중 유영</span></div>
+          <div class="stage-item"><strong>얕은 수심 잠수</strong><span>바닥의 물체 건져오기</span></div>
+        </div>
+      </div>
+      <div class="stage silver">
+        <div class="stage-badge"><b>실버</b><span>SILVER</span></div>
+        <div class="stage-items">
+          <div class="stage-item"><strong>압력평형 기초</strong><span>수압과 귀·부비강 구조 이해</span></div>
+          <div class="stage-item"><strong>올바른 머리 자세</strong><span>고개 숙임(헤드다운) 자세 이해</span></div>
+          <div class="stage-item"><strong>덕다이브</strong><span>수면에서 덕다이브 연습</span></div>
+          <div class="stage-item"><strong>줄 잡고 다이빙</strong><span>줄을 당기며 압력평형 실천</span></div>
+        </div>
+      </div>
+      <div class="stage gold">
+        <div class="stage-badge"><b>골드</b><span>GOLD</span></div>
+        <div class="stage-items">
+          <div class="stage-item"><strong>줄 당기기 · 핀차기 다이빙</strong><span>두 가지 다이빙 방법의 차이 이해</span></div>
+          <div class="stage-item"><strong>반복 압력평형</strong><span>다이빙 중 2회 이상 실천</span></div>
+          <div class="stage-item"><strong>긴장완화 · 양성부력</strong><span>1분 이완, 부력으로 편안하게 상승</span></div>
+          <div class="stage-item"><strong>회복호흡</strong><span>다이빙 후 호흡을 안정적으로 회복</span></div>
+        </div>
+      </div>
+
+      <div class="course-head">
+        <div><div class="course-en">AIDA JUNIOR</div><div class="course-name">주니어 과정</div></div>
+        <div class="course-meta"><b>만 12~15세</b><br>수업 최소 4회 이상</div>
+      </div>
+      <div class="junior-grid">
+        <div class="junior-card"><div class="junior-num">1</div><div><strong>줄 당기기 + 핀차기 다이빙</strong><span>올바른 머리 자세로 덕다이브와 압력평형을 반복해 익혀요</span></div></div>
+        <div class="junior-card"><div class="junior-num">2</div><div><strong>수압 · 부력 · 압력평형</strong><span>왜 필요한지 이해하고 스스로 적용하는 이론·실습</span></div></div>
+        <div class="junior-card"><div class="junior-num">3</div><div><strong>긴장완화 · 회복호흡</strong><span>다이빙 전 이완, 다이빙 후 회복호흡까지 한 세트로</span></div></div>
+        <div class="junior-card"><div class="junior-num">4</div><div><strong>장비 활용 · 안전</strong><span>마스크·스노클·핀·수트 활용과 중량벨트 제거 기술</span></div></div>
+      </div>
+      <div class="tip-box"><strong>수업 중 기준을 통과하면 AIDA 2 자격증 발급도 가능해요</strong></div>
+    </div>
+  </section>
+
+  <!-- 요금 -->
+  <section class="price-section">
+    <div class="container">
+      <div class="section-label">PRICE</div>
+      <div class="section-title">수업료 안내</div>
+      <p class="section-sub">횟수를 늘릴수록 회당 수업료가 내려가요</p>
+      <div class="price-grid kids">
+        <div class="price-card"><div class="price-type">체험다이빙</div><div class="price-amount">150,000원</div><div class="price-unit">1회</div></div>
+        <div class="price-card"><div class="price-type">월 1회</div><div class="price-amount">150,000원</div><div class="price-unit">회당 150,000원</div></div>
+        <div class="price-card"><div class="price-type">월 2회</div><div class="price-amount">280,000원</div><div class="price-unit">회당 140,000원</div></div>
+        <div class="price-card"><div class="price-type">월 3회</div><div class="price-amount">390,000원</div><div class="price-unit">회당 130,000원</div></div>
+        <div class="price-card featured"><div class="price-type">월 4회 · 첫 등록 추천</div><div class="price-amount">480,000원</div><div class="price-unit">회당 120,000원</div></div>
+        <div class="price-card"><div class="price-type">월 4회 이상</div><div class="price-amount">120,000원</div><div class="price-unit">회당</div></div>
+      </div>
+      <div class="opt-grid">
+        <div class="opt-card"><strong>기본 1:1 수업</strong><span>강사와 아이가 1:1로 진행하는 맞춤 수업</span></div>
+        <div class="opt-card"><strong>만 10세 이상 그룹 수업</strong><span>1:3까지 가능하며 <em>10% 할인</em> 적용</span></div>
+        <div class="opt-card"><strong>부모님도 동시간대 수업 가능</strong><span>자녀와 같은 시간에 함께 수업을 들으며 아이의 성장을 직접 경험해요</span></div>
+        <div class="opt-card"><strong>동성 강사일 경우 샤워실 케어</strong><span>아이의 안전과 편의를 위한 샤워실 케어를 제공해요</span></div>
+      </div>
+      <div class="incl">
+        <div><b>포함</b>장비 대여 · 수중 촬영</div>
+        <div class="no"><b>불포함</b>풀장비 · 자격증 발급비</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 풀장 안내 -->
+  <section>
+    <div class="container">
+      <div class="section-label">POOL</div>
+      <div class="section-title">풀장 안내</div>
+      <p class="section-sub">아이의 단계와 일정에 맞는 풀장에서 진행해요</p>
+      <table class="pool-table">
+        <thead><tr><th>지역</th><th>풀장</th><th>수심</th></tr></thead>
+        <tbody>
+          <tr><td>김해</td><td class="name">다이브채널</td><td>4m</td></tr>
+          <tr><td>부산</td><td class="name">풀식스</td><td>6m</td></tr>
+          <tr><td>부산</td><td class="name">서면 DIT</td><td>6m</td></tr>
+          <tr><td>밀양</td><td class="name">밀양아리랑</td><td>1.3 / 5 / 12m</td></tr>
+          <tr><td>부산</td><td class="name">북항마리나<span class="age">만 10세 이상</span></td><td>1.3 / 3 / 5 / 10 / 24m</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 알아두세요 -->
+  <section class="for-who-section">
+    <div class="container">
+      <div class="section-label">NOTICE</div>
+      <div class="section-title">부모님께 알려드려요</div>
+      <p class="section-sub">수업 전에 꼭 읽어봐 주세요</p>
+      <ul class="notice-list">
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>수업 시간은 1시간 30분~2시간 진행돼요</li>
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>아이의 컨디션에 따라 수업 시간은 조절될 수 있어요</li>
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>수영을 못해도 괜찮아요. 깊은 물에 익숙해질 수 있어요</li>
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>각 과정은 수업 횟수보다 아이의 적응 능력과 흥미가 더 중요해요</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>지금, 우리 아이에게<br>특별한 경험을 선물하세요!</h2>
+      <p>카카오톡으로 아이 나이와 수영 경험을 알려주시면 맞는 과정을 안내해드려요</p>
+      <a href="http://pf.kakao.com/_exhUms/chat" target="_blank" class="btn-primary">
+        카카오톡으로 상담하기
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <a href="index.html" class="footer-logo">BLUE<span>DOG</span> FREEDIVING</a>
+    <div class="footer-info">
+      블루독 프리다이빙 · 부산광역시 부산진구 성지로34번길 18 1층 · 수상레저교육업<br>
+      대표: 이서준 · 사업자번호: 563-35-01313
+    </div>
+    <ul class="footer-links">
+      <li><a href="https://www.instagram.com/bluedog_seojoon/" target="_blank">인스타그램</a></li>
+      <li><a href="https://blog.naver.com/soon_doldol" target="_blank">네이버 블로그</a></li>
+    </ul>
+  </footer>
+
+
+  <script src="assets/polish.js" defer></script>
+</body>
+</html>
