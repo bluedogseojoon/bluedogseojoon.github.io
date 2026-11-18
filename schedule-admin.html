@@ -166,7 +166,7 @@
     <section class="card" id="day" hidden></section>
 
     <details class="card" id="bulk">
-      <summary>📅 한 번에 스케줄 넣기</summary>
+      <summary id="bTitle">📅 한 번에 스케줄 넣기</summary>
       <div class="two">
         <div><label for="bFrom">시작일</label><input type="date" id="bFrom"></div>
         <div><label for="bTo">종료일</label><input type="date" id="bTo"></div>
@@ -235,6 +235,7 @@ function setData(r) {
   (r.bookings || []).forEach(b => { const k = b.date + '|' + b.slot; (data.people[k] = data.people[k] || []).push(b); });
   if (!selDate || selDate.slice(0, 7) !== month) selDate = month === r.thisMonth ? r.today : month + '-01';
   renderCalendar(); renderDay();
+  bulkToMonth();
 }
 
 async function act(action, extra, doneMsg) {
@@ -381,12 +382,21 @@ function renderDay() {
 
 /* ---------- 한 번에 넣기 ---------- */
 let bDays = [0, 2, 3, 4, 5, 6], bSlots = SLOTS.map(s => s.key);
+/* '한 번에 넣기' 기간은 지금 보고 있는 달 전체로 자동으로 맞춰요 */
+let bulkMonth = '';
+function bulkToMonth() {
+  if (!initBulk.done || bulkMonth === month) return;
+  bulkMonth = month;
+  const [y, m] = month.split('-').map(Number);
+  const first = month + '-01';
+  $('bFrom').value = first < data.today ? data.today : first;
+  $('bTo').value = month + '-' + pad(new Date(y, m, 0).getDate());
+  $('bTitle').textContent = '📅 ' + m + '월 한 번에 넣기';
+  renderBulkHint();
+}
 function initBulk() {
   if (initBulk.done) return; initBulk.done = true;
-  const [y, m] = data.thisMonth.split('-').map(Number);
-  $('bFrom').value = data.today;
-  $('bTo').value = data.thisMonth + '-' + pad(new Date(y, m, 0).getDate());
-  renderBulk();
+  renderBulk(); bulkToMonth();
   ['bFrom', 'bTo'].forEach(id => $(id).addEventListener('change', renderBulkHint));
 }
 function renderBulk() {
