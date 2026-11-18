@@ -106,5 +106,10 @@ var SCHED = (function () {
     return fetch(SCHEDULE_API_URL, { method: 'POST', body: JSON.stringify(body) }).then(function (r) { return r.json(); });
   }
 
-  return { DEMO: DEMO, SLOTS: SLOTS, get: get, post: post, addMonths: addMonths };
+  /* 강사님이 '마감'으로 표시한 시간은 메모 앞에 [마감] 글자를 붙여서 저장해요 */
+  var TAG = '[마감]';
+  function parseMemo(m) { m = String(m || ''); var c = m.indexOf(TAG) === 0; return { closed: c, text: (c ? m.slice(TAG.length) : m).trim() }; }
+  function makeMemo(closed, text) { text = String(text || '').trim(); return closed ? (TAG + ' ' + text).trim() : text; }
+
+  return { DEMO: DEMO, SLOTS: SLOTS, get: get, post: post, addMonths: addMonths, parseMemo: parseMemo, makeMemo: makeMemo };
 })();

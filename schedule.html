@@ -178,13 +178,16 @@ let range = null;      // { first, last } 볼 수 있는 달
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
 function slotState(date, s) {
-  const c = (data.days[date] || {})[s.key] || { open: false, cap: 0, booked: 0, memo: '' };
+  const raw = (data.days[date] || {})[s.key] || { open: false, cap: 0, booked: 0, memo: '' };
+  const pm = SCHED.parseMemo(raw.memo);
+  const c = Object.assign({}, raw, { memo: pm.text });
   const past = date < data.today || (date === data.today && s.start <= data.time);
   if (past) return { st: 'past', c, text: '지난 시간', was: c.open || c.booked > 0 };
   if (c.booked >= Math.max(c.cap, 1) && (c.booked > 0)) return { st: 'full', c, text: '예약 마감' };
+  if (c.open && pm.closed) return { st: 'full', c, text: '예약 마감' };
   if (!c.open) return { st: 'none', c, text: '운영 안 함' };
   if (c.booked > 0) return { st: 'some', c, text: '예약 있음 · ' + (c.cap - c.booked) + '자리 남음' };
-  return { st: 'free', c, text: c.cap > 1 ? '비어 있음 · ' + c.cap + '자리' : '비어 있음' };
+  return { st: 'free', c, text: '비어 있음' };
 }
 
 async function load(m, keep) {

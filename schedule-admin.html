@@ -90,9 +90,14 @@
   .act.danger { border-color: var(--warn); color: var(--warn); }
   .act.go { border-color: var(--ok); color: var(--ok); }
   .act.solid { background: var(--btn); border-color: var(--btn); color: #fff; }
-  .edit { display: grid; grid-template-columns: 90px 1fr auto; gap: 8px; margin-top: 10px; align-items: center; }
+  .edit { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 8px; align-items: center; }
+  .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; }
+  .seg button { font: inherit; font-size: 14px; font-weight: 500; padding: 9px 4px; border-radius: 10px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--bg); color: var(--muted); }
+  .seg .free.on { background: var(--ok-bg); border-color: var(--ok); color: var(--ok); font-weight: 700; }
+  .seg .full.on { background: var(--warn-bg); border-color: var(--warn); color: var(--warn); font-weight: 700; }
+  .seg .none.on { background: var(--line); border-color: var(--muted); color: var(--text); font-weight: 700; }
   .edit input, .edit select { padding: 8px 10px; font-size: 15px; }
-  @media (max-width: 420px) { .edit { grid-template-columns: 80px 1fr; } .edit .act { grid-column: 1 / -1; } }
   .people { list-style: none; margin: 10px 0 0; padding: 0; }
   .people li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-top: 1px dashed var(--line); font-size: 14px; flex-wrap: wrap; }
   .people .who { flex: 1; min-width: 150px; }
@@ -117,6 +122,7 @@
   .c.on { background: var(--sea); border-color: var(--sea); color: #fff; }
   .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
   .btns button { padding: 13px; font-size: 15px; font-weight: 700; }
+  .btns.three { grid-template-columns: repeat(3, 1fr); }
   .hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
 </style>
 </head>
@@ -151,10 +157,9 @@
       </div>
       <div class="grid" id="grid"></div>
       <div class="legend">
-        <span><i class="m free">9</i>열림 (예약 없음)</span>
-        <span><i class="m some">9</i>예약 있음</span>
+        <span><i class="m free">9</i>비어 있음</span>
         <span><i class="m full">9</i>마감</span>
-        <span><i class="m none">9</i>닫힘</span>
+        <span><i class="m none">9</i>운영 안 함</span>
       </div>
     </section>
 
@@ -171,15 +176,15 @@
       <label>시간</label>
       <div class="chips" id="bSlots"></div>
       <div class="two">
-        <div><label for="bCap">정원</label><select id="bCap"></select></div>
-        <div><label for="bMemo">메모 (회원에게 보여요)</label><input id="bMemo" maxlength="40" placeholder="예) 북항 풀"></div>
+        <div style="grid-column:1/-1"><label for="bMemo">회원에게 보일 내용 (선택)</label><input id="bMemo" maxlength="34" placeholder="예) 10시 이론"></div>
       </div>
-      <div class="btns">
-        <button class="act solid" id="bOpen" type="button">예약 받기 (열기)</button>
-        <button class="act danger" id="bClose" type="button">예약 안 받기 (닫기)</button>
+      <div class="btns three">
+        <button class="act go" id="bOpen" type="button">비어 있음</button>
+        <button class="act danger" id="bFull" type="button">마감</button>
+        <button class="act" id="bClose" type="button">운영 안 함</button>
       </div>
       <div class="hint" id="bHint"></div>
-      <div class="hint">닫아도 이미 들어온 예약은 지워지지 않아요. 취소는 날짜를 눌러 따로 해 주세요.</div>
+      <div class="hint">'운영 안 함'으로 바꿔도 이미 넣은 예약자 이름은 지워지지 않아요.</div>
     </details>
   </div>
 </main>
@@ -244,10 +249,11 @@ async function act(action, extra, doneMsg) {
 
 function cellOf(date, key) { return (data.days[date] || {})[key] || { open: false, cap: 0, booked: 0, memo: '' }; }
 function stateOf(c) {
-  if (c.booked > 0 && c.booked >= c.cap) return { st: 'full', text: (c.open ? '마감 ' : '닫힘 · 예약 ') + c.booked + (c.open ? '/' + c.cap : '명') };
-  if (!c.open) return { st: 'none', text: '닫힘' };
+  const pm = SCHED.parseMemo(c.memo);
+  if (!c.open) return c.booked ? { st: 'full', text: '운영 안 함 · 예약 ' + c.booked + '명' } : { st: 'none', text: '운영 안 함' };
+  if (pm.closed || (c.booked > 0 && c.booked >= c.cap)) return { st: 'full', text: '마감' };
   if (c.booked > 0) return { st: 'some', text: '예약 ' + c.booked + '/' + c.cap };
-  return { st: 'free', text: '열림 0/' + c.cap };
+  return { st: 'free', text: '비어 있음' };
 }
 
 /* ---------- 달력 ---------- */
@@ -295,36 +301,41 @@ function renderDay() {
   head.appendChild(el('h2', null, niceDate(selDate)));
   head.firstChild.style.flex = '1'; head.firstChild.style.margin = '0';
   const allOpen = SLOTS.every(s => cellOf(selDate, s.key).open);
-  const allBtn = el('button', 'act ' + (allOpen ? 'danger' : 'go'), allOpen ? '하루 전체 닫기' : '하루 전체 열기');
+  const allBtn = el('button', 'act ' + (allOpen ? 'danger' : 'go'), allOpen ? '하루 전체 운영 안 함' : '하루 전체 비어 있음');
   allBtn.type = 'button';
-  allBtn.onclick = () => act('admin_save', { changes: SLOTS.map(s => { const c = cellOf(selDate, s.key); return { date: selDate, slot: s.key, open: !allOpen, cap: c.cap || 1, memo: c.memo }; }) },
-    allOpen ? '이 날을 모두 닫았어요' : '이 날 4타임을 모두 열었어요');
+  allBtn.onclick = () => act('admin_save', { changes: SLOTS.map(s => { const c = cellOf(selDate, s.key); return { date: selDate, slot: s.key, open: !allOpen, cap: 1, memo: SCHED.parseMemo(c.memo).text }; }) },
+    allOpen ? '이 날을 모두 운영 안 함으로 바꿨어요' : '이 날 4타임을 모두 비어 있음으로 열었어요');
   head.appendChild(allBtn);
   head.style.marginBottom = '12px';
   box.appendChild(head);
 
   SLOTS.forEach(s => {
-    const c = cellOf(selDate, s.key), st = stateOf(c);
+    const c = cellOf(selDate, s.key), st = stateOf(c), pm = SCHED.parseMemo(c.memo);
+    const cur = !c.open ? 'none' : (pm.closed || (c.booked > 0 && c.booked >= c.cap)) ? 'full' : 'free';
     const card = el('div', 'slot' + (c.open ? ' open' : ''));
     const row = el('div', 'row');
     row.appendChild(el('span', 't', s.label));
     row.appendChild(el('span', 'chip ' + st.st, st.text));
-    const tog = el('button', 'act ' + (c.open ? 'danger' : 'go'), c.open ? '닫기' : '열기');
-    tog.type = 'button';
-    tog.onclick = () => act('admin_save', { changes: [{ date: selDate, slot: s.key, open: !c.open, cap: c.cap || 1, memo: c.memo }] },
-      s.label + (c.open ? ' 닫았어요' : ' 열었어요'));
-    row.appendChild(tog);
     card.appendChild(row);
 
-    if (c.open) {
-      const ed = el('div', 'edit');
-      const cap = capSelect(c.cap || 1); cap.setAttribute('aria-label', '정원');
-      const memo = el('input'); memo.value = c.memo || ''; memo.maxLength = 40; memo.placeholder = '메모 (예: 북항 풀)'; memo.setAttribute('aria-label', '메모');
-      const sv = el('button', 'act solid', '저장'); sv.type = 'button';
-      sv.onclick = () => act('admin_save', { changes: [{ date: selDate, slot: s.key, open: true, cap: +cap.value, memo: memo.value.trim() }] }, '저장했어요');
-      ed.append(cap, memo, sv);
-      card.appendChild(ed);
-    }
+    // 상태 3개 중 하나 고르기
+    const memo = el('input'); memo.value = pm.text; memo.maxLength = 34;
+    memo.placeholder = '회원에게 보일 내용 (예: 10시 이론)'; memo.setAttribute('aria-label', '메모');
+    const save = (state, msg) => act('admin_save', { changes: [{ date: selDate, slot: s.key, open: state !== 'none', cap: 1,
+      memo: SCHED.makeMemo(state === 'full', memo.value) }] }, msg);
+    const seg = el('div', 'seg');
+    [['free', '비어 있음'], ['full', '마감'], ['none', '운영 안 함']].forEach(([k, label]) => {
+      const b = el('button', k + (cur === k ? ' on' : ''), label); b.type = 'button';
+      b.onclick = () => { if (cur !== k) save(k, s.label + ' → ' + label); };
+      seg.appendChild(b);
+    });
+    card.appendChild(seg);
+
+    const ed = el('div', 'edit');
+    const sv = el('button', 'act solid', '저장'); sv.type = 'button';
+    sv.onclick = () => save(cur === 'none' ? 'free' : cur, '저장했어요');
+    ed.append(memo, sv);
+    card.appendChild(ed);
 
     const people = data.people[selDate + '|' + s.key] || [];
     if (people.length) {
@@ -375,7 +386,6 @@ function initBulk() {
   const [y, m] = data.thisMonth.split('-').map(Number);
   $('bFrom').value = data.today;
   $('bTo').value = data.thisMonth + '-' + pad(new Date(y, m, 0).getDate());
-  for (let i = 1; i <= 10; i++) { const o = el('option', null, i + '명'); o.value = i; $('bCap').appendChild(o); }
   renderBulk();
   ['bFrom', 'bTo'].forEach(id => $(id).addEventListener('change', renderBulkHint));
 }
@@ -407,15 +417,17 @@ function renderBulkHint() {
   const n = bulkDates().length * bSlots.length;
   $('bHint').textContent = n ? '선택한 조건: ' + bulkDates().length + '일 × ' + bSlots.length + '타임 = ' + n + '칸' : '날짜·요일·시간을 골라 주세요.';
 }
-function bulk(open) {
+function bulk(state) {
+  const open = state !== 'none';
   const dates = bulkDates();
   if (!dates.length || !bSlots.length) { toast('날짜·요일·시간을 골라 주세요'); return; }
   const changes = [];
-  dates.forEach(date => bSlots.forEach(slot => changes.push({ date, slot, open, cap: +$('bCap').value, memo: $('bMemo').value.trim() })));
-  act('admin_save', { changes }, changes.length + '칸을 ' + (open ? '열었어요' : '닫았어요'));
+  dates.forEach(date => bSlots.forEach(slot => changes.push({ date, slot, open, cap: 1, memo: SCHED.makeMemo(state === 'full', $('bMemo').value) })));
+  act('admin_save', { changes }, changes.length + '칸을 \'' + ({ free: '비어 있음', full: '마감', none: '운영 안 함' })[state] + '\'으로 바꿨어요');
 }
-$('bOpen').onclick = () => bulk(true);
-$('bClose').onclick = () => bulk(false);
+$('bOpen').onclick = () => bulk('free');
+$('bFull').onclick = () => bulk('full');
+$('bClose').onclick = () => bulk('none');
 
 /* 같은 탭에서는 다시 로그인하지 않아도 돼요 (탭을 닫으면 로그아웃) */
 (async () => {
