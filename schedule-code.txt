@@ -1,0 +1,196 @@
+/****************************************************************
+ * 블루독 프리다이빙 · 월간 예약 스케줄 (구글 Apps Script)
+ *
+ * ✏️ 바꿀 곳은 딱 한 군데: 아래 PASSWORD 의 '' 안을
+ *    이서준 강사님만 아는 비밀번호로 바꿔 주세요.
+ *    (이 코드는 강사님 구글 계정 안에만 있어서 다른 사람은 못 봐요)
+ ****************************************************************/
+const PASSWORD = '여기에-비밀번호-입력';
+
+/* 하루 4타임 (바꾸지 마세요. 홈페이지와 짝이 맞아야 해요) */
+const SLOTS = [
+  { key: 's1', label: '오전 9~12시',  start: '09:00', end: '12:00' },
+  { key: 's2', label: '낮 12~3시',    start: '12:00', end: '15:00' },
+  { key: 's3', label: '오후 3~6시',   start: '15:00', end: '18:00' },
+  { key: 's4', label: '저녁 6~9시',   start: '18:00', end: '21:00' },
+];
+const TZ = 'Asia/Seoul';
+const MAX_MONTHS_AHEAD = 3;   // 회원이 예약할 수 있는 범위: 이번 달 + 3개월
+
+/* ---------------- 시트 ---------------- */
+/* 시트에서 열었든(확장 프로그램 → Apps Script), script.new 로 따로 만들었든 둘 다 돼요.
+   따로 만든 경우엔 처음 실행할 때 '블루독 월간 스케줄' 시트를 구글 드라이브에 자동으로 만들어요. */
+function book_ss_() {
+  const active = SpreadsheetApp.getActiveSpreadsheet();
+  if (active) return active;
+  const props = PropertiesService.getScriptProperties();
+  const id = props.getProperty('SHEET_ID');
+  if (id) return SpreadsheetApp.openById(id);
+  const ss = SpreadsheetApp.create('블루독 월간 스케줄');
+  props.setProperty('SHEET_ID', ss.getId());
+  return ss;
+}
+
+function sheet_(name, header) {
+  const ss = book_ss_();
+  let sh = ss.getSheetByName(name);
+  if (!sh) {
+    sh = ss.insertSheet(name);
+    sh.getRange(1, 1, sh.getMaxRows(), header.length).setNumberFormat('@'); // 날짜가 멋대로 바뀌지 않게 '글자'로
+    sh.getRange(1, 1, 1, header.length).setValues([header]).setFontWeight('bold');
+    sh.setFrozenRows(1);
+  }
+  return sh;
+}
+function schedSheet_() { return sheet_('스케줄', ['날짜', '시간', '정원', '메모']); }
+function bookSheet_()  { return sheet_('예약', ['접수시각', '날짜', '시간', '이름', '연락처', '요청사항', '상태', '번호']); }
+
+function str_(v) { return v instanceof Date ? Utilities.formatDate(v, TZ, 'yyyy-MM-dd') : String(v == null ? '' : v).trim(); }
+function slotKey_(v) {
+  v = str_(v);
+  const s = SLOTS.find(x => x.key === v || x.label === v);
+  return s ? s.key : '';
+}
+function slotLabel_(k) { const s = SLOTS.find(x => x.key === k); return s ? s.label : k; }
+function rows_(sh) { const n = sh.getLastRow(); return n < 2 ? [] : sh.getRange(2, 1, n - 1, sh.getLastColumn()).getValues(); }
+
+function readSched_(month) {
+  const out = {};  // date -> key -> {cap, memo, row}
+  rows_(schedSheet_()).forEach((r, i) => {
+    const date = str_(r[0]), key = slotKey_(r[1]);
+    if (!key || (month && date.slice(0, 7) !== month)) return;
+    (out[date] = out[date] || {})[key] = { cap: Math.max(1, Number(r[2]) || 1), memo: str_(r[3]), row: i + 2 };
+  });
+  return out;
+}
+function readBookings_(month) {
+  return rows_(bookSheet_()).map((r, i) => ({
+    at: str_(r[0]), date: str_(r[1]), slot: slotKey_(r[2]), name: str_(r[3]), phone: str_(r[4]),
+    req: str_(r[5]), status: str_(r[6]) || '예약', id: str_(r[7]), row: i + 2,
+  })).filter(b => b.slot && b.status === '예약' && (!month || b.date.slice(0, 7) === month));
+}
+
+function nowSeoul_() {
+  const d = new Date();
+  return { today: Utilities.formatDate(d, TZ, 'yyyy-MM-dd'), time: Utilities.formatDate(d, TZ, 'HH:mm'),
+           month: Utilities.formatDate(d, TZ, 'yyyy-MM') };
+}
+function addMonths_(ym, n) {
+  let [y, m] = ym.split('-').map(Number); m += n;
+  while (m > 12) { m -= 12; y++; } while (m < 1) { m += 12; y--; }
+  return y + '-' + String(m).padStart(2, '0');
+}
+
+/* 회원에게 보여줄 달 정보 (이름·연락처는 절대 넣지 않아요) */
+function monthView_(month, withPeople) {
+  const sched = readSched_(month), books = readBookings_(month), now = nowSeoul_();
+  const days = {};
+  const cell = (date, key) => ((days[date] = days[date] || {})[key] = days[date][key] || { open: false, cap: 0, booked: 0, memo: '' });
+  Object.keys(sched).forEach(date => Object.keys(sched[date]).forEach(key => {
+    const c = cell(date, key); c.open = true; c.cap = sched[date][key].cap; c.memo = sched[date][key].memo;
+  }));
+  books.forEach(b => { cell(b.date, b.slot).booked++; });
+  const out = { ok: true, month, today: now.today, time: now.time, thisMonth: now.month,
+                lastMonth: addMonths_(now.month, MAX_MONTHS_AHEAD), slots: SLOTS, days };
+  if (withPeople) out.bookings = books.map(b => ({ id: b.id, date: b.date, slot: b.slot, name: b.name, phone: b.phone, req: b.req, at: b.at }));
+  return out;
+}
+
+/* ---------------- 웹 주소 입구 ---------------- */
+function doGet(e) {
+  const month = validMonth_(e && e.parameter && e.parameter.month) || nowSeoul_().month;
+  return json_(monthView_(month, false));
+}
+
+function doPost(e) {
+  let p = {};
+  try { p = JSON.parse(e.postData.contents); } catch (err) { return json_({ ok: false, message: '잘못된 요청이에요.' }); }
+  const lock = LockService.getScriptLock();
+  lock.waitLock(15000);
+  try {
+    if (p.action === 'book') return json_(book_(p, false));
+    if (String(p.action || '').indexOf('admin_') === 0) {
+      if (String(p.pw || '') !== PASSWORD) return json_({ ok: false, code: 'bad_password', message: '비밀번호가 맞지 않아요.' });
+      const month = validMonth_(p.month) || nowSeoul_().month;
+      if (p.action === 'admin_month') return json_(monthView_(month, true));
+      if (p.action === 'admin_save') { save_(p.changes || []); return json_(monthView_(month, true)); }
+      if (p.action === 'admin_cancel') { cancel_(p.id); return json_(monthView_(month, true)); }
+      if (p.action === 'admin_book') {
+        const r = book_(p, true); if (!r.ok) return json_(r);
+        return json_(monthView_(month, true));
+      }
+    }
+    return json_({ ok: false, message: '알 수 없는 요청이에요.' });
+  } catch (err) {
+    return json_({ ok: false, message: '서버 오류: ' + err.message });
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function json_(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }
+function validMonth_(m) { return /^\d{4}-\d{2}$/.test(String(m || '')) ? String(m) : ''; }
+
+/* ---------------- 예약 ---------------- */
+function book_(p, byAdmin) {
+  const date = String(p.date || ''), key = slotKey_(p.slot);
+  const name = String(p.name || '').trim().slice(0, 20);
+  const phone = String(p.phone || '').replace(/\D/g, '');
+  const req = String(p.req || '').trim().slice(0, 100);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !key) return { ok: false, message: '날짜나 시간이 올바르지 않아요.' };
+  if (!name) return { ok: false, message: '이름을 입력해 주세요.' };
+  if (!byAdmin && !/^01\d{8,9}$/.test(phone)) return { ok: false, message: '연락처를 확인해 주세요.' };
+
+  const now = nowSeoul_(), slot = SLOTS.find(s => s.key === key);
+  const sched = readSched_(date.slice(0, 7));
+  const s = sched[date] && sched[date][key];
+  if (!byAdmin) {
+    if (date < now.today || (date === now.today && slot.start <= now.time)) return { ok: false, message: '이미 지난 시간이에요.' };
+    if (date.slice(0, 7) > addMonths_(now.month, MAX_MONTHS_AHEAD)) return { ok: false, message: '아직 예약을 받지 않는 날짜예요.' };
+    if (!s) return { ok: false, message: '예약을 받지 않는 시간이에요. 다른 시간을 골라 주세요.' };
+  }
+  const books = readBookings_(date.slice(0, 7)).filter(b => b.date === date && b.slot === key);
+  if (phone && books.some(b => b.phone.replace(/\D/g, '') === phone)) return { ok: false, message: '이미 이 시간에 예약하셨어요.' };
+  if (!byAdmin && books.length >= s.cap) return { ok: false, message: '방금 예약이 꽉 찼어요. 다른 시간을 골라 주세요.' };
+
+  const fmtPhone = phone.length === 11 ? phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+                 : phone.length === 10 ? phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3') : phone;
+  const id = Utilities.getUuid().slice(0, 8);
+  bookSheet_().appendRow([Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd HH:mm'), date, slotLabel_(key), name, fmtPhone,
+                          (byAdmin ? '[강사 입력] ' : '') + req, '예약', id]);
+  return { ok: true, id };
+}
+
+function cancel_(id) {
+  const b = readBookings_('').find(x => x.id === String(id));
+  if (b) bookSheet_().getRange(b.row, 7).setValue('취소');
+}
+
+/* ---------------- 스케줄 저장 (강사 전용) ---------------- */
+function save_(changes) {
+  const sh = schedSheet_();
+  const all = readSched_('');
+  const del = [], add = [];
+  changes.forEach(c => {
+    const date = String(c.date || ''), key = slotKey_(c.slot);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !key) return;
+    const cur = all[date] && all[date][key];
+    if (c.open) {
+      const cap = String(Math.max(1, Math.min(30, Number(c.cap) || 1))), memo = String(c.memo || '').slice(0, 40);
+      if (cur && cur.row) sh.getRange(cur.row, 3, 1, 2).setValues([[cap, memo]]);
+      else if (!cur) { add.push([date, slotLabel_(key), cap, memo]); (all[date] = all[date] || {})[key] = { added: true }; }
+    } else if (cur && cur.row) {
+      del.push(cur.row); delete all[date][key];
+    }
+  });
+  if (add.length) {
+    const start = sh.getLastRow() + 1;
+    if (sh.getMaxRows() < start + add.length) sh.insertRowsAfter(sh.getMaxRows(), add.length + 50);
+    const rg = sh.getRange(start, 1, add.length, 4);
+    rg.setNumberFormat('@'); rg.setValues(add);          // 한 번에 써서 빨라요
+  }
+  del.sort((a, b) => b - a).forEach(r => sh.deleteRow(r));   // 아래 줄부터 지워야 번호가 안 꼬여요
+}
+
+/* 처음 한 번 실행하면 시트 탭 두 개가 만들어져요 (안 해도 자동으로 만들어져요) */
+function setup() { schedSheet_(); bookSheet_(); }
