@@ -683,6 +683,15 @@
       .hero-main .hero-desc { display: none; }
       .hero-main h1 { margin-bottom: 1.5rem; }
     }
+    .sched-banner { display: flex; align-items: center; gap: 14px; max-width: 1080px; margin: 28px auto 0; padding: 18px 22px;
+      width: calc(100% - 32px); border-radius: 16px; background: linear-gradient(135deg, #0B2545, #1B6CA8); color: #fff; text-decoration: none;
+      box-shadow: 0 8px 24px rgba(11,37,69,.18); }
+    .sched-banner .sb-ico { font-size: 28px; }
+    .sched-banner .sb-txt { flex: 1; min-width: 0; }
+    .sched-banner b { display: block; font-size: 17px; }
+    .sched-banner small { display: block; font-size: 13px; opacity: .85; margin-top: 2px; }
+    .sched-banner .sb-go { font-weight: 700; font-size: 14px; background: #fff; color: #0B2545; padding: 8px 14px; border-radius: 999px; white-space: nowrap; }
+    @media (max-width: 480px) { .sched-banner { padding: 16px; gap: 10px; } .sched-banner b { font-size: 15px; } .sched-banner small { font-size: 12px; } .sched-banner .sb-go { padding: 7px 10px; font-size: 13px; } }
   </style>
   <link rel="stylesheet" href="assets/polish.css" />
 </head>
@@ -696,6 +705,7 @@
       <li><a href="#programs">프로그램</a></li>
       <li><a href="instructors.html">강사 소개</a></li>
       <li><a href="gallery.html">갤러리</a></li>
+      <li><a href="schedule.html">예약 현황</a></li>
       <li><a href="#location">오시는 길</a></li>
       <li><a href="#contact">문의</a></li>
     </ul>
@@ -754,7 +764,12 @@
     </div>
   </div>
 
-
+  <!-- 월간 예약 현황 바로가기 -->
+  <a href="schedule.html" class="sched-banner">
+    <span class="sb-ico">📅</span>
+    <span class="sb-txt"><b>이번 달 수업 빈 시간 확인하기</b><small>날짜별 비어 있는 시간을 보고 카카오톡으로 바로 예약하세요</small></span>
+    <span class="sb-go">보기 →</span>
+  </a>
 
   <!-- 소개: 대표 강사 + 신뢰 요소 -->
   <section class="about-section" id="about">
