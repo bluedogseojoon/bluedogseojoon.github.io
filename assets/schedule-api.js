@@ -77,7 +77,7 @@ var SCHED = (function () {
       if (!admin && (p.date < n.today || (p.date === n.today && slot.start <= n.time))) return { ok: false, message: '이미 지난 시간이에요.' };
       if (!admin && !s) return { ok: false, message: '예약을 받지 않는 시간이에요.' };
       var ph = String(p.phone || '').replace(/\D/g, '');
-      if (ph && same.some(function (b) { return b.phone.replace(/\D/g, '') === ph; })) return { ok: false, message: '이미 이 시간에 예약하셨어요.' };
+      if (ph ? same.some(function (b) { return b.phone.replace(/\D/g, '') === ph; }) : same.some(function (b) { return b.name === p.name; })) return { ok: false, message: '이미 이 시간에 예약하셨어요.' };
       if (!admin && same.length >= s.cap) return { ok: false, message: '방금 예약이 꽉 찼어요.' };
       db.books.push({ id: 'x' + Date.now(), date: p.date, slot: p.slot, name: p.name, phone: p.phone || '', req: (admin ? '[강사 입력] ' : '') + (p.req || ''), at: n.today + ' ' + n.time });
       save(db);

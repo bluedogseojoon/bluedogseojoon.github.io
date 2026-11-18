@@ -99,9 +99,9 @@
   .people .who small { display: block; color: var(--muted); font-size: 12px; }
   .people a { color: var(--sea); text-decoration: none; }
   .note { font-size: 12px; color: var(--muted); margin-top: 6px; }
-  .addp { display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; margin-top: 8px; }
+  .addp { display: grid; grid-template-columns: 1fr auto; gap: 6px; margin-top: 8px; }
   .addp input { padding: 8px 10px; font-size: 15px; }
-  @media (max-width: 420px) { .addp { grid-template-columns: 1fr 1fr; } .addp .act { grid-column: 1 / -1; } }
+  
   .linkbtn { font: inherit; font-size: 13px; color: var(--sea); background: none; border: 0; padding: 6px 0 0; cursor: pointer; }
 
   /* 한 번에 넣기 */
@@ -356,13 +356,12 @@ function renderDay() {
       more.remove();
       const f = el('div', 'addp');
       const n = el('input'); n.placeholder = '이름'; n.maxLength = 20;
-      const ph = el('input'); ph.placeholder = '연락처 (선택)'; ph.type = 'tel'; ph.inputMode = 'numeric';
       const ok = el('button', 'act solid', '넣기'); ok.type = 'button';
       ok.onclick = () => {
         if (!n.value.trim()) { toast('이름을 입력해 주세요'); n.focus(); return; }
-        act('admin_book', { date: selDate, slot: s.key, name: n.value.trim(), phone: ph.value.trim() }, n.value.trim() + '님 예약을 넣었어요');
+        act('admin_book', { date: selDate, slot: s.key, name: n.value.trim() }, n.value.trim() + '님 예약을 넣었어요');
       };
-      f.append(n, ph, ok); card.appendChild(f); n.focus();
+      f.append(n, ok); card.appendChild(f); n.focus();
     };
     card.appendChild(more);
     box.appendChild(card);

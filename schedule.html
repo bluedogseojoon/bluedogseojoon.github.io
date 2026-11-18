@@ -149,13 +149,11 @@
       <div class="summary" id="summary"></div>
       <label for="name">이름</label>
       <input id="name" autocomplete="name" required maxlength="20" placeholder="홍길동">
-      <label for="phone">연락처</label>
-      <input id="phone" type="tel" inputmode="numeric" autocomplete="tel" required placeholder="010-1234-5678">
       <label for="req">요청사항 (선택)</label>
       <input id="req" maxlength="100" placeholder="예) 개인 트레이닝, 장비 렌탈 필요">
       <button class="submit" id="submit" type="submit">예약하기</button>
       <div class="msg" id="msg" hidden></div>
-      <div class="privacy">이름·연락처는 강사님만 볼 수 있어요. 다른 회원에게는 '예약 있음'으로만 보여요.</div>
+      <div class="privacy">이름은 강사님만 볼 수 있어요. 다른 회원에게는 '예약 있음'으로만 보여요.</div>
     </form>
   </div>
 
@@ -302,24 +300,14 @@ function renderForm() {
   sum.append('  ·  🕘 ' + s.label);
 }
 
-/* 연락처 자동 하이픈 */
-$('phone').addEventListener('input', e => {
-  const d = e.target.value.replace(/\D/g, '').slice(0, 11);
-  e.target.value = d.length < 4 ? d : d.length < 8 ? d.slice(0,3) + '-' + d.slice(3)
-    : d.length === 10 ? d.slice(0,3) + '-' + d.slice(3,6) + '-' + d.slice(6)
-    : d.slice(0,3) + '-' + d.slice(3,7) + '-' + d.slice(7);
-});
-
 function showErr(t) { $('msg').hidden = false; $('msg').textContent = t; }
 
 $('form').addEventListener('submit', async e => {
   e.preventDefault();
   const name = $('name').value.trim();
-  const phone = $('phone').value.replace(/\D/g, '');
   if (!name) return showErr('이름을 입력해 주세요.');
-  if (!/^01\d{8,9}$/.test(phone)) return showErr('연락처를 010-1234-5678 형식으로 입력해 주세요.');
   $('msg').hidden = true;
-  const body = { action: 'book', date: selDate, slot: selSlot, name, phone: $('phone').value, req: $('req').value.trim() };
+  const body = { action: 'book', date: selDate, slot: selSlot, name, req: $('req').value.trim() };
   $('submit').disabled = true; $('submit').textContent = '예약 중…';
   try {
     const r = await SCHED.post(body);
@@ -338,7 +326,7 @@ function showDone(b) {
   const s = data.slots.find(x => x.key === b.slot);
   d.appendChild(el('div', 'big', '🎉'));
   d.appendChild(el('h2', null, '예약이 완료됐어요'));
-  d.appendChild(el('p', null, b.name + '님 · ' + b.phone));
+  d.appendChild(el('p', null, b.name + '님'));
   d.appendChild(el('p', null, '📅 ' + niceDate(b.date) + ' · ' + s.label));
   if (b.req) d.appendChild(el('p', null, '📝 ' + b.req));
   d.appendChild(el('p', null, '이 화면을 캡처해 두세요. 변경·취소는 카톡으로 연락 주세요.'));

@@ -139,7 +139,6 @@ function book_(p, byAdmin) {
   const req = String(p.req || '').trim().slice(0, 100);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !key) return { ok: false, message: '날짜나 시간이 올바르지 않아요.' };
   if (!name) return { ok: false, message: '이름을 입력해 주세요.' };
-  if (!byAdmin && !/^01\d{8,9}$/.test(phone)) return { ok: false, message: '연락처를 확인해 주세요.' };
 
   const now = nowSeoul_(), slot = SLOTS.find(s => s.key === key);
   const sched = readSched_(date.slice(0, 7));
@@ -150,7 +149,7 @@ function book_(p, byAdmin) {
     if (!s) return { ok: false, message: '예약을 받지 않는 시간이에요. 다른 시간을 골라 주세요.' };
   }
   const books = readBookings_(date.slice(0, 7)).filter(b => b.date === date && b.slot === key);
-  if (phone && books.some(b => b.phone.replace(/\D/g, '') === phone)) return { ok: false, message: '이미 이 시간에 예약하셨어요.' };
+  if (phone ? books.some(b => b.phone.replace(/\D/g, '') === phone) : books.some(b => b.name === name)) return { ok: false, message: '이미 이 시간에 예약하셨어요.' };
   if (!byAdmin && books.length >= s.cap) return { ok: false, message: '방금 예약이 꽉 찼어요. 다른 시간을 골라 주세요.' };
 
   const fmtPhone = phone.length === 11 ? phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
