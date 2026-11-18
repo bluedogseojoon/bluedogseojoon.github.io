@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>월간 예약 현황 | 블루독 프리다이빙</title>
-<meta name="description" content="블루독 프리다이빙 월간 예약 현황. 비어 있는 시간을 확인하고 바로 예약하세요.">
+<meta name="description" content="블루독 프리다이빙 월간 예약 현황. 비어 있는 시간을 확인하고 카카오톡으로 예약하세요.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="assets/schedule-api.js"></script>
@@ -88,6 +88,7 @@
   .go { font: inherit; font-size: 14px; font-weight: 700; padding: 8px 14px; border-radius: 10px; border: 0;
     background: var(--btn); color: #fff; cursor: pointer; white-space: nowrap; }
   .slot.on { border-color: var(--sea); background: var(--sky); }
+  .slot .memo:empty { display: none; }
   @media (max-width: 420px) {
     .slot { flex-wrap: wrap; }
     .slot .memo { order: 3; flex-basis: 100%; }
@@ -113,13 +114,15 @@
     border: 1px solid var(--line); background: var(--bg); color: var(--text); cursor: pointer; }
   footer { text-align: center; font-size: 12px; color: var(--muted); padding: 0 16px 32px; }
   footer a { color: var(--sea); }
+  .kakao { display: block; text-align: center; margin-top: 12px; padding: 14px; border-radius: 12px; background: #FEE500; color: #191919;
+    font-weight: 700; font-size: 15px; text-decoration: none; }
 </style>
 </head>
 <body>
 <header>
   <div class="brand">BLUE DOG FREEDIVING</div>
   <h1>월간 예약 현황</h1>
-  <p>비어 있는 시간을 확인하고 바로 예약하세요</p>
+  <p>비어 있는 시간을 확인하고 카카오톡으로 예약하세요</p>
 </header>
 
 <main>
@@ -134,7 +137,7 @@
       </div>
       <div class="grid" id="grid"></div>
       <div class="legend">
-        <span><i class="m free">9</i>예약 가능</span>
+        <span><i class="m free">9</i>비어 있음</span>
         <span><i class="m some">9</i>예약 있음 (자리 남음)</span>
         <span><i class="m full">9</i>예약 마감</span>
         <span><i class="m none">9</i>운영 안 함</span>
@@ -159,7 +162,7 @@
 
   <div id="done" class="card done" hidden></div>
 </main>
-<footer>예약 변경·취소는 <a href="http://pf.kakao.com/_exhUms/chat" target="_blank" rel="noopener">카카오톡</a>으로 강사님께 연락해 주세요.</footer>
+<footer>예약·변경·취소는 <a href="http://pf.kakao.com/_exhUms/chat" target="_blank" rel="noopener">카카오톡</a>으로 강사님께 연락해 주세요.</footer>
 
 <script>
 const WEEK = ['일','월','화','수','목','금','토'];
@@ -181,7 +184,7 @@ function slotState(date, s) {
   if (c.booked >= Math.max(c.cap, 1) && (c.booked > 0)) return { st: 'full', c, text: '예약 마감' };
   if (!c.open) return { st: 'none', c, text: '운영 안 함' };
   if (c.booked > 0) return { st: 'some', c, text: '예약 있음 · ' + (c.cap - c.booked) + '자리 남음' };
-  return { st: 'free', c, text: c.cap > 1 ? '예약 가능 · ' + c.cap + '자리' : '예약 가능' };
+  return { st: 'free', c, text: c.cap > 1 ? '비어 있음 · ' + c.cap + '자리' : '비어 있음' };
 }
 
 async function load(m, keep) {
@@ -192,10 +195,10 @@ async function load(m, keep) {
     range = { first: r.thisMonth, last: r.lastMonth };
     if (SCHED.DEMO) {
       $('notice').className = 'card notice demo';
-      $('notice').innerHTML = '👀 <b>미리보기 모드</b>예요. 예시 스케줄이라 예약은 실제로 접수되지 않아요.';
+      $('notice').innerHTML = '👀 <b>미리보기 모드</b>예요. 예시 스케줄이에요.';
     } else {
       $('notice').className = 'card notice';
-      $('notice').textContent = '🤿 초록색 시간은 바로 예약할 수 있어요. 날짜를 눌러 시간을 골라 주세요.';
+      $('notice').textContent = '🤿 초록색은 비어 있는 시간이에요. 날짜를 누르면 시간별로 볼 수 있고, 예약은 카카오톡으로 해 주세요.';
     }
     $('app').hidden = false;
     if (!keep || !selDate || selDate.slice(0, 7) !== month) {
@@ -275,19 +278,13 @@ function renderDay() {
     row.appendChild(el('span', 't', s.label));
     row.appendChild(el('span', 'memo', st.c.memo || ''));
     row.appendChild(el('span', 'chip ' + st.st, st.text));
-    if (st.st === 'free' || st.st === 'some') {
-      any = true;
-      const b = el('button', 'go', selSlot === s.key ? '선택됨' : '예약하기');
-      b.type = 'button';
-      b.onclick = () => {
-        selSlot = s.key; renderDay(); renderForm();
-        setTimeout(() => $('form').scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-      };
-      row.appendChild(b);
-    }
+    if (st.st === 'free' || st.st === 'some') any = true;
     box.appendChild(row);
   });
-  if (!any) box.appendChild(el('div', 'legend-note', '이 날은 예약할 수 있는 시간이 없어요. 다른 날짜를 골라 주세요.'));
+  if (!any) box.appendChild(el('div', 'legend-note', '이 날은 비어 있는 시간이 없어요. 다른 날짜를 확인해 주세요.'));
+  const cta = el('a', 'kakao', any ? '💬 이 날 예약하기 (카카오톡 문의)' : '💬 카카오톡으로 문의하기');
+  cta.href = 'http://pf.kakao.com/_exhUms/chat'; cta.target = '_blank'; cta.rel = 'noopener';
+  box.appendChild(cta);
 }
 
 function renderForm() {
