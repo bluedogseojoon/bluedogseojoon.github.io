@@ -215,6 +215,7 @@
     }
   </style>
   <link rel="stylesheet" href="assets/polish.css" />
+  <link rel="stylesheet" href="assets/program.css" />
 </head>
 <body>
 
@@ -251,22 +252,8 @@
     </div>
   </section>
 
-  <!-- 사진 갤러리 -->
-  <section style="background: var(--gray-50); padding: 3rem 2rem;">
-    <div class="container">
-      <div class="section-label">GALLERY</div>
-      <div class="section-title">강사 과정 현장</div>
-      <p class="section-sub">깊이와 안전을 함께 다루는 현장</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
-        <img src="images/ins-1.jpg" alt="바닷가에서 장비를 들고 모인 강사 과정 교육생들" loading="lazy" style="width:100%;height:240px;object-fit:cover;object-position:40% 72%;border-radius:12px;display:block;">
-        <img src="images/ins-2.jpg" alt="강사 과정 교육생들이 부이와 하강 라인을 직접 세팅하는 모습" loading="lazy" style="width:100%;height:240px;object-fit:cover;object-position:center 55%;border-radius:12px;display:block;">
-        <img src="images/ins-3.jpg" alt="강사 과정을 수료하고 기념품을 든 교육생들" loading="lazy" style="width:100%;height:240px;object-fit:cover;object-position:center 62%;border-radius:12px;display:block;">
-      </div>
-    </div>
-  </section>
-
   <!-- 핵심 정보 -->
-  <section>
+  <section class="info-strip">
     <div class="container">
       <div class="info-grid">
         <div class="info-card">
@@ -289,6 +276,20 @@
           <div class="info-label">개방수역</div>
           <div class="info-value">5회</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 사진 갤러리 -->
+  <section>
+    <div class="container">
+      <div class="section-label">GALLERY</div>
+      <div class="section-title">강사 과정 현장</div>
+      <p class="section-sub">깊이와 안전을 함께 다루는 현장</p>
+      <div class="photo-row">
+        <img src="images/ins-1.jpg" alt="바닷가에서 장비를 들고 모인 강사 과정 교육생들" loading="lazy" style="width:100%;height:240px;object-fit:cover;object-position:40% 72%;border-radius:12px;display:block;">
+        <img src="images/ins-2.jpg" alt="강사 과정 교육생들이 부이와 하강 라인을 직접 세팅하는 모습" loading="lazy" style="width:100%;height:240px;object-fit:cover;object-position:center 55%;border-radius:12px;display:block;">
+        <img src="images/ins-3.jpg" alt="강사 과정을 수료하고 기념품을 든 교육생들" loading="lazy" style="width:100%;height:240px;object-fit:cover;object-position:center 62%;border-radius:12px;display:block;">
       </div>
     </div>
   </section>
@@ -400,10 +401,10 @@
   </section>
 
   <!-- CTA -->
-  <section class="price-cta">
+  <section class="price-cta cta-photo inst">
     <div class="container">
       <h2>강사 과정 문의하기</h2>
-      <div style="display:inline-block;background:rgba(255,255,255,0.08);border:0.5px solid rgba(255,255,255,0.18);border-radius:12px;padding:1.25rem 2.5rem;margin-bottom:1.5rem;">
+      <div class="price-pill" style="display:inline-block;background:rgba(255,255,255,0.08);border:0.5px solid rgba(255,255,255,0.18);border-radius:12px;padding:1.25rem 2.5rem;margin-bottom:1.5rem;">
         <div style="font-size:12px;color:rgba(255,255,255,0.5);letter-spacing:1px;font-weight:600;margin-bottom:6px;">PRICE</div>
         <div style="font-size:32px;font-weight:700;color:#90bce8;">200만원</div>
         <div style="font-size:13px;color:rgba(255,255,255,0.45);margin-top:4px;">장비렌탈 · 전자교재 · 자격증 발급비 포함</div>
