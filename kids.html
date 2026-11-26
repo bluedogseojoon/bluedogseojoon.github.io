@@ -434,6 +434,17 @@
     details.more[open] summary { margin-bottom:12px; }
     details.more .more-body { padding:0 2px; }
     .flow + details.more { margin-top:1rem; }
+
+    .stage-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:1rem; }
+    .stage-grid .stage { display:block; padding:0; overflow:hidden; border-left:none !important; margin:0; background:#fff; border:1px solid var(--gray-100) !important; }
+    .stage-grid .stage-badge { flex-direction:row; justify-content:flex-start; gap:8px; border-radius:0; padding:0.85rem 1.2rem; }
+    .stage-grid .stage.bronze .stage-badge { background:linear-gradient(90deg,#f6e2cf,#fbf1e8); }
+    .stage-grid .stage.silver .stage-badge { background:linear-gradient(90deg,#e1e5ec,#f1f3f6); }
+    .stage-grid .stage.gold .stage-badge { background:linear-gradient(90deg,#f7e6a8,#fdf6df); }
+    .stage-grid .stage-items { grid-template-columns:1fr; gap:12px; padding:1.1rem 1.2rem 1.25rem; }
+    .stage-grid + .course-head { margin-top:2.5rem; }
+    .junior-card { border:1px solid var(--gray-100) !important; }
+    @media (max-width: 760px) { .stage-grid { grid-template-columns:1fr; } }
     /* ── 키즈 v3: 세련된 마감 ── */
     .section-title { font-weight:700; letter-spacing:-0.02em; }
     .hero { min-height:78vh; }
@@ -604,7 +615,7 @@
     <div class="container">
       <div class="section-label">AIDA DOLPHIN &amp; JUNIOR</div>
       <div class="section-title">단계별로 이렇게 성장해요</div>
-      <p class="section-sub">첫 수업 능력평가로 수준을 확인하고, 아이의 속도에 맞춰 한 단계씩 올라가요.<br>국제 프리다이빙 협회 AIDA의 어린이·청소년 공식 과정이에요</p>
+      <p class="section-sub">첫 수업 능력평가로 수준을 확인하고, 아이의 속도에 맞춰 한 단계씩 올라가요. <br>국제 프리다이빙 협회 AIDA의 어린이·청소년 공식 과정이에요</p>
 
       <div class="course-head">
         <div><div class="course-en">AIDA DOLPHIN</div><div class="course-name">돌핀 과정</div></div>
@@ -620,9 +631,7 @@
         <div class="flow-step gold"><div class="flow-lv">고급</div><div class="flow-name">골드돌핀</div></div>
       </div>
       <p style="font-size:13px;color:var(--gray-500);">• 능력평가에서 우수한 아이들은 실버, 골드 돌핀 과정에 바로 배정될 수 있어요</p>
-      <details class="more">
-        <summary>브론즈 · 실버 · 골드 단계별로 배우는 내용 <span>자세히 보기</span></summary>
-        <div class="more-body">
+      <div class="stage-grid">
       <div class="stage bronze">
         <div class="stage-badge"><b>브론즈</b><span>BRONZE</span></div>
         <div class="stage-items">
@@ -650,25 +659,18 @@
           <div class="stage-item"><strong>회복호흡</strong><span>다이빙 후 호흡을 안정적으로 회복</span></div>
         </div>
       </div>
-
-        </div>
-      </details>
+      </div>
 
       <div class="course-head">
         <div><div class="course-en">AIDA JUNIOR</div><div class="course-name">주니어 과정</div></div>
         <div class="course-meta"><b>만 12세 이상</b><br>능력평가 1회 + 수업 최소 4회</div>
       </div>
-      <details class="more">
-        <summary>주니어 과정에서 배우는 내용 <span>자세히 보기</span></summary>
-        <div class="more-body">
       <div class="junior-grid">
         <div class="junior-card"><div class="junior-num">1</div><div><strong>줄 당기기 + 핀차기 다이빙</strong><span>올바른 머리 자세로 덕다이브와 압력평형을 반복해 익혀요</span></div></div>
         <div class="junior-card"><div class="junior-num">2</div><div><strong>수압 · 부력 · 압력평형</strong><span>왜 필요한지 이해하고 스스로 적용하는 이론·실습</span></div></div>
         <div class="junior-card"><div class="junior-num">3</div><div><strong>긴장완화 · 회복호흡</strong><span>다이빙 전 이완, 다이빙 후 회복호흡까지 한 세트로</span></div></div>
         <div class="junior-card"><div class="junior-num">4</div><div><strong>장비 활용 · 안전</strong><span>마스크·스노클·핀·수트 활용과 중량벨트 제거 기술</span></div></div>
       </div>
-        </div>
-      </details>
 
       <div class="tip-box">
         <strong>첫 등록 시 수업 4회 이상 권장</strong><br>
