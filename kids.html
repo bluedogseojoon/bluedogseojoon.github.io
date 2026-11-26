@@ -423,6 +423,17 @@
       .why-card { padding:1.1rem; gap:12px; }
     }
 
+
+    details.more { margin-top:4px; margin-bottom:8px; }
+    details.gloss { border:1px solid var(--gray-100) !important; }
+    details.more summary { list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:12px; background:var(--gray-50); border:1px solid var(--gray-100); box-shadow:var(--shadow-sm); border-radius:14px; padding:0.95rem 1.3rem; font-size:15px; font-weight:600; color:var(--navy); }
+    details.more summary::-webkit-details-marker { display:none; }
+    details.more summary span { font-size:13px; color:var(--blue); white-space:nowrap; }
+    details.more summary span::after { content:' ▾'; }
+    details.more[open] summary span::after { content:' ▴'; }
+    details.more[open] summary { margin-bottom:12px; }
+    details.more .more-body { padding:0 2px; }
+    .flow + details.more { margin-top:1rem; }
     /* ── 키즈 v3: 세련된 마감 ── */
     .section-title { font-weight:700; letter-spacing:-0.02em; }
     .hero { min-height:78vh; }
@@ -588,12 +599,17 @@
     </div>
   </section>
 
-  <!-- 수업 흐름 -->
+  <!-- 단계별 과정 -->
   <section>
     <div class="container">
-      <div class="section-label">COURSE FLOW</div>
-      <div class="section-title">돌핀 수업 흐름 <span style="font-size:15px;color:var(--gray-500);font-weight:500;">만 6~11세</span></div>
-      <p class="section-sub">첫 수업 능력평가로 수준을 확인하고, 아이의 속도에 맞춰 진행해요</p>
+      <div class="section-label">AIDA DOLPHIN &amp; JUNIOR</div>
+      <div class="section-title">단계별로 이렇게 성장해요</div>
+      <p class="section-sub">첫 수업 능력평가로 수준을 확인하고, 아이의 속도에 맞춰 한 단계씩 올라가요.<br>국제 프리다이빙 협회 AIDA의 어린이·청소년 공식 과정이에요</p>
+
+      <div class="course-head">
+        <div><div class="course-en">AIDA DOLPHIN</div><div class="course-name">돌핀 과정</div></div>
+        <div class="course-meta"><b>만 6~11세</b><br>단계별 수업 3회 이상</div>
+      </div>
       <div class="flow">
         <div class="flow-step"><div class="flow-lv">첫 수업</div><div class="flow-name">능력평가</div></div>
         <div class="flow-arrow">›</div>
@@ -604,25 +620,9 @@
         <div class="flow-step gold"><div class="flow-lv">고급</div><div class="flow-name">골드돌핀</div></div>
       </div>
       <p style="font-size:13px;color:var(--gray-500);">• 능력평가에서 우수한 아이들은 실버, 골드 돌핀 과정에 바로 배정될 수 있어요</p>
-      <div class="tip-box">
-        <strong>첫 등록 시 수업 4회 이상 권장</strong><br>
-        능력평가 1회 + 브론즈 수업 3회 · 이후 3회 이상씩 이어서 등록하면 단계별 자격증 취득까지 자연스럽게 이어져요.<br>
-        <strong>주니어(만 12세 이상)</strong>는 능력평가 1회 + 최소 수업 4회로 진행해요.
-      </div>
-    </div>
-  </section>
-
-  <!-- 과정 상세 -->
-  <section class="for-who-section">
-    <div class="container">
-      <div class="section-label">AIDA DOLPHIN &amp; JUNIOR</div>
-      <div class="section-title">수업에서 이렇게 배워요</div>
-      <p class="section-sub">국제 프리다이빙 협회 AIDA의 어린이·청소년 공식 과정이에요. 돌핀은 차근차근 3단계, 주니어는 프리다이버로 성장하는 과정이에요</p>
-
-      <div class="course-head">
-        <div><div class="course-en">AIDA DOLPHIN</div><div class="course-name">돌핀 과정</div></div>
-        <div class="course-meta"><b>만 6~11세</b><br>단계별 수업 3회 이상</div>
-      </div>
+      <details class="more">
+        <summary>브론즈 · 실버 · 골드 단계별로 배우는 내용 <span>자세히 보기</span></summary>
+        <div class="more-body">
       <div class="stage bronze">
         <div class="stage-badge"><b>브론즈</b><span>BRONZE</span></div>
         <div class="stage-items">
@@ -651,17 +651,30 @@
         </div>
       </div>
 
+        </div>
+      </details>
+
       <div class="course-head">
         <div><div class="course-en">AIDA JUNIOR</div><div class="course-name">주니어 과정</div></div>
-        <div class="course-meta"><b>만 12세 이상</b><br>수업 최소 4회 이상</div>
+        <div class="course-meta"><b>만 12세 이상</b><br>능력평가 1회 + 수업 최소 4회</div>
       </div>
+      <details class="more">
+        <summary>주니어 과정에서 배우는 내용 <span>자세히 보기</span></summary>
+        <div class="more-body">
       <div class="junior-grid">
         <div class="junior-card"><div class="junior-num">1</div><div><strong>줄 당기기 + 핀차기 다이빙</strong><span>올바른 머리 자세로 덕다이브와 압력평형을 반복해 익혀요</span></div></div>
         <div class="junior-card"><div class="junior-num">2</div><div><strong>수압 · 부력 · 압력평형</strong><span>왜 필요한지 이해하고 스스로 적용하는 이론·실습</span></div></div>
         <div class="junior-card"><div class="junior-num">3</div><div><strong>긴장완화 · 회복호흡</strong><span>다이빙 전 이완, 다이빙 후 회복호흡까지 한 세트로</span></div></div>
         <div class="junior-card"><div class="junior-num">4</div><div><strong>장비 활용 · 안전</strong><span>마스크·스노클·핀·수트 활용과 중량벨트 제거 기술</span></div></div>
       </div>
-      <div class="tip-box"><strong>주니어 과정 수료 후 AIDA 2 교차평가에 응시할 수 있어요!</strong><br>교차평가는 성인 AIDA 2 자격을 받기 위한 평가예요</div>
+        </div>
+      </details>
+
+      <div class="tip-box">
+        <strong>첫 등록 시 수업 4회 이상 권장</strong><br>
+        능력평가 1회 + 브론즈 수업 3회 · 이후 3회 이상씩 이어서 등록하면 단계별 자격증 취득까지 자연스럽게 이어져요.<br>
+        <strong>주니어 과정 수료 후 AIDA 2 교차평가에 응시할 수 있어요!</strong> (성인 AIDA 2 자격을 받기 위한 평가예요)
+      </div>
       <details class="gloss">
         <summary class="gloss-title">어려운 말, 쉽게 풀어볼게요 <span>펼쳐보기</span></summary>
         <dl><div><dt>압력평형 (이퀄라이징)</dt><dd>물속에서 귀가 먹먹하거나 아프지 않도록 귀 안의 압력을 맞춰주는 방법이에요</dd></div><div><dt>덕다이브</dt><dd>물 위에서 오리처럼 몸을 접어 머리부터 물속으로 들어가는 동작이에요</dd></div><div><dt>헤드다운 자세</dt><dd>내려갈 때 고개를 살짝 숙여 몸을 일자로 만드는 자세예요</dd></div><div><dt>바이핀</dt><dd>양발에 하나씩 신는 일반 오리발이에요</dd></div><div><dt>선헤엄</dt><dd>제자리에서 팔다리를 저어 얼굴을 물 위에 띄우고 버티는 생존 기술이에요</dd></div><div><dt>회복호흡</dt><dd>물 밖으로 나온 뒤 숨을 빠르게 안정시키는 호흡법이에요</dd></div><div><dt>양성부력</dt><dd>힘을 빼면 몸이 저절로 떠오르는 상태예요</dd></div><div><dt>부비강</dt><dd>코 주변 얼굴뼈 속의 빈 공간이에요. 물속에서 압력 변화를 느끼는 곳이에요</dd></div><div><dt>중량벨트</dt><dd>몸이 물에 쉽게 가라앉도록 허리에 차는 무게 벨트예요</dd></div></dl>
@@ -670,7 +683,7 @@
   </section>
 
   <!-- 수업 방식 -->
-  <section>
+  <section class="for-who-section">
     <div class="container">
       <div class="section-label">CLASS STYLE</div>
       <div class="section-title">아이만 바라보는 1:1 맞춤 수업</div>
@@ -685,7 +698,7 @@
   </section>
 
   <!-- 강사 -->
-  <section class="for-who-section">
+  <section>
     <div class="container">
       <div class="section-label">INSTRUCTOR</div>
       <div class="section-title">키즈 담당 강사</div>
