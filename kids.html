@@ -455,8 +455,9 @@
     .inst-cert-box .inst-cert-title { font-size:12px; letter-spacing:1px; color:var(--blue); font-weight:700; margin-bottom:6px; }
     .cert { padding:0.55rem 0; border-top:1px solid var(--gray-100); }
     .inst-cert-title + .cert { border-top:none; }
-    .cert b { display:block; font-size:14px; color:var(--navy); font-weight:600; }
-    .cert span { font-size:13px; color:var(--gray-500); }
+    .cert b { font-size:14px; color:var(--navy); font-weight:600; }
+    .cert span { font-size:13px; color:var(--gray-500); margin-left:6px; display:inline-block; }
+    .cert span::before { content:"("; } .cert span::after { content:")"; }
     @media (max-width: 640px) { .inst-quote { font-size:17px; } }
     /* ── 키즈 v3: 세련된 마감 ── */
     .section-title { font-weight:700; letter-spacing:-0.02em; }
