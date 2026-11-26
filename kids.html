@@ -445,6 +445,19 @@
     .stage-grid + .course-head { margin-top:2.5rem; }
     .junior-card { border:1px solid var(--gray-100) !important; }
     @media (max-width: 760px) { .stage-grid { grid-template-columns:1fr; } }
+
+    .inst-quote { font-size:19px; font-weight:600; color:var(--navy); line-height:1.55; letter-spacing:-0.01em; border-left:3px solid var(--blue-light); padding:2px 0 2px 14px; margin:14px 0 18px; }
+    .inst-traits { list-style:none; display:grid; gap:10px; margin-bottom:22px; }
+    .inst-traits li { display:flex; gap:10px; align-items:flex-start; font-size:15px; color:var(--gray-500); line-height:1.6; }
+    .inst-traits li .ico { color:var(--blue); font-size:18px; margin-top:3px; }
+    .inst-traits b { color:var(--navy); font-weight:600; }
+    .inst-cert-box { background:var(--gray-50); border:1px solid var(--gray-100); border-radius:14px; padding:1rem 1.2rem; }
+    .inst-cert-box .inst-cert-title { font-size:12px; letter-spacing:1px; color:var(--blue); font-weight:700; margin-bottom:6px; }
+    .cert { padding:0.55rem 0; border-top:1px solid var(--gray-100); }
+    .inst-cert-title + .cert { border-top:none; }
+    .cert b { display:block; font-size:14px; color:var(--navy); font-weight:600; }
+    .cert span { font-size:13px; color:var(--gray-500); }
+    @media (max-width: 640px) { .inst-quote { font-size:17px; } }
     /* ── 키즈 v3: 세련된 마감 ── */
     .section-title { font-weight:700; letter-spacing:-0.02em; }
     .hero { min-height:78vh; }
@@ -698,17 +711,17 @@
         <div>
           <div class="inst-role">KIDS INSTRUCTOR</div>
           <div class="inst-name">이수빈 강사</div>
-          <p style="font-size:15px;color:var(--gray-500);margin:4px 0 1rem;">차분하게 안전을 살피고, 밝고 유쾌하게 아이들과 함께해요!</p>
-          <ul class="inst-points">
-            <li>어린이 교육 경험을 바탕으로 아이들의 눈높이에 맞춰 소통해요</li>
-            <li>배울 땐 차근차근, 놀이할 땐 마음껏 즐겁게!</li>
+          <p class="inst-quote">차분하게 안전을 살피고, <br>밝고 유쾌하게 아이들과 함께해요</p>
+          <ul class="inst-traits">
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.8 7L3 21l2-6.2A8 8 0 1 1 21 12Z"/></svg><span>어린이 교육 경험을 바탕으로 <b>아이 눈높이에 맞춰 소통</b>해요</span></li>
+            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><span>배울 땐 <b>차근차근</b>, 놀이할 땐 <b>마음껏 즐겁게</b></span></li>
           </ul>
-          <div class="inst-cert-title">자격사항</div>
-          <ul class="inst-certs">
-            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span>AIDA Freedive Instructor</span></li>
-            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span>AIDA Youth Freedive Instructor <small style="color:var(--gray-500);font-size:13px;">(어린이·청소년 전문)</small></span></li>
-            <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span>PSA First Aid, CPR and Emergency Oxygen for Adult, Children and Infant <small style="color:var(--gray-500);font-size:13px;">(성인·어린이·영아 응급처치·심폐소생술)</small></span></li>
-          </ul>
+          <div class="inst-cert-box">
+            <div class="inst-cert-title">자격사항</div>
+            <div class="cert"><b>AIDA Freedive Instructor</b><span>AIDA 프리다이빙 강사</span></div>
+            <div class="cert"><b>AIDA Youth Freedive Instructor</b><span>어린이·청소년 전문 강사</span></div>
+            <div class="cert"><b>PSA First Aid, CPR &amp; Emergency Oxygen</b><span>성인·어린이·영아 응급처치 · 심폐소생술 · 응급산소</span></div>
+          </div>
         </div>
       </div>
     </div>
