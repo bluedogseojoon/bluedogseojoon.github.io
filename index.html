@@ -508,12 +508,39 @@
     .review-link { font-size: 14px; font-weight: 600; text-decoration: none; padding: 11px 18px; border-radius: var(--radius); }
     .review-link.blog { background: #fff; color: #03A94D; border: 1px solid #03C75A; }
     .review-link.place { background: #03C75A; color: #fff; }
-    .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; align-items: stretch; }
-    @media (max-width: 760px) { .review-grid { grid-template-columns: 1fr; } }
-    .review-card {
-      background: #fff; border: 0.5px solid var(--gray-300); border-left: 4px solid var(--blue);
-      border-radius: 16px; padding: 2rem 2.25rem;
+    /* 옆으로 넘기는 후기 슬라이드 */
+    .review-slider { position: relative; margin-bottom: 16px; }
+    .review-track {
+      display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 4px 2px 8px;
     }
+    .review-track::-webkit-scrollbar { display: none; }
+    .review-card {
+      flex: 0 0 min(440px, 86%); scroll-snap-align: start;
+      background: #fff; border: 0.5px solid var(--gray-300);
+      border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;
+    }
+    .review-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #e8eef5; }
+    .review-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; display: block; }
+    .review-photo-cap { position: absolute; left: 10px; bottom: 10px; font-size: 11px; color: #fff; background: rgba(0,0,0,0.45); padding: 3px 9px; border-radius: 20px; }
+    .review-body { padding: 1.5rem 1.5rem 1.75rem; border-top: 4px solid var(--blue); flex: 1; }
+    a.review-card.more { align-items: center; justify-content: center; text-align: center; padding: 2rem 1.5rem; background: var(--navy); border: none; flex-basis: min(300px, 72%); text-decoration: none; }
+    .review-card.more .more-title { color: #fff; font-size: 20px; font-weight: 700; line-height: 1.45; margin-bottom: 0.75rem; }
+    .review-card.more .more-desc { color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.7; margin-bottom: 1.25rem; }
+    .review-nav { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 6px; }
+    .review-arrow { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--gray-300); background: #fff; color: var(--navy); font-size: 20px; line-height: 1; cursor: pointer; }
+    .review-arrow:disabled { opacity: 0.35; cursor: default; }
+    .review-dots { display: flex; gap: 6px; }
+    .review-dots button { width: 8px; height: 8px; padding: 0; border: none; border-radius: 4px; background: var(--gray-300); cursor: pointer; transition: width .2s; }
+    .review-dots button.on { width: 22px; background: var(--blue); }
+    .review-track .review-card:not(.more) { padding: 0; }
+    .review-more-text { position: relative; max-height: 9.5em; overflow: hidden; transition: max-height .3s; }
+    .review-more-text::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3em; background: linear-gradient(rgba(255,255,255,0), #fff); }
+    .review-more-text.open { max-height: 60em; }
+    .review-more-text.open::after { display: none; }
+    .review-toggle { margin-top: 6px; background: none; border: none; padding: 4px 0; font-size: 14px; font-weight: 600; color: var(--blue); cursor: pointer; }
+    .review-swipe-hint { text-align: center; font-size: 12px; color: var(--gray-500); margin-top: 8px; }
+    @media (min-width: 761px) { .review-swipe-hint { display: none; } }
     .review-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 1rem; }
     .review-tag { font-size: 12px; font-weight: 600; background: var(--blue-pale); color: var(--blue); padding: 3px 12px; border-radius: 20px; }
     .review-src { font-size: 12px; color: var(--gray-500); }
@@ -521,7 +548,7 @@
     .review-highlight em { font-style: normal; color: var(--blue); }
     .review-text { font-size: 14px; color: var(--gray-700); line-height: 1.9; margin-bottom: 0.75rem; }
     .review-text:last-child { margin-bottom: 0; }
-    @media (max-width: 640px) { .review-card { padding: 1.5rem 1.25rem; } }
+    @media (max-width: 640px) { .review-body { padding: 1.25rem 1.25rem 1.5rem; } }
     .review-link.insta { background: var(--navy); color: #fff; }
     .about-more { display: inline-block; margin-top: 1rem; font-size: 14px; font-weight: 600; color: var(--blue); text-decoration: none; }
     @media (max-width: 760px) { .tour-grid { grid-template-columns: 1fr; } }
@@ -942,29 +969,54 @@
       <div class="section-label">REVIEW</div>
       <div class="section-title">수강생 이야기</div>
       <p class="section-sub">블루독과 함께한 분들의 실제 후기와 수업 기록이에요</p>
-      <div class="review-grid">
+      <div class="review-slider">
+      <div class="review-track" id="reviewTrack">
       <div class="review-card">
+        <div class="review-photo"><img src="images/aida2.jpg" alt="블루독 프리다이빙 스태틱·다이나믹 수업 현장" loading="lazy"><span class="review-photo-cap">블루독 스태틱·다이나믹 수업 현장</span></div>
+        <div class="review-body">
         <div class="review-head">
           <span class="review-tag">AIDA 2 수료</span>
           <span class="review-src">네이버 플레이스 방문자 리뷰</span>
         </div>
         <div class="review-chips"><span>#스태틱_3분8초</span><span>#직장인도_OK</span><span>#꼼꼼한_상담</span></div>
         <div class="review-highlight">“1분도 버티기 힘들던 스태틱,<br>결국 <em>3분 8초</em>를 해냈어요”</div>
+        <div class="review-more-text">
         <p class="review-text">AIDA2 과정을 무사히 마치고 가장 먼저 떠오른 건 서준 강사님에 대한 깊은 신뢰와 교육에 대한 진심입니다. 가장 힘들었던 스태틱은 1분도 버티기 힘들어 포기하고 싶었지만, 강사님과 저 자신을 믿고 재도전해 결국 3분 8초라는 결과를 얻었습니다. 호흡과 릴렉스에 대한 조언은 오래 기억에 남을 것 같습니다.</p>
         <p class="review-text">강사님이 교육에 얼마나 진심인지 느껴졌던 순간은 자율 트레이닝과 센터 교육이었습니다. 직장인 회원분들을 고려하여 일정을 넉넉하게 잡아주시고 끝난 후에는 꼼꼼하게 상담해주십니다. 저 역시 꾸준히 참여한 결과 AIDA2를 취득할 수 있었습니다.</p>
         <p class="review-text">AIDA 프리다이빙을 고민하고 계신 분들께 자신 있게 추천드리고 싶은 강사님입니다. 제 한계를 넘는 경험을 가능하게 해주신 서준 강사님께 진심으로 감사드립니다.</p>
+        </div>
+        <button type="button" class="review-toggle">후기 전체 보기 ↓</button>
+        </div>
       </div>
       <div class="review-card">
+        <div class="review-photo"><img src="images/aida3.jpg" alt="블루독 프리다이빙 깊이 연습 수업 현장" loading="lazy"><span class="review-photo-cap">블루독 깊이 연습 수업 현장</span></div>
+        <div class="review-body">
         <div class="review-head">
           <span class="review-tag">AIDA 2 수료</span>
           <span class="review-src">네이버 플레이스 방문자 리뷰</span>
         </div>
         <div class="review-chips"><span>#이퀄라이징_극복</span><span>#3m에서_20m</span><span>#힐링타임</span></div>
         <div class="review-highlight">“처음엔 3m밖에 못 갔는데,<br>이제는 <em>20m</em>를 내려가요”</div>
+        <div class="review-more-text">
         <p class="review-text">프리다이빙 제대로 배워보고 싶은 분! 블루독프리다이빙 강추드립니당👍 처음엔 이퀄라이징이 어려워 3m밖에 못갔었는데 이제는 무려 20m를 내려가게되었네요! 꾸준히 자율트레이닝에 참여해 연습하고 또 이퀄라이징연습반을 운영하셔서 부족한 부분을 자세히 코칭받을 수 있어 아이다2까지 취득할 수 있었습니다.</p>
         <p class="review-text">프리다이빙은 하면 할수록 매력있는 스포츠 인 것 같아요. 물 속에서 오로지 나의 몸의 감각에만 집중할 수 있는 시간이 저의 힐링타임이 되었답니다☺️ 그래서 서준선생님과 아이다3,4도 도전해보려고 합니다!</p>
         <p class="review-text">물이 익숙하지 않은 분, 수영이 어려운 분 모두모두 가능하니 츄라이해보세용❤️</p>
+        </div>
+        <button type="button" class="review-toggle">후기 전체 보기 ↓</button>
+        </div>
       </div>
+      <a class="review-card more" href="https://m.place.naver.com/place/1696769069/review/visitor" target="_blank" rel="noopener">
+        <div class="more-title">더 많은 수강생 후기,<br>네이버에서 확인하세요</div>
+        <div class="more-desc">사진과 함께 남겨주신<br>실제 방문자 리뷰를 볼 수 있어요</div>
+        <span class="review-link place">네이버 리뷰 보기 →</span>
+      </a>
+      </div>
+      <div class="review-nav">
+        <button class="review-arrow" id="reviewPrev" aria-label="이전 후기">‹</button>
+        <div class="review-dots" id="reviewDots"></div>
+        <button class="review-arrow" id="reviewNext" aria-label="다음 후기">›</button>
+      </div>
+      <div class="review-swipe-hint">← 옆으로 밀어서 더 보기 →</div>
       </div>
 
       <div class="review-box">
@@ -1090,5 +1142,22 @@
     });
   </script>
   <script src="assets/polish.js" defer></script>
+<script>
+/* 후기 슬라이드: 화살표 · 점 표시 */
+(function(){
+  var t=document.getElementById('reviewTrack'); if(!t) return;
+  var cards=[].slice.call(t.children), dots=document.getElementById('reviewDots');
+  var prev=document.getElementById('reviewPrev'), next=document.getElementById('reviewNext');
+  function pos(c){ return c.offsetLeft-cards[0].offsetLeft; }
+  cards.forEach(function(c,i){ var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label',(i+1)+'번째 후기'); b.onclick=function(){go(i)}; dots.appendChild(b); });
+  function go(i){ i=Math.max(0,Math.min(cards.length-1,i)); t.scrollTo({left:pos(cards[i]),behavior:'smooth'}); }
+  function cur(){ var x=t.scrollLeft,best=0,d=1e9; cards.forEach(function(c,i){var k=Math.abs(pos(c)-x); if(k<d){d=k;best=i;}}); if(t.scrollLeft+t.clientWidth>=t.scrollWidth-4) best=cards.length-1; return best; }
+  function upd(){ var c=cur(); [].forEach.call(dots.children,function(b,i){b.classList.toggle('on',i===c)}); prev.disabled=t.scrollLeft<4; next.disabled=t.scrollLeft+t.clientWidth>=t.scrollWidth-4; }
+  prev.onclick=function(){go(cur()-1)}; next.onclick=function(){go(cur()+1)};
+  t.addEventListener('scroll',function(){ window.requestAnimationFrame(upd); },{passive:true});
+  [].forEach.call(document.querySelectorAll('.review-toggle'),function(btn){ btn.onclick=function(){ var box=btn.previousElementSibling, o=box.classList.toggle('open'); btn.textContent=o?'접기 ↑':'후기 전체 보기 ↓'; }; });
+  window.addEventListener('resize',upd); upd();
+})();
+</script>
 </body>
 </html>
