@@ -443,7 +443,7 @@
     .why-row p { font-size:14px; color:var(--gray-500); line-height:1.75; }
     .easy-card { background:#fff; box-shadow:var(--shadow-sm); border-radius:16px; padding:1.4rem; }
     .easy-ico, .learn-ico { width:44px; height:44px; border-radius:12px; background:var(--blue-pale); color:var(--blue); display:flex; align-items:center; justify-content:center; font-size:21px; margin-bottom:10px; }
-    .kids-photos.mosaic { grid-template-columns:1.4fr 1fr 1fr; }
+    .kids-photos.mosaic { grid-template-columns:repeat(3,1fr); }
     .kids-photos.mosaic img { height:300px; border-radius:16px; box-shadow:var(--shadow-sm); }
     .learn-card { border:none; box-shadow:var(--shadow-sm); border-radius:16px; padding:1.3rem; }
     .learn-note { background:#fff; box-shadow:var(--shadow-sm); }
@@ -482,9 +482,8 @@
       .why-wrap { grid-template-columns:1fr; gap:12px; }
       .why-photo { min-height:0; height:220px; }
       .why-n { font-size:24px; min-width:34px; }
-      .kids-photos.mosaic { grid-template-columns:1fr 1fr; }
-      .kids-photos.mosaic img { height:170px; }
-      .kids-photos.mosaic img:first-child { grid-column:1 / -1; height:230px; }
+      .kids-photos.mosaic { grid-template-columns:repeat(3,1fr); gap:8px; }
+      .kids-photos.mosaic img, .kids-photos.mosaic img:first-child { grid-column:auto; height:170px; border-radius:12px; }
       .learn-ico { width:38px; height:38px; font-size:18px; }
       .inst img { height:250px; }
       .cta-photo { padding:4rem 1.25rem !important; }
